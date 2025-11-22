@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evidence-Based First Aid Guidelines</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Fixed Emergency Button -->
+  <button id="emergencyBtn" onclick="dialEmergency()">🚨 112</button>
+
+  <header>
+    <h1 id="mainTitle">EVIDENCE-BASED GUIDELINES OF FIRST AID FOR COMMON MEDICAL EMERGENCIES AT WORKPLACE</h1>
+    <div class="header-controls">
+      <button id="langToggle" onclick="toggleLanguage()">हिन्दी</button>
+    </div>
+  </header>
+
+  <div class="search-container">
+    <div class="search-wrapper">
+      <input type="text" id="searchInput" placeholder="Search for first aid topics..." oninput="searchCards()">
+      <button id="voiceSearchBtn" onclick="startVoiceSearch()" title="Voice Search">🎤</button>
+    </div>
+  </div>
+
+  <main id="cardsContainer"></main>
+
+  <footer id="footerSection"></footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
