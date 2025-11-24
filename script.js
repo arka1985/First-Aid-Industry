@@ -242,43 +242,6 @@ function speakCard(cardId) {
 
   let currentSegmentIndex = 0;
   let onboundarySupported = false;
-  window.highlightTimeouts = [];
-
-  // Time-based highlighting fallback for mobile devices
-  // Calculate approximate timing for each segment
-  function setupTimeBasedHighlighting() {
-    // Average speaking rate: ~150 words per minute for English, ~120 for Hindi
-    const wordsPerMinute = currentLang === 'en' ? 150 : 120;
-    const msPerWord = (60 * 1000) / wordsPerMinute;
-
-    // Adjust for the utterance rate (0.9)
-    const adjustedMsPerWord = msPerWord / utterance.rate;
-
-    let accumulatedTime = 0;
-
-    segments.forEach((segment, index) => {
-      // Estimate word count (simple approximation)
-      const wordCount = segment.text.split(/\s+/).length;
-      const segmentDuration = wordCount * adjustedMsPerWord;
-
-      // Schedule highlight for this segment
-      const timeout = setTimeout(() => {
-        // Remove highlight from previous segment
-        if (index > 0 && segments[index - 1].element) {
-          segments[index - 1].element.classList.remove('highlight-speaking');
-        }
-
-        // Highlight current segment
-        if (segment.element) {
-          segment.element.classList.add('highlight-speaking');
-        }
-      }, accumulatedTime);
-
-      window.highlightTimeouts.push(timeout);
-      accumulatedTime += segmentDuration;
-    });
-  }
-
   // Try to use onboundary event (works on desktop browsers)
   utterance.onboundary = (event) => {
     onboundarySupported = true;
