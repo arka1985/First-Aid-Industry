@@ -274,7 +274,7 @@ function startSpeechForCard(cardId) {
 
   // Time-based highlighting fallback for mobile devices
   function setupTimeBasedHighlighting() {
-    // Fine-tuned speaking rates for perfect mobile sync: ~145 words per minute for English, ~135 for Hindi
+    // Fine-tuned speaking rates for perfect mobile sync: ~145 words per minute for English, ~145 for Hindi
     const wordsPerMinute = currentLang === 'en' ? 150 : 145;
     const msPerWord = (60 * 1000) / wordsPerMinute;
 
@@ -282,7 +282,7 @@ function startSpeechForCard(cardId) {
     const adjustedMsPerWord = msPerWord / utterance.rate;
 
     // Language-specific NEGATIVE startup delay to make glow start BEFORE voice (compensates for mobile latency)
-    let accumulatedTime = currentLang === 'en' ? -225 : -195;
+    let accumulatedTime = currentLang === 'en' ? -225 : -215;
 
     segments.forEach((segment, index) => {
       // Estimate word count (simple approximation)
