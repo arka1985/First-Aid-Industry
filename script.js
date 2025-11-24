@@ -129,6 +129,9 @@ function renderCards() {
 
 // Text-to-Speech for accessibility
 function speakCard(cardId) {
+  // Store the pending card ID for delayed execution
+  window.pendingCardId = cardId;
+
   const data = firstAidData[currentLang];
   const item = data.find(d => d.id === cardId);
 
@@ -163,7 +166,7 @@ function speakCard(cardId) {
     return;
   }
 
-  // IMMEDIATELY stop any ongoing speech (even before checking currentSpeech)
+  // IMMEDIATELY stop any ongoing speech
   window.speechSynthesis.cancel();
 
   // Reset all buttons and highlights
@@ -185,6 +188,21 @@ function speakCard(cardId) {
 
   // Reset currentSpeech
   currentSpeech = null;
+
+  // Small delay to ensure cancel completes before starting new speech
+  setTimeout(() => {
+    startSpeechForCard(cardId);
+  }, 100);
+}
+
+function startSpeechForCard(cardId) {
+  const data = firstAidData[currentLang];
+  const item = data.find(d => d.id === cardId);
+
+  if (!item) return;
+
+  const card = document.querySelector(`[data-card-id="${cardId}"]`);
+  const button = card ? card.querySelector('.listen-btn') : null;
 
   // Prepare text segments for tracking
   const doLabel = currentLang === 'en' ? 'What to do' : 'क्या करें';
@@ -247,6 +265,43 @@ function speakCard(cardId) {
 
   let currentSegmentIndex = 0;
   let onboundarySupported = false;
+  window.highlightTimeouts = [];
+
+  // Time-based highlighting fallback for mobile devices
+  function setupTimeBasedHighlighting() {
+    // Fine-tuned speaking rates for perfect mobile sync: ~110 words per minute for English, ~95 for Hindi
+    const wordsPerMinute = currentLang === 'en' ? 110 : 95;
+    const msPerWord = (60 * 1000) / wordsPerMinute;
+
+    // Adjust for the utterance rate (0.9)
+    const adjustedMsPerWord = msPerWord / utterance.rate;
+
+    // Startup delay to account for mobile speech synthesis (150ms)
+    let accumulatedTime = 150;
+
+    segments.forEach((segment, index) => {
+      // Estimate word count (simple approximation)
+      const wordCount = segment.text.split(/\s+/).length;
+      const segmentDuration = wordCount * adjustedMsPerWord;
+
+      // Schedule highlight for this segment
+      const timeout = setTimeout(() => {
+        // Remove highlight from previous segment
+        if (index > 0 && segments[index - 1].element) {
+          segments[index - 1].element.classList.remove('highlight-speaking');
+        }
+
+        // Highlight current segment
+        if (segment.element) {
+          segment.element.classList.add('highlight-speaking');
+        }
+      }, accumulatedTime);
+
+      window.highlightTimeouts.push(timeout);
+      accumulatedTime += segmentDuration;
+    });
+  }
+
   // Try to use onboundary event (works on desktop browsers)
   utterance.onboundary = (event) => {
     onboundarySupported = true;
