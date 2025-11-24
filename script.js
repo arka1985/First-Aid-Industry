@@ -281,8 +281,8 @@ function startSpeechForCard(cardId) {
     // Adjust for the utterance rate (0.9)
     const adjustedMsPerWord = msPerWord / utterance.rate;
 
-    // NEGATIVE startup delay to make glow start BEFORE voice (-200ms compensates for mobile latency)
-    let accumulatedTime = -200;
+    // Language-specific NEGATIVE startup delay to make glow start BEFORE voice (compensates for mobile latency)
+    let accumulatedTime = currentLang === 'en' ? -210 : -175;
 
     segments.forEach((segment, index) => {
       // Estimate word count (simple approximation)
