@@ -274,8 +274,8 @@ function startSpeechForCard(cardId) {
 
   // Time-based highlighting fallback for mobile devices
   function setupTimeBasedHighlighting() {
-    // Fine-tuned speaking rates for perfect mobile sync: ~145 words per minute for English, ~145 for Hindi
-    const wordsPerMinute = currentLang === 'en' ? 150 : 145;
+    // Fine-tuned speaking rates for perfect mobile sync: ~150 words per minute for English, ~155 for Hindi
+    const wordsPerMinute = currentLang === 'en' ? 150 : 155;
     const msPerWord = (60 * 1000) / wordsPerMinute;
 
     // Adjust for the utterance rate (0.9)
