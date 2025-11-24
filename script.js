@@ -137,7 +137,7 @@ function speakCard(cardId) {
   const card = document.querySelector(`[data-card-id="${cardId}"]`);
   const button = card ? card.querySelector('.listen-btn') : null;
 
-  // Stop if already speaking this card
+  // Stop if clicking the same card that's already speaking (toggle off)
   if (currentSpeech && button && button.classList.contains('speaking')) {
     window.speechSynthesis.cancel();
     currentSpeech = null;
@@ -163,9 +163,10 @@ function speakCard(cardId) {
     return;
   }
 
-  // Stop any ongoing speech
+  // Stop any ongoing speech from other cards
   if (currentSpeech) {
     window.speechSynthesis.cancel();
+    // Reset all buttons
     document.querySelectorAll('.listen-btn').forEach(btn => {
       btn.classList.remove('speaking');
       btn.textContent = currentLang === 'en' ? '🔊 Listen' : '🔊 सुनें';
@@ -242,6 +243,44 @@ function speakCard(cardId) {
 
   let currentSegmentIndex = 0;
   let onboundarySupported = false;
+  window.highlightTimeouts = [];
+
+  // Time-based highlighting fallback for mobile devices
+  // Calculate approximate timing for each segment
+  function setupTimeBasedHighlighting() {
+    // Optimized speaking rates for mobile sync: ~125 words per minute for English, ~105 for Hindi
+    const wordsPerMinute = currentLang === 'en' ? 125 : 105;
+    const msPerWord = (60 * 1000) / wordsPerMinute;
+
+    // Adjust for the utterance rate (0.9)
+    const adjustedMsPerWord = msPerWord / utterance.rate;
+
+    // Minimal delay to account for mobile speech synthesis startup (50ms)
+    let accumulatedTime = 50;
+
+    segments.forEach((segment, index) => {
+      // Estimate word count (simple approximation)
+      const wordCount = segment.text.split(/\s+/).length;
+      const segmentDuration = wordCount * adjustedMsPerWord;
+
+      // Schedule highlight for this segment
+      const timeout = setTimeout(() => {
+        // Remove highlight from previous segment
+        if (index > 0 && segments[index - 1].element) {
+          segments[index - 1].element.classList.remove('highlight-speaking');
+        }
+
+        // Highlight current segment
+        if (segment.element) {
+          segment.element.classList.add('highlight-speaking');
+        }
+      }, accumulatedTime);
+
+      window.highlightTimeouts.push(timeout);
+      accumulatedTime += segmentDuration;
+    });
+  }
+
   // Try to use onboundary event (works on desktop browsers)
   utterance.onboundary = (event) => {
     onboundarySupported = true;
