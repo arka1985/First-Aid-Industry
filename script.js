@@ -265,6 +265,9 @@ function startSpeechForCard(cardId) {
 
 
 
+
+
+
   let currentSegmentIndex = 0;
   let onboundarySupported = false;
   window.highlightTimeouts = [];
@@ -278,8 +281,8 @@ function startSpeechForCard(cardId) {
     // Adjust for the utterance rate (0.9)
     const adjustedMsPerWord = msPerWord / utterance.rate;
 
-    // Startup delay to account for mobile speech synthesis (0ms - immediate start)
-    let accumulatedTime = 0;
+    // NEGATIVE startup delay to make glow start BEFORE voice (-200ms compensates for mobile latency)
+    let accumulatedTime = -200;
 
     segments.forEach((segment, index) => {
       // Estimate word count (simple approximation)
