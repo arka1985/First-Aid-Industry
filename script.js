@@ -149,6 +149,11 @@ function speakCard(cardId) {
         el.classList.remove('highlight-speaking');
       });
     }
+    // Clear any pending timeouts
+    if (window.highlightTimeouts) {
+      window.highlightTimeouts.forEach(timeout => clearTimeout(timeout));
+      window.highlightTimeouts = [];
+    }
     return;
   }
 
@@ -169,6 +174,11 @@ function speakCard(cardId) {
     document.querySelectorAll('.highlight-speaking').forEach(el => {
       el.classList.remove('highlight-speaking');
     });
+    // Clear any pending timeouts
+    if (window.highlightTimeouts) {
+      window.highlightTimeouts.forEach(timeout => clearTimeout(timeout));
+      window.highlightTimeouts = [];
+    }
   }
 
   // Prepare text segments for tracking
@@ -231,10 +241,48 @@ function speakCard(cardId) {
   utterance.volume = 1;
 
   let currentSegmentIndex = 0;
-  let currentCharPosition = 0;
+  let onboundarySupported = false;
+  window.highlightTimeouts = [];
 
-  // Track speech progress and highlight corresponding text
+  // Time-based highlighting fallback for mobile devices
+  // Calculate approximate timing for each segment
+  function setupTimeBasedHighlighting() {
+    // Average speaking rate: ~150 words per minute for English, ~120 for Hindi
+    const wordsPerMinute = currentLang === 'en' ? 150 : 120;
+    const msPerWord = (60 * 1000) / wordsPerMinute;
+
+    // Adjust for the utterance rate (0.9)
+    const adjustedMsPerWord = msPerWord / utterance.rate;
+
+    let accumulatedTime = 0;
+
+    segments.forEach((segment, index) => {
+      // Estimate word count (simple approximation)
+      const wordCount = segment.text.split(/\s+/).length;
+      const segmentDuration = wordCount * adjustedMsPerWord;
+
+      // Schedule highlight for this segment
+      const timeout = setTimeout(() => {
+        // Remove highlight from previous segment
+        if (index > 0 && segments[index - 1].element) {
+          segments[index - 1].element.classList.remove('highlight-speaking');
+        }
+
+        // Highlight current segment
+        if (segment.element) {
+          segment.element.classList.add('highlight-speaking');
+        }
+      }, accumulatedTime);
+
+      window.highlightTimeouts.push(timeout);
+      accumulatedTime += segmentDuration;
+    });
+  }
+
+  // Try to use onboundary event (works on desktop browsers)
   utterance.onboundary = (event) => {
+    onboundarySupported = true;
+
     if (event.name === 'word') {
       const charIndex = event.charIndex;
 
@@ -268,6 +316,15 @@ function speakCard(cardId) {
     button.textContent = currentLang === 'en' ? '⏸️ Stop' : '⏸️ रोकें';
   }
 
+  // Set up time-based highlighting as fallback
+  // Check after a short delay if onboundary is working
+  setTimeout(() => {
+    if (!onboundarySupported) {
+      // onboundary not triggered, use time-based fallback
+      setupTimeBasedHighlighting();
+    }
+  }, 500);
+
   utterance.onend = () => {
     currentSpeech = null;
     if (button) {
@@ -279,6 +336,11 @@ function speakCard(cardId) {
       card.querySelectorAll('.highlight-speaking').forEach(el => {
         el.classList.remove('highlight-speaking');
       });
+    }
+    // Clear any pending timeouts
+    if (window.highlightTimeouts) {
+      window.highlightTimeouts.forEach(timeout => clearTimeout(timeout));
+      window.highlightTimeouts = [];
     }
   };
 
@@ -293,6 +355,11 @@ function speakCard(cardId) {
       card.querySelectorAll('.highlight-speaking').forEach(el => {
         el.classList.remove('highlight-speaking');
       });
+    }
+    // Clear any pending timeouts
+    if (window.highlightTimeouts) {
+      window.highlightTimeouts.forEach(timeout => clearTimeout(timeout));
+      window.highlightTimeouts = [];
     }
   };
 
