@@ -143,6 +143,12 @@ function speakCard(cardId) {
     currentSpeech = null;
     button.classList.remove('speaking');
     button.textContent = currentLang === 'en' ? '🔊 Listen' : '🔊 सुनें';
+    // Remove all highlights
+    if (card) {
+      card.querySelectorAll('.highlight-speaking').forEach(el => {
+        el.classList.remove('highlight-speaking');
+      });
+    }
     return;
   }
 
@@ -159,11 +165,61 @@ function speakCard(cardId) {
       btn.classList.remove('speaking');
       btn.textContent = currentLang === 'en' ? '🔊 Listen' : '🔊 सुनें';
     });
+    // Remove all highlights from all cards
+    document.querySelectorAll('.highlight-speaking').forEach(el => {
+      el.classList.remove('highlight-speaking');
+    });
   }
 
-  // Prepare text
+  // Prepare text segments for tracking
   const doLabel = currentLang === 'en' ? 'What to do' : 'क्या करें';
   const dontLabel = currentLang === 'en' ? 'What not to do' : 'क्या न करें';
+
+  // Build text segments with their corresponding elements
+  const segments = [];
+
+  // Title segment
+  segments.push({
+    text: item.title,
+    element: card ? card.querySelector('h2') : null,
+    type: 'title'
+  });
+
+  // Do label
+  segments.push({
+    text: doLabel,
+    element: card ? card.querySelector('h3:not(.dont)') : null,
+    type: 'do-label'
+  });
+
+  // Do items
+  item.do.forEach((doItem, index) => {
+    const doList = card ? card.querySelector('ul:not(.dont)') : null;
+    const liElement = doList ? doList.querySelectorAll('li')[index] : null;
+    segments.push({
+      text: doItem,
+      element: liElement,
+      type: 'do-item'
+    });
+  });
+
+  // Don't label
+  segments.push({
+    text: dontLabel,
+    element: card ? card.querySelector('h3.dont') : null,
+    type: 'dont-label'
+  });
+
+  // Don't items
+  item.dont.forEach((dontItem, index) => {
+    const dontList = card ? card.querySelector('ul.dont') : null;
+    const liElement = dontList ? dontList.querySelectorAll('li')[index] : null;
+    segments.push({
+      text: dontItem,
+      element: liElement,
+      type: 'dont-item'
+    });
+  });
 
   const textToSpeak = `${item.title}. ${doLabel}: ${item.do.join('. ')}. ${dontLabel}: ${item.dont.join('. ')}.`;
 
@@ -173,6 +229,39 @@ function speakCard(cardId) {
   utterance.rate = 0.9;
   utterance.pitch = 1;
   utterance.volume = 1;
+
+  let currentSegmentIndex = 0;
+  let currentCharPosition = 0;
+
+  // Track speech progress and highlight corresponding text
+  utterance.onboundary = (event) => {
+    if (event.name === 'word') {
+      const charIndex = event.charIndex;
+
+      // Find which segment we're currently in
+      let accumulatedLength = 0;
+      for (let i = 0; i < segments.length; i++) {
+        const segmentLength = segments[i].text.length + 2; // +2 for ". " separator
+
+        if (charIndex < accumulatedLength + segmentLength) {
+          // Remove highlight from previous segment
+          if (currentSegmentIndex !== i && segments[currentSegmentIndex].element) {
+            segments[currentSegmentIndex].element.classList.remove('highlight-speaking');
+          }
+
+          // Highlight current segment
+          if (segments[i].element) {
+            segments[i].element.classList.add('highlight-speaking');
+          }
+
+          currentSegmentIndex = i;
+          break;
+        }
+
+        accumulatedLength += segmentLength;
+      }
+    }
+  };
 
   if (button) {
     button.classList.add('speaking');
@@ -185,6 +274,12 @@ function speakCard(cardId) {
       button.classList.remove('speaking');
       button.textContent = currentLang === 'en' ? '🔊 Listen' : '🔊 सुनें';
     }
+    // Remove all highlights
+    if (card) {
+      card.querySelectorAll('.highlight-speaking').forEach(el => {
+        el.classList.remove('highlight-speaking');
+      });
+    }
   };
 
   utterance.onerror = () => {
@@ -192,6 +287,12 @@ function speakCard(cardId) {
     if (button) {
       button.classList.remove('speaking');
       button.textContent = currentLang === 'en' ? '🔊 Listen' : '🔊 सुनें';
+    }
+    // Remove all highlights
+    if (card) {
+      card.querySelectorAll('.highlight-speaking').forEach(el => {
+        el.classList.remove('highlight-speaking');
+      });
     }
   };
 
@@ -209,7 +310,7 @@ function renderFooter() {
         <p>• This information cannot be relied upon as a substitute for seeking guidance from appropriate professionals, such as physicians.</p>
         <p>• While great care has been taken to reflect the most current and accurate information, it does not represent or warrant that the information will be accurate or appropriate at the time of use due to evolving medical research, protocols, regulations and laws.</p>
         <p>• Users are cautioned not to prescribe or administer any medication, including over-the-counter medication, except in instances where permitted by law.</p>
-        <p>• This guide is developed for educational purposes with good intention. If any error is identified or any comment/suggestion, please contact the competent authority immediately.</p>
+        <p>• This guide is developed for educational purposes with good intention. If any error is identified or any comment/suggestion, please contact the developer immediately at arka.doctor@gmail.com.</p>
         <p>• <strong>IF NOT SURE, DON'T DO ANYTHING - JUST CALL FOR HELP AND GET TO THE HOSPITAL AT THE EARLIEST</strong></p>
       </div>
       <div class="acknowledgement">
@@ -232,7 +333,7 @@ function renderFooter() {
         <p>• इस जानकारी को चिकित्सकों जैसे उपयुक्त पेशेवरों से मार्गदर्शन लेने के विकल्प के रूप में नहीं माना जा सकता।</p>
         <p>• जबकि सबसे वर्तमान और सटीक जानकारी को प्रतिबिंबित करने के लिए बहुत सावधानी बरती गई है, यह प्रतिनिधित्व या वारंट नहीं करता है कि विकसित चिकित्सा अनुसंधान, प्रोटोकॉल, नियमों और कानूनों के कारण उपयोग के समय जानकारी सटीक या उपयुक्त होगी।</p>
         <p>• उपयोगकर्ताओं को सावधान किया जाता है कि वे कानून द्वारा अनुमत मामलों को छोड़कर, ओवर-द-काउंटर दवा सहित किसी भी दवा को निर्धारित या प्रशासित न करें।</p>
-        <p>• यह गाइड अच्छे इरादे से शैक्षिक उद्देश्यों के लिए विकसित की गई है। यदि कोई त्रुटि पहचानी जाती है या कोई टिप्पणी/सुझाव है, तो कृपया तुरंत सक्षम प्राधिकारी से संपर्क करें।</p>
+        <p>• यह गाइड अच्छे इरादे से शैक्षिक उद्देश्यों के लिए विकसित की गई है। यदि कोई त्रुटि पहचानी जाती है या कोई टिप्पणी/सुझाव है, तो कृपया तुरंत डेवलपर से संपर्क करें। arka.doctor@gmail.com</p>
         <p>• <strong>यदि सुनिश्चित नहीं हैं, तो कुछ भी न करें - बस मदद के लिए कॉल करें और जल्द से जल्द अस्पताल पहुंचें</strong></p>
       </div>
       <div class="acknowledgement">
