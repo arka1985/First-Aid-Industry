@@ -264,21 +264,22 @@ function startSpeechForCard(cardId) {
   utterance.volume = 1;
 
 
+
   let currentSegmentIndex = 0;
   let onboundarySupported = false;
   window.highlightTimeouts = [];
 
   // Time-based highlighting fallback for mobile devices
   function setupTimeBasedHighlighting() {
-    // Fine-tuned speaking rates for perfect mobile sync: ~130 words per minute for English, ~115 for Hindi
-    const wordsPerMinute = currentLang === 'en' ? 130 : 115;
+    // Fine-tuned speaking rates for perfect mobile sync: ~145 words per minute for English, ~130 for Hindi
+    const wordsPerMinute = currentLang === 'en' ? 145 : 130;
     const msPerWord = (60 * 1000) / wordsPerMinute;
 
     // Adjust for the utterance rate (0.9)
     const adjustedMsPerWord = msPerWord / utterance.rate;
 
-    // Startup delay to account for mobile speech synthesis (50ms)
-    let accumulatedTime = 50;
+    // Startup delay to account for mobile speech synthesis (0ms - immediate start)
+    let accumulatedTime = 0;
 
     segments.forEach((segment, index) => {
       // Estimate word count (simple approximation)
