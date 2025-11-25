@@ -48,11 +48,11 @@ const firstAidData = {
     { id: 2, title: 'अंग विच्छेदन', do: ['मदद मांगें', 'सीधे दबाव से रक्तस्राव नियंत्रित करें', 'कटे अंग को साफ थैले में रखें', 'अंग को ठंडा रखें (जमे नहीं)', 'तुरंत चिकित्सा सहायता लें'], dont: ['अंग को सीधे बर्फ पर न रखें', 'कटे अंग को न धोएं', 'खुद जोड़ने की कोशिश न करें', 'आपातकालीन कॉल में देरी न करें'] },
     { id: 3, title: 'ऊंचाई की बीमारी', do: ['मदद मांगें', 'तुरंत नीची ऊंचाई पर उतरें', 'आराम करें और पानी पिएं', 'उपलब्ध हो तो ऑक्सीजन दें', 'चिकित्सा सहायता लें'], dont: ['ऊपर चढ़ना जारी न रखें', 'लक्षणों को नज़रअंदाज़ न करें', 'शराब न दें', 'व्यक्ति को अकेला न छोड़ें'] },
     { id: 4, title: 'एनाफिलेक्सिस', do: ['मदद मांगें', 'उपलब्ध हो तो एपिपेन का उपयोग करें', 'तुरंत 112 पर कॉल करें', 'व्यक्ति को सपाट लिटाएं', 'सांस की लगातार निगरानी करें'], dont: ['मौखिक दवा न दें', 'व्यक्ति को बैठाएं नहीं', 'आपातकालीन कॉल में देरी न करें', 'व्यक्ति को अकेला न छोड़ें'] },
-    { id: 5, title: 'रीढ़ की हड्डी की चोट', do: ['मदद मांगें', 'व्यक्ति को स्थिर रखें', 'सिर और गर्दन को सहारा दें', 'आपातकालीन सेवाओं को बुलाएं', 'कंबल से ढकें'], dont: ['व्यक्ति को न हिलाएं', 'रीढ़ को मोड़ें या घुमाएं नहीं', 'हेलमेट न हटाएं', 'खाना या पीना न दें'] },
-    { id: 6, title: 'कान से खून बहना', do: ['मदद मांगें', 'सिर को खून बहने वाली तरफ झुकाएं', 'स्टेराइल पैड से ढीला ढकें', 'तुरंत चिकित्सा सहायता लें', 'व्यक्ति को शांत रखें'], dont: ['कान की नली को ब्लॉक न करें', 'कान के अंदर कुछ न डालें', 'सिर को पीछे न झुकाएं', 'सिर की चोट के संकेतों को नज़रअंदाज़ न करें'] },
-    { id: 7, title: 'नाक से खून बहना', do: ['मदद मांगें', 'सीधे बैठें, आगे झुकें', 'नाक के नरम हिस्से को दबाएं', 'ठंडा सेक लगाएं', 'मुंह से सांस लें'], dont: ['सिर को पीछे न झुकाएं', 'सपाट न लेटें', 'नाक में रुई न भरें', 'जोर से नाक न साफ करें'] },
-    { id: 8, title: 'घाव से खून बहना', do: ['मदद मांगें', 'सीधा दबाव डालें', 'घायल हिस्से को ऊपर उठाएं', 'साफ कपड़ा/पट्टी का उपयोग करें', 'गंभीर हो तो मदद बुलाएं'], dont: ['धंसी वस्तुओं को न निकालें', 'अनावश्यक टूर्निकेट न लगाएं', 'बार-बार घाव न देखें', 'सीधे बर्फ न लगाएं'] },
-    { id: 9, title: 'जलन', do: ['मदद मांगें', '10-20 मिनट बहते पानी से ठंडा करें', 'साफ कपड़े से ढकें', 'सूजन से पहले गहने हटाएं', 'चिकित्सा सहायता लें'], dont: ['सीधे बर्फ न लगाएं', 'ब्लिस्टर न फोड़ें', 'तेल/मक्खन/टूथपेस्ट न लगाएं', 'चिपके कपड़े न उतारें'] },
+    { id: 5, title: 'रीढ़ की हड्डी की चोट', do: ['मदद मांगें', 'व्यक्ति को स्थिर रखें', 'सिर और गर्दन को सहारा दें', 'आपातकालीन सेवाओं को बुलाएं', 'कंबल से ढकें'], dont: ['व्यक्ति को न हिलाएं', 'रीढ़ को न मोड़ें या न झुकाएं', 'हेलमेट मौजूद हो तो न हटाएं', 'खाना या पीना न दें'] },
+    { id: 6, title: 'कान से खून बहना', do: ['मदद मांगें', 'सिर को खून बहने वाली तरफ झुकाएं', 'स्टेराइल पैड से ढीला ढकें', 'तुरंत चिकित्सा सहायता लें', 'व्यक्ति को शांत रखें'], dont: ['कान की नली को न रोकें', 'कान के अंदर कुछ न डालें', 'सिर को पीछे न झुकाएं', 'सिर की चोट के संकेतों को नज़रअंदाज़ न करें'] },
+    { id: 7, title: 'नाक से खून बहना', do: ['मदद मांगें', 'सीधे बैठें, आगे झुकें', 'नाक के नरम हिस्से को दबाएं', 'ठंडा सेक लगाएं', 'मुंह से सांस लें'], dont: ['सिर को पीछे न झुकाएं', 'सपाट न लेटें', 'नाक में रुई न भरें', 'जोर से नाक न छिड़कें'] },
+    { id: 8, title: 'घाव से खून बहना', do: ['मदद मांगें', 'सीधा दबाव डालें', 'घायल हिस्से को ऊपर उठाएं', 'साफ कपड़ा/पट्टी का उपयोग करें', 'गंभीर हो तो मदद बुलाएं'], dont: ['धंसी वस्तुओं को न निकालें', 'अनावश्यक रूप से टूर्निकेट का उपयोग न करें', 'घाव को बार-बार न देखें', 'सीधे बर्फ न लगाएं'] },
+    { id: 9, title: 'जलन', do: ['मदद मांगें', 'बहते पानी से 10-20 मिनट ठंडा करें', 'साफ कपड़े से ढकें', 'सूजन से पहले गहने हटाएं', 'चिकित्सा सहायता लें'], dont: ['सीधे बर्फ न लगाएं', 'छाले न फोड़ें', 'तेल/मक्खन/टूथपेस्ट का उपयोग न करें', 'चिपके कपड़े न उतारें'] },
     { id: 10, title: 'रासायनिक जलन', do: ['मदद मांगें', '20+ मिनट पानी से धोएं', 'दूषित कपड़े हटाएं', 'ढीला ढकें', 'जहर नियंत्रण को कॉल करें'], dont: ['रसायन को बेअसर करने की कोशिश न करें', 'मलहम न लगाएं', 'गर्म पानी का उपयोग न करें', 'क्षेत्र को न रगड़ें'] },
     { id: 11, title: 'सांस लेने में कठिनाई', do: ['मदद मांगें', 'व्यक्ति को सीधा बैठने में मदद करें', 'तंग कपड़े ढीले करें', 'धीमी सांस लेने के लिए प्रोत्साहित करें', 'गंभीर हो तो आपातकालीन कॉल करें'], dont: ['व्यक्ति को सपाट न लिटाएं', 'खाना या पीना न दें', 'व्यक्ति को अकेला न छोड़ें', 'बिगड़ते लक्षणों को नज़रअंदाज़ न करें'] },
     { id: 12, title: 'सीने में दर्द', do: ['मदद मांगें', 'व्यक्ति को आराम करने में मदद करें', 'तंग कपड़े ढीले करें', 'तुरंत 112 पर कॉल करें', 'एलर्जी न हो तो एस्पिरिन दें'], dont: ['दर्द को नज़रअंदाज़ न करें', 'खाना या पानी न दें', 'शारीरिक गतिविधि की अनुमति न दें', 'आपातकालीन कॉल में देरी न करें'] },
@@ -85,6 +85,7 @@ const firstAidData = {
 
 let currentLang = 'en';
 let currentSpeech = null;
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
 function toggleLanguage() {
   currentLang = currentLang === 'en' ? 'hi' : 'en';
@@ -127,281 +128,191 @@ function renderCards() {
   });
 }
 
-// Text-to-Speech for accessibility
+// Adaptive highlighting: line-by-line on desktop, card glow on mobile
 function speakCard(cardId) {
-  // Store the pending card ID for delayed execution
-  window.pendingCardId = cardId;
-
   const data = firstAidData[currentLang];
   const item = data.find(d => d.id === cardId);
-
   if (!item) return;
 
   const card = document.querySelector(`[data-card-id="${cardId}"]`);
   const button = card ? card.querySelector('.listen-btn') : null;
 
-  // Stop if clicking the same card that's already speaking (toggle off)
+  // Toggle off if already speaking
   if (currentSpeech && button && button.classList.contains('speaking')) {
     window.speechSynthesis.cancel();
+    clearHighlights(card);
     currentSpeech = null;
-    button.classList.remove('speaking');
-    button.textContent = currentLang === 'en' ? '🔊 Listen' : '🔊 सुनें';
-
-    // Remove all highlights
-    if (card) {
-      card.querySelectorAll('.highlight-speaking').forEach(el => {
-        el.classList.remove('highlight-speaking');
-      });
+    if (button) {
+      button.classList.remove('speaking');
+      button.textContent = currentLang === 'en' ? '🔊 Listen' : '🔊 सुनें';
     }
-
     return;
   }
 
-  // Check browser support
   if (!('speechSynthesis' in window)) {
-    alert(currentLang === 'en' ? 'Text-to-speech not supported in this browser' : 'इस ब्राउज़र में टेक्स्ट-टू-स्पीच समर्थित नहीं है');
+    alert(currentLang === 'en' ? 'Text-to-speech not supported' : 'टेक्स्ट-टू-स्पीच समर्थित नहीं है');
     return;
   }
 
-  // IMMEDIATELY stop any ongoing speech
+  // Stop any ongoing speech
   window.speechSynthesis.cancel();
+  document.querySelectorAll('.card').forEach(c => clearHighlights(c));
 
-  // Reset all buttons and highlights
+  // Reset all buttons
   document.querySelectorAll('.listen-btn').forEach(btn => {
     btn.classList.remove('speaking');
     btn.textContent = currentLang === 'en' ? '🔊 Listen' : '🔊 सुनें';
   });
 
-  // Remove all highlights from all cards
-  document.querySelectorAll('.highlight-speaking').forEach(el => {
-    el.classList.remove('highlight-speaking');
-  });
+  // Mobile: just glow the card border
+  if (isMobile) {
+    const doLabel = currentLang === 'en' ? 'What to do' : 'क्या करें';
+    const dontLabel = currentLang === 'en' ? 'What not to do' : 'क्या न करें';
+    const textToSpeak = `${item.title}. ${doLabel}: ${item.do.join('. ')}. ${dontLabel}: ${item.dont.join('. ')}.`;
 
-  // Reset currentSpeech
-  currentSpeech = null;
+    const utterance = new SpeechSynthesisUtterance(textToSpeak);
+    utterance.lang = currentLang === 'en' ? 'en-US' : 'hi-IN';
+    utterance.rate = 0.9;
 
-  // Small delay to ensure cancel completes before starting new speech
-  setTimeout(() => {
-    startSpeechForCard(cardId);
-  }, 100);
-}
+    utterance.onstart = () => {
+      if (button) {
+        button.classList.add('speaking');
+        button.textContent = currentLang === 'en' ? '⏸️ Stop' : '⏸️ रोकें';
+      }
+      card.classList.add('card-speaking');
+    };
 
-function startSpeechForCard(cardId) {
-  const data = firstAidData[currentLang];
-  const item = data.find(d => d.id === cardId);
+    utterance.onend = () => {
+      clearHighlights(card);
+      currentSpeech = null;
+      if (button) {
+        button.classList.remove('speaking');
+        button.textContent = currentLang === 'en' ? '🔊 Listen' : '🔊 सुनें';
+      }
+    };
 
-  if (!item) return;
+    utterance.onerror = () => {
+      clearHighlights(card);
+      currentSpeech = null;
+      if (button) {
+        button.classList.remove('speaking');
+        button.textContent = currentLang === 'en' ? '🔊 Listen' : '🔊 सुनें';
+      }
+    };
 
-  const card = document.querySelector(`[data-card-id="${cardId}"]`);
-  const button = card ? card.querySelector('.listen-btn') : null;
+    currentSpeech = utterance;
+    window.speechSynthesis.speak(utterance);
+    return;
+  }
 
-  // Prepare text segments for tracking
-  const doLabel = currentLang === 'en' ? 'What to do' : 'क्या करें';
-  const dontLabel = currentLang === 'en' ? 'What not to do' : 'क्या न करें';
-
-  // Build text segments with their corresponding elements
+  // Desktop: line-by-line with boundary events
   const segments = [];
 
-  // Title segment
-  segments.push({
-    text: item.title,
-    element: card ? card.querySelector('h2') : null,
-    type: 'title'
+  // Map text to elements
+  segments.push({ text: item.title, element: card.querySelector('h2'), type: 'title' });
+
+  const doLabel = currentLang === 'en' ? 'Do' : 'करें';
+  segments.push({ text: doLabel, element: card.querySelector('h3:not(.dont)'), type: 'title' });
+
+  const doList = card.querySelector('ul:not(.dont)');
+  item.do.forEach((text, i) => {
+    segments.push({ text, element: doList.querySelectorAll('li')[i], type: 'do' });
   });
 
-  // Do label
-  segments.push({
-    text: doLabel,
-    element: card ? card.querySelector('h3:not(.dont)') : null,
-    type: 'do-label'
+  const dontLabel = currentLang === 'en' ? "Don't" : 'न करें';
+  segments.push({ text: dontLabel, element: card.querySelector('h3.dont'), type: 'title' });
+
+  const dontList = card.querySelector('ul.dont');
+  item.dont.forEach((text, i) => {
+    segments.push({ text, element: dontList.querySelectorAll('li')[i], type: 'dont' });
   });
 
-  // Do items
-  item.do.forEach((doItem, index) => {
-    const doList = card ? card.querySelector('ul:not(.dont)') : null;
-    const liElement = doList ? doList.querySelectorAll('li')[index] : null;
-    segments.push({
-      text: doItem,
-      element: liElement,
-      type: 'do-item'
-    });
+  // Build character map
+  const charMap = [];
+  let charPos = 0;
+  segments.forEach(seg => {
+    const start = charPos;
+    const end = charPos + seg.text.length;
+    charMap.push({ start, end, element: seg.element, type: seg.type });
+    charPos = end + 2; // +2 for ". " separator
   });
 
-  // Don't label
-  segments.push({
-    text: dontLabel,
-    element: card ? card.querySelector('h3.dont') : null,
-    type: 'dont-label'
-  });
-
-  // Don't items
-  item.dont.forEach((dontItem, index) => {
-    const dontList = card ? card.querySelector('ul.dont') : null;
-    const liElement = dontList ? dontList.querySelectorAll('li')[index] : null;
-    segments.push({
-      text: dontItem,
-      element: liElement,
-      type: 'dont-item'
-    });
-  });
-
-  const textToSpeak = `${item.title}. ${doLabel}: ${item.do.join('. ')}. ${dontLabel}: ${item.dont.join('. ')}.`;
+  const doLabelFull = currentLang === 'en' ? 'What to do' : 'क्या करें';
+  const dontLabelFull = currentLang === 'en' ? 'What not to do' : 'क्या न करें';
+  const textToSpeak = `${item.title}. ${doLabelFull}: ${item.do.join('. ')}. ${dontLabelFull}: ${item.dont.join('. ')}.`;
 
   const utterance = new SpeechSynthesisUtterance(textToSpeak);
   utterance.lang = currentLang === 'en' ? 'en-US' : 'hi-IN';
   utterance.rate = 0.9;
-  utterance.pitch = 1;
-  utterance.volume = 1;
 
-  // Build character position map
-  const charMap = [];
-  let charPosition = 0;
-
-  segments.forEach((segment, index) => {
-    const segmentText = segment.text + '. ';
-    charMap.push({
-      index: index,
-      startPos: charPosition,
-      endPos: charPosition + segmentText.length,
-      element: segment.element
-    });
-    charPosition += segmentText.length;
-  });
-
-  let currentSegmentIndex = -1;
-  let boundarySupported = false;
-  let boundaryCheckTimeout = null;
-  let fallbackInterval = null;
-  let speechStartTime = null;
-
-  function highlightSegmentAtPosition(charIndex) {
-    let targetIndex = -1;
-
-    for (let i = 0; i < charMap.length; i++) {
-      if (charIndex >= charMap[i].startPos && charIndex < charMap[i].endPos) {
-        targetIndex = i;
-        break;
-      }
-    }
-
-    if (targetIndex === -1 && charIndex >= charMap[charMap.length - 1].startPos) {
-      targetIndex = charMap.length - 1;
-    }
-
-    if (targetIndex !== currentSegmentIndex && targetIndex >= 0) {
-      if (currentSegmentIndex >= 0 && charMap[currentSegmentIndex].element) {
-        charMap[currentSegmentIndex].element.classList.remove('highlight-speaking');
-      }
-      if (charMap[targetIndex].element) {
-        charMap[targetIndex].element.classList.add('highlight-speaking');
-      }
-      currentSegmentIndex = targetIndex;
-    }
-  }
-
-  // Mobile-optimized fallback with dynamic calibration
-  function startFallbackSync() {
-    const baseWPM = currentLang === 'en' ? 115 : 105; // Very conservative for mobile
-    const adjustedWPM = baseWPM * utterance.rate;
-    let charsPerMs = (adjustedWPM * 5) / (60 * 1000);
-
-    let lastCalibrationTime = Date.now();
-    let calibrationCount = 0;
-
-    fallbackInterval = setInterval(() => {
-      if (!speechStartTime || !window.speechSynthesis.speaking) {
-        if (fallbackInterval) {
-          clearInterval(fallbackInterval);
-          fallbackInterval = null;
-        }
-        return;
-      }
-
-      const elapsed = Date.now() - speechStartTime;
-
-      // Dynamic calibration every 2 seconds
-      if (currentSegmentIndex >= 0 && elapsed - lastCalibrationTime > 2000 && calibrationCount < 3) {
-        const actualCharPos = charMap[currentSegmentIndex].startPos;
-        const measuredRate = actualCharPos / elapsed;
-
-        if (measuredRate > 0) {
-          // Blend measured rate with current rate
-          charsPerMs = (charsPerMs * 0.7) + (measuredRate * 0.3);
-          lastCalibrationTime = elapsed;
-          calibrationCount++;
-          console.log(`📱 Calibrated: ${(charsPerMs * 60000 / 5).toFixed(0)} WPM`);
-        }
-      }
-
-      const estimatedCharPos = Math.floor(elapsed * charsPerMs);
-      highlightSegmentAtPosition(estimatedCharPos);
-    }, 75); // 75ms for mobile
-  }
+  let currentHighlight = null;
 
   utterance.onboundary = (event) => {
-    boundarySupported = true;
-    if (event.name === 'word' || event.name === 'sentence') {
-      highlightSegmentAtPosition(event.charIndex || 0);
+    if (event.name === 'word') {
+      const charIndex = event.charIndex || 0;
+
+      // Find which segment this character belongs to
+      for (let i = 0; i < charMap.length; i++) {
+        if (charIndex >= charMap[i].start && charIndex < charMap[i].end) {
+          if (currentHighlight !== charMap[i].element) {
+            // Clear previous highlight
+            if (currentHighlight) {
+              currentHighlight.classList.remove('line-highlight-do', 'line-highlight-dont', 'line-highlight-title');
+            }
+
+            // Add new highlight
+            currentHighlight = charMap[i].element;
+            if (currentHighlight) {
+              if (charMap[i].type === 'do') {
+                currentHighlight.classList.add('line-highlight-do');
+              } else if (charMap[i].type === 'dont') {
+                currentHighlight.classList.add('line-highlight-dont');
+              } else {
+                currentHighlight.classList.add('line-highlight-title');
+              }
+            }
+          }
+          break;
+        }
+      }
     }
   };
 
   utterance.onstart = () => {
-    speechStartTime = Date.now();
-    currentSegmentIndex = -1;
-
     if (button) {
       button.classList.add('speaking');
       button.textContent = currentLang === 'en' ? '⏸️ Stop' : '⏸️ रोकें';
     }
-
-    boundaryCheckTimeout = setTimeout(() => {
-      if (!boundarySupported) {
-        console.log('📱 Mobile: Using calibrated sync');
-        startFallbackSync();
-      } else {
-        console.log('💻 Desktop: Using boundary events');
-      }
-    }, 300);
   };
 
   utterance.onend = () => {
+    clearHighlights(card);
     currentSpeech = null;
-    if (boundaryCheckTimeout) clearTimeout(boundaryCheckTimeout);
-    if (fallbackInterval) clearInterval(fallbackInterval);
-
     if (button) {
       button.classList.remove('speaking');
       button.textContent = currentLang === 'en' ? '🔊 Listen' : '🔊 सुनें';
     }
-    if (card) {
-      card.querySelectorAll('.highlight-speaking').forEach(el => el.classList.remove('highlight-speaking'));
-    }
-
-    currentSegmentIndex = -1;
-    speechStartTime = null;
-    boundarySupported = false;
   };
 
   utterance.onerror = () => {
+    clearHighlights(card);
     currentSpeech = null;
-    if (boundaryCheckTimeout) clearTimeout(boundaryCheckTimeout);
-    if (fallbackInterval) clearInterval(fallbackInterval);
-
     if (button) {
       button.classList.remove('speaking');
       button.textContent = currentLang === 'en' ? '🔊 Listen' : '🔊 सुनें';
     }
-    if (card) {
-      card.querySelectorAll('.highlight-speaking').forEach(el => el.classList.remove('highlight-speaking'));
-    }
-
-    currentSegmentIndex = -1;
-    speechStartTime = null;
-    boundarySupported = false;
   };
 
   currentSpeech = utterance;
   window.speechSynthesis.speak(utterance);
+}
+
+function clearHighlights(card) {
+  if (!card) return;
+  card.classList.remove('card-speaking');
+  card.querySelectorAll('.line-highlight-do, .line-highlight-dont, .line-highlight-title').forEach(el => {
+    el.classList.remove('line-highlight-do', 'line-highlight-dont', 'line-highlight-title');
+  });
 }
 
 function renderFooter() {
@@ -426,7 +337,7 @@ function renderFooter() {
         <p>• University of Michigan Health, Michigan Medicine</p>
       </div>
       <div class="developer">
-        <p>Developed by: <strong>Dr. Arkaprabha Sau, MBBS, MD (Gold Medalist), PhD (Computer Science & Engineering), DPH, Dip. Geriatric Medicine, Certificate in Diabetes Managmenet</strong></p>
+        <p>Developed by: <strong>Dr. Arkaprabha Sau, MBBS, MD (Gold Medalist), PhD (Computer Science & Engineering), DPH, Dip. Geriatric Medicine, Certificate in Diabetes Management</strong></p>
       </div>
     `;
   } else {

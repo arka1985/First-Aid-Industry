@@ -229,83 +229,101 @@ header h1 {
     font-size: 1.1rem;
 }
 
-border-top: 2px solid var(--secondary);
+.card .dont li::before {
+    content: "✗";
+    color: var(--dont-red);
 }
 
-footer .acknowledgement {
-    text-align: left;
-    margin-top: 1.5rem;
-}
+/* Listen Button for Accessibility */
+.listen-btn {
+    background: linear-gradient(135deg, var(--accent), var(--primary));
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    font-size: clamp(0.85rem, 2vw, 0.95rem);
+    border-radius: 25px;
 
-footer .developer {
-    margin-top: 2rem;
-    font-weight: 600;
-    color: var(--text-dark);
-    font-size: 1.1rem;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
+    footer .disclaimer {
+        text-align: left;
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 2px solid var(--secondary);
     }
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
+    footer .acknowledgement {
+        text-align: left;
+        margin-top: 1.5rem;
     }
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    body {
-        padding: 1rem;
-        padding-top: 4rem;
+    footer .developer {
+        margin-top: 2rem;
+        font-weight: 600;
+        color: var(--text-dark);
+        font-size: 1.1rem;
     }
 
-    header h1 {
-        padding-right: 0;
-        margin-top: 3rem;
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
-    #emergencyBtn {
-        top: 0.5rem;
-        right: 0.5rem;
-        padding: 0.8rem 1.2rem;
-        font-size: 1rem;
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
-    .header-controls {
-        flex-direction: column;
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        body {
+            padding: 1rem;
+            padding-top: 4rem;
+        }
+
+        header h1 {
+            padding-right: 0;
+            margin-top: 3rem;
+        }
+
+        #emergencyBtn {
+            top: 0.5rem;
+            right: 0.5rem;
+            padding: 0.8rem 1.2rem;
+            font-size: 1rem;
+        }
+
+        .header-controls {
+            flex-direction: column;
+        }
+
+        .search-wrapper {
+            flex-direction: row;
+        }
     }
 
-    .search-wrapper {
-        flex-direction: row;
-    }
-}
+    @media (max-width: 480px) {
+        #cardsContainer {
+            gap: 1rem;
+        }
 
-@media (max-width: 480px) {
-    #cardsContainer {
-        gap: 1rem;
-    }
+        .card {
+            padding: 1.5rem;
+        }
 
-    .card {
-        padding: 1.5rem;
+        footer {
+            padding: 1.5rem;
+        }
     }
-
-    footer {
-        padding: 1.5rem;
-    }
-}
