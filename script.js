@@ -253,85 +253,178 @@ function startSpeechForCard(cardId) {
   utterance.pitch = 1;
   utterance.volume = 1;
 
-  // NEW: Continuous monitoring synchronization
-  let currentSegmentIndex = -1;
-  let speechStartTime = null;
-  let monitoringInterval = null;
+  // ============================================================================
+  // ROBUST CHARACTER-POSITION BASED SYNCHRONIZATION
+  // ============================================================================
+  // Build precise character position map for each segment
+  const charMap = [];
+  let charPosition = 0;
 
-  // Calculate timing for each segment
-  const baseWPM = currentLang === 'en' ? 150 : 140;
-  const adjustedWPM = baseWPM * utterance.rate;
-  const msPerWord = (60 * 1000) / adjustedWPM;
+  segments.forEach((segment, index) => {
+    const segmentText = segment.text + '. '; // Add separator
+    const startPos = charPosition;
+    const endPos = charPosition + segmentText.length;
 
-  let cumulativeTime = 0;
-  const segmentTimings = segments.map(seg => {
-    const wordCount = seg.text.split(/\s+/).filter(w => w.length > 0).length;
-    const duration = wordCount * msPerWord;
-    const timing = { start: cumulativeTime, end: cumulativeTime + duration, element: seg.element };
-    cumulativeTime += duration;
-    return timing;
+    charMap.push({
+      index: index,
+      startPos: startPos,
+      endPos: endPos,
+      element: segment.element,
+      text: segment.text
+    });
+
+    charPosition = endPos;
   });
 
-  // Monitoring function
-  function updateHighlight() {
-    if (!speechStartTime || !window.speechSynthesis.speaking) return;
+  let currentSegmentIndex = -1;
+  let boundarySupported = false;
+  let boundaryCheckTimeout = null;
+  let fallbackInterval = null;
+  let speechStartTime = null;
 
-    const elapsed = Date.now() - speechStartTime;
+  // Function to update highlight based on character position
+  function highlightSegmentAtPosition(charIndex) {
     let targetIndex = -1;
 
-    for (let i = 0; i < segmentTimings.length; i++) {
-      if (elapsed >= segmentTimings[i].start && elapsed < segmentTimings[i].end) {
+    // Find segment containing this character position
+    for (let i = 0; i < charMap.length; i++) {
+      if (charIndex >= charMap[i].startPos && charIndex < charMap[i].endPos) {
         targetIndex = i;
         break;
       }
     }
 
-    if (targetIndex === -1 && elapsed >= segmentTimings[segmentTimings.length - 1].start) {
-      targetIndex = segmentTimings.length - 1;
+    // If past all segments, highlight the last one
+    if (targetIndex === -1 && charIndex >= charMap[charMap.length - 1].startPos) {
+      targetIndex = charMap.length - 1;
     }
 
+    // Update highlight if changed
     if (targetIndex !== currentSegmentIndex && targetIndex >= 0) {
-      if (currentSegmentIndex >= 0 && segmentTimings[currentSegmentIndex].element) {
-        segmentTimings[currentSegmentIndex].element.classList.remove('highlight-speaking');
+      // Remove previous highlight
+      if (currentSegmentIndex >= 0 && charMap[currentSegmentIndex].element) {
+        charMap[currentSegmentIndex].element.classList.remove('highlight-speaking');
       }
-      if (segmentTimings[targetIndex].element) {
-        segmentTimings[targetIndex].element.classList.add('highlight-speaking');
+
+      // Add new highlight
+      if (charMap[targetIndex].element) {
+        charMap[targetIndex].element.classList.add('highlight-speaking');
       }
+
       currentSegmentIndex = targetIndex;
     }
   }
 
+  // Fallback: time-based estimation
+  function startFallbackSync() {
+    const baseWPM = currentLang === 'en' ? 135 : 125; // Conservative estimates
+    const adjustedWPM = baseWPM * utterance.rate;
+    const charsPerMs = (adjustedWPM * 5) / (60 * 1000); // Avg 5 chars per word
+
+    fallbackInterval = setInterval(() => {
+      if (!speechStartTime || !window.speechSynthesis.speaking) {
+        if (fallbackInterval) {
+          clearInterval(fallbackInterval);
+          fallbackInterval = null;
+        }
+        return;
+      }
+
+      const elapsed = Date.now() - speechStartTime;
+      const estimatedCharPos = Math.floor(elapsed * charsPerMs);
+      highlightSegmentAtPosition(estimatedCharPos);
+    }, 100); // Update every 100ms
+  }
+
+  // Boundary event handler (primary method)
+  utterance.onboundary = (event) => {
+    boundarySupported = true;
+
+    if (event.name === 'word' || event.name === 'sentence') {
+      const charIndex = event.charIndex || 0;
+      highlightSegmentAtPosition(charIndex);
+    }
+  };
+
+  // Speech start handler
   utterance.onstart = () => {
     speechStartTime = Date.now();
+    currentSegmentIndex = -1;
+
     if (button) {
       button.classList.add('speaking');
       button.textContent = currentLang === 'en' ? '⏸️ Stop' : '⏸️ रोकें';
     }
-    monitoringInterval = setInterval(updateHighlight, 50);
+
+    // Check if boundary events are working after 400ms
+    boundaryCheckTimeout = setTimeout(() => {
+      if (!boundarySupported) {
+        console.log('⚠️ Boundary events not supported, using fallback sync');
+        startFallbackSync();
+      } else {
+        console.log('✓ Using boundary events for sync');
+      }
+    }, 400);
   };
 
+  // Speech end handler
   utterance.onend = () => {
     currentSpeech = null;
-    if (monitoringInterval) clearInterval(monitoringInterval);
+
+    // Cleanup
+    if (boundaryCheckTimeout) {
+      clearTimeout(boundaryCheckTimeout);
+      boundaryCheckTimeout = null;
+    }
+    if (fallbackInterval) {
+      clearInterval(fallbackInterval);
+      fallbackInterval = null;
+    }
+
     if (button) {
       button.classList.remove('speaking');
       button.textContent = currentLang === 'en' ? '🔊 Listen' : '🔊 सुनें';
     }
+
     if (card) {
-      card.querySelectorAll('.highlight-speaking').forEach(el => el.classList.remove('highlight-speaking'));
+      card.querySelectorAll('.highlight-speaking').forEach(el => {
+        el.classList.remove('highlight-speaking');
+      });
     }
+
+    currentSegmentIndex = -1;
+    speechStartTime = null;
+    boundarySupported = false;
   };
 
+  // Error handler
   utterance.onerror = () => {
     currentSpeech = null;
-    if (monitoringInterval) clearInterval(monitoringInterval);
+
+    // Cleanup
+    if (boundaryCheckTimeout) {
+      clearTimeout(boundaryCheckTimeout);
+      boundaryCheckTimeout = null;
+    }
+    if (fallbackInterval) {
+      clearInterval(fallbackInterval);
+      fallbackInterval = null;
+    }
+
     if (button) {
       button.classList.remove('speaking');
       button.textContent = currentLang === 'en' ? '🔊 Listen' : '🔊 सुनें';
     }
+
     if (card) {
-      card.querySelectorAll('.highlight-speaking').forEach(el => el.classList.remove('highlight-speaking'));
+      card.querySelectorAll('.highlight-speaking').forEach(el => {
+        el.classList.remove('highlight-speaking');
+      });
     }
+
+    currentSegmentIndex = -1;
+    speechStartTime = null;
+    boundarySupported = false;
   };
 
   currentSpeech = utterance;
