@@ -166,48 +166,7 @@ function speakCard(cardId) {
     btn.textContent = currentLang === 'en' ? '🔊 Listen' : '🔊 सुनें';
   });
 
-  // Mobile: just glow the card border
-  if (isMobile) {
-    const doLabel = currentLang === 'en' ? 'What to do' : 'क्या करें';
-    const dontLabel = currentLang === 'en' ? 'What not to do' : 'क्या न करें';
-    const textToSpeak = `${item.title}. ${doLabel}: ${item.do.join('. ')}. ${dontLabel}: ${item.dont.join('. ')}.`;
-
-    const utterance = new SpeechSynthesisUtterance(textToSpeak);
-    utterance.lang = currentLang === 'en' ? 'en-US' : 'hi-IN';
-    utterance.rate = 0.9;
-
-    utterance.onstart = () => {
-      if (button) {
-        button.classList.add('speaking');
-        button.textContent = currentLang === 'en' ? '⏸️ Stop' : '⏸️ रोकें';
-      }
-      card.classList.add('card-speaking');
-    };
-
-    utterance.onend = () => {
-      clearHighlights(card);
-      currentSpeech = null;
-      if (button) {
-        button.classList.remove('speaking');
-        button.textContent = currentLang === 'en' ? '🔊 Listen' : '🔊 सुनें';
-      }
-    };
-
-    utterance.onerror = () => {
-      clearHighlights(card);
-      currentSpeech = null;
-      if (button) {
-        button.classList.remove('speaking');
-        button.textContent = currentLang === 'en' ? '🔊 Listen' : '🔊 सुनें';
-      }
-    };
-
-    currentSpeech = utterance;
-    window.speechSynthesis.speak(utterance);
-    return;
-  }
-
-  // Desktop: line-by-line with boundary events
+  // Unified Robust Highlighting Logic (Desktop & Mobile)
   const segments = [];
 
   // Map text to elements
@@ -248,39 +207,74 @@ function speakCard(cardId) {
   utterance.rate = 0.9;
 
   let currentHighlight = null;
+  let lastBoundaryTime = 0;
+  let fallbackInterval = null;
+
+  // Function to apply highlight
+  const applyHighlight = (element, type) => {
+    if (currentHighlight !== element) {
+      if (currentHighlight) {
+        currentHighlight.classList.remove('line-highlight-do', 'line-highlight-dont', 'line-highlight-title');
+      }
+      currentHighlight = element;
+      if (currentHighlight) {
+        const className = type === 'do' ? 'line-highlight-do' :
+          type === 'dont' ? 'line-highlight-dont' :
+            'line-highlight-title';
+        currentHighlight.classList.add(className);
+
+        // Scroll into view on mobile if needed
+        if (isMobile) {
+          currentHighlight.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+    }
+  };
 
   utterance.onboundary = (event) => {
+    lastBoundaryTime = Date.now(); // Update last active time
     if (event.name === 'word') {
       const charIndex = event.charIndex || 0;
-
-      // Find which segment this character belongs to
       for (let i = 0; i < charMap.length; i++) {
         if (charIndex >= charMap[i].start && charIndex < charMap[i].end) {
-          if (currentHighlight !== charMap[i].element) {
-            // Clear previous highlight
-            if (currentHighlight) {
-              currentHighlight.classList.remove('line-highlight-do', 'line-highlight-dont', 'line-highlight-title');
-            }
-
-            // Add new highlight
-            currentHighlight = charMap[i].element;
-            if (currentHighlight) {
-              const className = charMap[i].type === 'do' ? 'line-highlight-do' :
-                charMap[i].type === 'dont' ? 'line-highlight-dont' :
-                  'line-highlight-title';
-              currentHighlight.classList.add(className);
-            }
-          }
+          applyHighlight(charMap[i].element, charMap[i].type);
           break;
         }
       }
     }
   };
 
+  // Robust Fallback: If onboundary stops firing (common on mobile), use time estimation
+  const startFallbackTimer = () => {
+    const wordsPerMinute = 130 * utterance.rate; // Approx WPM
+    const msPerChar = 60000 / (wordsPerMinute * 5); // Approx ms per char
+    let estimatedCharIndex = 0;
+    const startTime = Date.now();
+
+    fallbackInterval = setInterval(() => {
+      // Only intervene if no boundary event for 2 seconds
+      if (Date.now() - lastBoundaryTime > 2000) {
+        const elapsed = Date.now() - startTime;
+        estimatedCharIndex = Math.floor(elapsed / msPerChar);
+
+        for (let i = 0; i < charMap.length; i++) {
+          if (estimatedCharIndex >= charMap[i].start && estimatedCharIndex < charMap[i].end) {
+            applyHighlight(charMap[i].element, charMap[i].type);
+            break;
+          }
+        }
+      }
+    }, 500);
+  };
+
   utterance.onstart = () => {
     if (button) {
       button.classList.add('speaking');
       button.textContent = currentLang === 'en' ? '⏸️ Stop' : '⏸️ रोकें';
+    }
+    // Start fallback timer for mobile robustness
+    if (isMobile) {
+      startFallbackTimer();
     }
   };
 
@@ -307,6 +301,10 @@ function speakCard(cardId) {
 }
 
 function clearHighlights(card) {
+  if (typeof fallbackInterval !== 'undefined' && fallbackInterval) {
+    clearInterval(fallbackInterval);
+    fallbackInterval = null;
+  }
   if (!card) return;
   card.classList.remove('card-speaking');
   card.querySelectorAll('.line-highlight-do, .line-highlight-dont, .line-highlight-title').forEach(el => {
