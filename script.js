@@ -253,27 +253,19 @@ function startSpeechForCard(cardId) {
   utterance.pitch = 1;
   utterance.volume = 1;
 
-  // ============================================================================
-  // ROBUST CHARACTER-POSITION BASED SYNCHRONIZATION
-  // ============================================================================
-  // Build precise character position map for each segment
+  // Build character position map
   const charMap = [];
   let charPosition = 0;
 
   segments.forEach((segment, index) => {
-    const segmentText = segment.text + '. '; // Add separator
-    const startPos = charPosition;
-    const endPos = charPosition + segmentText.length;
-
+    const segmentText = segment.text + '. ';
     charMap.push({
       index: index,
-      startPos: startPos,
-      endPos: endPos,
-      element: segment.element,
-      text: segment.text
+      startPos: charPosition,
+      endPos: charPosition + segmentText.length,
+      element: segment.element
     });
-
-    charPosition = endPos;
+    charPosition += segmentText.length;
   });
 
   let currentSegmentIndex = -1;
@@ -282,11 +274,9 @@ function startSpeechForCard(cardId) {
   let fallbackInterval = null;
   let speechStartTime = null;
 
-  // Function to update highlight based on character position
   function highlightSegmentAtPosition(charIndex) {
     let targetIndex = -1;
 
-    // Find segment containing this character position
     for (let i = 0; i < charMap.length; i++) {
       if (charIndex >= charMap[i].startPos && charIndex < charMap[i].endPos) {
         targetIndex = i;
@@ -294,32 +284,29 @@ function startSpeechForCard(cardId) {
       }
     }
 
-    // If past all segments, highlight the last one
     if (targetIndex === -1 && charIndex >= charMap[charMap.length - 1].startPos) {
       targetIndex = charMap.length - 1;
     }
 
-    // Update highlight if changed
     if (targetIndex !== currentSegmentIndex && targetIndex >= 0) {
-      // Remove previous highlight
       if (currentSegmentIndex >= 0 && charMap[currentSegmentIndex].element) {
         charMap[currentSegmentIndex].element.classList.remove('highlight-speaking');
       }
-
-      // Add new highlight
       if (charMap[targetIndex].element) {
         charMap[targetIndex].element.classList.add('highlight-speaking');
       }
-
       currentSegmentIndex = targetIndex;
     }
   }
 
-  // Fallback: time-based estimation
+  // Mobile-optimized fallback with dynamic calibration
   function startFallbackSync() {
-    const baseWPM = currentLang === 'en' ? 135 : 125; // Conservative estimates
+    const baseWPM = currentLang === 'en' ? 115 : 105; // Very conservative for mobile
     const adjustedWPM = baseWPM * utterance.rate;
-    const charsPerMs = (adjustedWPM * 5) / (60 * 1000); // Avg 5 chars per word
+    let charsPerMs = (adjustedWPM * 5) / (60 * 1000);
+
+    let lastCalibrationTime = Date.now();
+    let calibrationCount = 0;
 
     fallbackInterval = setInterval(() => {
       if (!speechStartTime || !window.speechSynthesis.speaking) {
@@ -331,22 +318,33 @@ function startSpeechForCard(cardId) {
       }
 
       const elapsed = Date.now() - speechStartTime;
+
+      // Dynamic calibration every 2 seconds
+      if (currentSegmentIndex >= 0 && elapsed - lastCalibrationTime > 2000 && calibrationCount < 3) {
+        const actualCharPos = charMap[currentSegmentIndex].startPos;
+        const measuredRate = actualCharPos / elapsed;
+
+        if (measuredRate > 0) {
+          // Blend measured rate with current rate
+          charsPerMs = (charsPerMs * 0.7) + (measuredRate * 0.3);
+          lastCalibrationTime = elapsed;
+          calibrationCount++;
+          console.log(`📱 Calibrated: ${(charsPerMs * 60000 / 5).toFixed(0)} WPM`);
+        }
+      }
+
       const estimatedCharPos = Math.floor(elapsed * charsPerMs);
       highlightSegmentAtPosition(estimatedCharPos);
-    }, 100); // Update every 100ms
+    }, 75); // 75ms for mobile
   }
 
-  // Boundary event handler (primary method)
   utterance.onboundary = (event) => {
     boundarySupported = true;
-
     if (event.name === 'word' || event.name === 'sentence') {
-      const charIndex = event.charIndex || 0;
-      highlightSegmentAtPosition(charIndex);
+      highlightSegmentAtPosition(event.charIndex || 0);
     }
   };
 
-  // Speech start handler
   utterance.onstart = () => {
     speechStartTime = Date.now();
     currentSegmentIndex = -1;
@@ -356,40 +354,27 @@ function startSpeechForCard(cardId) {
       button.textContent = currentLang === 'en' ? '⏸️ Stop' : '⏸️ रोकें';
     }
 
-    // Check if boundary events are working after 400ms
     boundaryCheckTimeout = setTimeout(() => {
       if (!boundarySupported) {
-        console.log('⚠️ Boundary events not supported, using fallback sync');
+        console.log('📱 Mobile: Using calibrated sync');
         startFallbackSync();
       } else {
-        console.log('✓ Using boundary events for sync');
+        console.log('💻 Desktop: Using boundary events');
       }
-    }, 400);
+    }, 300);
   };
 
-  // Speech end handler
   utterance.onend = () => {
     currentSpeech = null;
-
-    // Cleanup
-    if (boundaryCheckTimeout) {
-      clearTimeout(boundaryCheckTimeout);
-      boundaryCheckTimeout = null;
-    }
-    if (fallbackInterval) {
-      clearInterval(fallbackInterval);
-      fallbackInterval = null;
-    }
+    if (boundaryCheckTimeout) clearTimeout(boundaryCheckTimeout);
+    if (fallbackInterval) clearInterval(fallbackInterval);
 
     if (button) {
       button.classList.remove('speaking');
       button.textContent = currentLang === 'en' ? '🔊 Listen' : '🔊 सुनें';
     }
-
     if (card) {
-      card.querySelectorAll('.highlight-speaking').forEach(el => {
-        el.classList.remove('highlight-speaking');
-      });
+      card.querySelectorAll('.highlight-speaking').forEach(el => el.classList.remove('highlight-speaking'));
     }
 
     currentSegmentIndex = -1;
@@ -397,29 +382,17 @@ function startSpeechForCard(cardId) {
     boundarySupported = false;
   };
 
-  // Error handler
   utterance.onerror = () => {
     currentSpeech = null;
-
-    // Cleanup
-    if (boundaryCheckTimeout) {
-      clearTimeout(boundaryCheckTimeout);
-      boundaryCheckTimeout = null;
-    }
-    if (fallbackInterval) {
-      clearInterval(fallbackInterval);
-      fallbackInterval = null;
-    }
+    if (boundaryCheckTimeout) clearTimeout(boundaryCheckTimeout);
+    if (fallbackInterval) clearInterval(fallbackInterval);
 
     if (button) {
       button.classList.remove('speaking');
       button.textContent = currentLang === 'en' ? '🔊 Listen' : '🔊 सुनें';
     }
-
     if (card) {
-      card.querySelectorAll('.highlight-speaking').forEach(el => {
-        el.classList.remove('highlight-speaking');
-      });
+      card.querySelectorAll('.highlight-speaking').forEach(el => el.classList.remove('highlight-speaking'));
     }
 
     currentSegmentIndex = -1;
