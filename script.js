@@ -85,6 +85,8 @@ const firstAidData = {
 
 let currentLang = 'en';
 let currentSpeech = null;
+
+// Mobile detection
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
 function toggleLanguage() {
@@ -263,13 +265,10 @@ function speakCard(cardId) {
             // Add new highlight
             currentHighlight = charMap[i].element;
             if (currentHighlight) {
-              if (charMap[i].type === 'do') {
-                currentHighlight.classList.add('line-highlight-do');
-              } else if (charMap[i].type === 'dont') {
-                currentHighlight.classList.add('line-highlight-dont');
-              } else {
-                currentHighlight.classList.add('line-highlight-title');
-              }
+              const className = charMap[i].type === 'do' ? 'line-highlight-do' :
+                charMap[i].type === 'dont' ? 'line-highlight-dont' :
+                  'line-highlight-title';
+              currentHighlight.classList.add(className);
             }
           }
           break;
