@@ -6,42 +6,42 @@ const titles = {
 
 const firstAidData = {
   en: [
-    { id: 1, title: 'ABDOMINAL INJURY', do: ['Ask for Help', 'Keep person lying down', 'Cover wound with clean cloth', 'Call emergency services', 'Monitor breathing'], dont: ['Give food or water', 'Push organs back', 'Remove embedded objects', 'Apply pressure directly on wound'] },
-    { id: 2, title: 'AMPUTATION', do: ['Ask for Help', 'Control bleeding with direct pressure', 'Preserve amputated part in clean bag', 'Keep part cool (not frozen)', 'Get immediate medical help'], dont: ['Place part directly on ice', 'Wash the amputated part', 'Try to reattach yourself', 'Delay emergency call'] },
-    { id: 3, title: 'ALTITUDE SICKNESS', do: ['Ask for Help', 'Descend to lower altitude immediately', 'Rest and hydrate', 'Give oxygen if available', 'Seek medical attention'], dont: ['Continue ascending', 'Ignore symptoms', 'Give alcohol', 'Leave person alone'] },
-    { id: 4, title: 'ANAPHYLAXIS', do: ['Ask for Help', 'Use EpiPen if available', 'Call 112 immediately', 'Lay person flat', 'Monitor breathing continuously'], dont: ['Give oral medication', 'Make person sit up', 'Delay emergency call', 'Leave person unattended'] },
-    { id: 5, title: 'BACKBONE/SPINAL INJURY', do: ['Ask for Help', 'Keep person still', 'Support head and neck', 'Call emergency services', 'Cover with blanket'], dont: ['Move the person', 'Twist or bend spine', 'Remove helmet if present', 'Give food or drink'] },
-    { id: 6, title: 'BLEEDING FROM EAR', do: ['Ask for Help', 'Tilt head to bleeding side', 'Cover with sterile pad loosely', 'Seek immediate medical help', 'Keep person calm'], dont: ['Block the ear canal', 'Put anything inside ear', 'Tilt head backward', 'Ignore head injury signs'] },
-    { id: 7, title: 'BLEEDING FROM NOSE', do: ['Ask for Help', 'Sit upright, lean forward', 'Pinch soft part of nose', 'Apply cold compress', 'Breathe through mouth'], dont: ['Tilt head backward', 'Lie down flat', 'Pack nose with cotton', 'Blow nose forcefully'] },
-    { id: 8, title: 'BLEEDING FROM WOUND', do: ['Ask for Help', 'Apply direct pressure', 'Elevate injured part', 'Use clean cloth/bandage', 'Call for help if severe'], dont: ['Remove embedded objects', 'Use tourniquet unnecessarily', 'Peek at wound repeatedly', 'Apply ice directly'] },
-    { id: 9, title: 'BURN', do: ['Ask for Help', 'Cool with running water 10-20 min', 'Cover with clean cloth', 'Remove jewelry before swelling', 'Seek medical help'], dont: ['Apply ice directly', 'Break blisters', 'Use oil/butter/toothpaste', 'Peel off stuck clothing'] },
-    { id: 10, title: 'CHEMICAL BURN', do: ['Ask for Help', 'Flush with water 20+ minutes', 'Remove contaminated clothing', 'Cover loosely', 'Call poison control'], dont: ['Try to neutralize chemical', 'Apply ointments', 'Use hot water', 'Rub the area'] },
-    { id: 11, title: 'BREATHING DIFFICULTIES', do: ['Ask for Help', 'Help person sit upright', 'Loosen tight clothing', 'Encourage slow breathing', 'Call emergency if severe'], dont: ['Make person lie flat', 'Give food or drink', 'Leave person alone', 'Ignore worsening symptoms'] },
-    { id: 12, title: 'CHEST PAIN', do: ['Ask for Help', 'Help person rest', 'Loosen tight clothing', 'Call 112 immediately', 'Give aspirin if no allergy'], dont: ['Ignore the pain', 'Give food or water', 'Allow physical activity', 'Delay emergency call'] },
-    { id: 13, title: 'CHOKING', do: ['Ask for Help', 'Encourage coughing', 'Give 5 back blows', 'Perform abdominal thrusts', 'Call 112 if unconscious'], dont: ['Slap on back while upright', 'Put fingers in mouth blindly', 'Give water', 'Stop if person can speak'] },
-    { id: 14, title: 'CONVULSION/SEIZURE', do: ['Ask for Help', 'Protect from injury', 'Time the seizure', 'Turn on side after seizure', 'Stay with person'], dont: ['Restrain movements', 'Put anything in mouth', 'Give water during seizure', 'Leave person alone'] },
-    { id: 15, title: 'CUT INJURY', do: ['Ask for Help', 'Wash hands first', 'Apply direct pressure', 'Clean with water', 'Cover with sterile dressing'], dont: ['Touch wound with dirty hands', 'Remove embedded objects', 'Use cotton directly', 'Ignore infection signs'] },
-    { id: 16, title: 'CPR', do: ['Ask for Help', 'Call 112 first', 'Push hard and fast (100-120/min)', 'Allow full chest recoil', 'Continue until help arrives'], dont: ['Stop compressions unnecessarily', 'Compress too slowly', 'Interrupt for more than 10 sec', 'Give up too early'] },
-    { id: 17, title: 'CPR WITH AED', do: ['Ask for Help', 'Turn on AED', 'Follow voice prompts', 'Ensure no one touches patient', 'Resume CPR after shock'], dont: ['Touch patient during analysis', 'Use on wet surface', 'Delay CPR for AED', 'Remove pads between shocks'] },
-    { id: 18, title: 'DEHYDRATION', do: ['Ask for Help', 'Give water/ORS slowly', 'Move to cool place', 'Rest in shade', 'Monitor condition'], dont: ['Give large amounts quickly', 'Give alcohol/caffeine', 'Continue physical activity', 'Ignore severe symptoms'] },
-    { id: 19, title: 'DOG/ANIMAL BITE', do: ['Ask for Help', 'Wash wound thoroughly', 'Control bleeding', 'Seek medical attention', 'Report to authorities'], dont: ['Ignore minor bites', 'Apply tight bandage', 'Delay rabies consultation', 'Provoke the animal further'] },
-    { id: 20, title: 'DROWNING', do: ['Ask for Help', 'Remove from water safely', 'Start CPR if needed', 'Call 112 immediately', 'Keep warm'], dont: ['Attempt rescue without training', 'Try to drain water from lungs', 'Delay CPR', 'Leave person alone'] },
-    { id: 21, title: 'EYE INJURY', do: ['Ask for Help', 'Flush with clean water 15+ min', 'Keep eyelids open while flushing', 'Cover with clean pad', 'Seek medical care immediately'], dont: ['Rub the eye', 'Use chemicals', 'Remove embedded objects', 'Delay medical help'] },
-    { id: 22, title: 'ELECTRIC SHOCK', do: ['Ask for Help', 'Turn off power source', 'Use non-conductive material', 'Check breathing and pulse', 'Call 112 immediately'], dont: ['Touch victim while energized', 'Use wet materials', 'Move unless necessary', 'Delay calling help'] },
-    { id: 23, title: 'FAINTING', do: ['Ask for Help', 'Lay person flat', 'Elevate legs', 'Loosen tight clothing', 'Check breathing'], dont: ['Give food/water immediately', 'Slap or shake person', 'Make person sit up quickly', 'Ignore if happens repeatedly'] },
-    { id: 24, title: 'FEVER', do: ['Ask for Help', 'Give fluids', 'Use cool compress', 'Rest in cool room', 'Monitor temperature'], dont: ['Bundle up in blankets', 'Give aspirin to children', 'Ignore high fever', 'Use alcohol rubs'] },
-    { id: 25, title: 'FROSTBITE', do: ['Ask for Help', 'Move to warm area', 'Warm gradually with body heat', 'Protect affected area', 'Seek medical help'], dont: ['Rub the area', 'Use direct heat', 'Break blisters', 'Walk on frostbitten feet'] },
-    { id: 26, title: 'HEAD INJURY', do: ['Ask for Help', 'Keep person still', 'Apply ice pack', 'Monitor consciousness', 'Call 112 if severe'], dont: ['Move person unnecessarily', 'Give medications', 'Allow to sleep immediately', 'Ignore worsening symptoms'] },
-    { id: 27, title: 'HEAT STROKE', do: ['Ask for Help', 'Move to cool place', 'Remove excess clothing', 'Cool body rapidly', 'Call 112'], dont: ['Give alcohol', 'Use ice bath', 'Give medications', 'Leave person alone'] },
-    { id: 28, title: 'HYPOGLYCEMIA', do: ['Ask for Help', 'Give sugar/juice if conscious', 'Recheck after 15 minutes', 'Give complex carbs after', 'Monitor closely'], dont: ['Give insulin', 'Give food if unconscious', 'Ignore symptoms', 'Leave person alone'] },
-    { id: 29, title: 'POISONING', do: ['Ask for Help', 'Call poison control', 'Keep container/substance', 'Follow expert instructions', 'Monitor breathing'], dont: ['Induce vomiting', 'Give neutralizing agents', 'Wait to see symptoms', 'Give activated charcoal without advice'] },
-    { id: 30, title: 'SNAKE BITE', do: ['Ask for Help', 'Keep calm and still', 'Remove jewelry/tight items', 'Mark swelling progression', 'Get to hospital immediately'], dont: ['Apply tourniquet', 'Cut the wound', 'Suck out venom', 'Apply ice'] },
-    { id: 31, title: 'STROKE', do: ['Ask for Help', 'Note time of symptoms', 'Call 112 immediately', 'Keep person comfortable', 'Monitor breathing'], dont: ['Give food or drink', 'Give medications', 'Delay emergency call', 'Leave person alone'] },
-    { id: 32, title: 'TOXIC CHEMICAL CONTACT', do: ['Ask for Help', 'Remove from exposure', 'Remove contaminated clothing', 'Flush skin with water 20+ min', 'Call poison control'], dont: ['Use neutralizing agents', 'Rub the area', 'Apply ointments', 'Delay decontamination'] },
-    { id: 33, title: 'TOXIC GAS INHALATION', do: ['Ask for Help', 'Move to fresh air', 'Loosen tight clothing', 'Monitor breathing', 'Call 112'], dont: ['Enter contaminated area without protection', 'Give anything by mouth', 'Delay evacuation', 'Ignore mild symptoms'] },
-    { id: 34, title: 'TRAUMA TO JOINTS/BONE', do: ['Ask for Help', 'Immobilize the area', 'Apply ice pack', 'Elevate if possible', 'Seek medical attention'], dont: ['Try to realign bones', 'Apply heat initially', 'Move injured part', 'Ignore severe pain'] },
-    { id: 35, title: 'INSECT BITE/STING', do: ['Ask for Help', 'Remove stinger if present', 'Wash with soap and water', 'Apply cold compress', 'Watch for allergic reaction'], dont: ['Squeeze stinger', 'Apply heat', 'Scratch the area', 'Ignore swelling'] },
-    { id: 36, title: 'VERTIGO/DIZZINESS', do: ['Ask for Help', 'Sit or lie down immediately', 'Focus on fixed point', 'Stay hydrated', 'Seek medical help if persistent'], dont: ['Stand up quickly', 'Drive or operate machinery', 'Ignore recurring episodes', 'Close eyes while moving'] }
+    { id: 1, title: 'ABDOMINAL INJURY', do: ['Ask for Help', 'Keep person lying down', 'Cover wound with clean cloth', 'Call emergency services', 'Monitor breathing'], dont: ["Don't give food or water", "Don't push organs back", "Don't remove embedded objects", "Don't apply pressure directly on wound"] },
+    { id: 2, title: 'AMPUTATION', do: ['Ask for Help', 'Control bleeding with direct pressure', 'Preserve amputated part in clean bag', 'Keep part cool (not frozen)', 'Get immediate medical help'], dont: ["Don't place part directly on ice", "Don't wash the amputated part", "Don't try to reattach yourself", "Don't delay emergency call"] },
+    { id: 3, title: 'ALTITUDE SICKNESS', do: ['Ask for Help', 'Descend to lower altitude immediately', 'Rest and hydrate', 'Give oxygen if available', 'Seek medical attention'], dont: ["Don't continue ascending", "Don't ignore symptoms", "Don't give alcohol", "Don't leave person alone"] },
+    { id: 4, title: 'ANAPHYLAXIS', do: ['Ask for Help', 'Use EpiPen if available', 'Call 112 immediately', 'Lay person flat', 'Monitor breathing continuously'], dont: ["Don't give oral medication", "Don't make person sit up", "Don't delay emergency call", "Don't leave person unattended"] },
+    { id: 5, title: 'BACKBONE/SPINAL INJURY', do: ['Ask for Help', 'Keep person still', 'Support head and neck', 'Call emergency services', 'Cover with blanket'], dont: ["Don't move the person", "Don't twist or bend spine", "Don't remove helmet if present", "Don't give food or drink"] },
+    { id: 6, title: 'BLEEDING FROM EAR', do: ['Ask for Help', 'Tilt head to bleeding side', 'Cover with sterile pad loosely', 'Seek immediate medical help', 'Keep person calm'], dont: ["Don't block the ear canal", "Don't put anything inside ear", "Don't tilt head backward", "Don't ignore head injury signs"] },
+    { id: 7, title: 'BLEEDING FROM NOSE', do: ['Ask for Help', 'Sit upright, lean forward', 'Pinch soft part of nose', 'Apply cold compress', 'Breathe through mouth'], dont: ["Don't tilt head backward", "Don't lie down flat", "Don't pack nose with cotton", "Don't blow nose forcefully"] },
+    { id: 8, title: 'BLEEDING FROM WOUND', do: ['Ask for Help', 'Apply direct pressure', 'Elevate injured part', 'Use clean cloth/bandage', 'Call for help if severe'], dont: ["Don't remove embedded objects", "Don't use tourniquet unnecessarily", "Don't peek at wound repeatedly", "Don't apply ice directly"] },
+    { id: 9, title: 'BURN', do: ['Ask for Help', 'Cool with running water 10-20 min', 'Cover with clean cloth', 'Remove jewelry before swelling', 'Seek medical help'], dont: ["Don't apply ice directly", "Don't break blisters", "Don't use oil/butter/toothpaste", "Don't peel off stuck clothing"] },
+    { id: 10, title: 'CHEMICAL BURN', do: ['Ask for Help', 'Flush with water 20+ minutes', 'Remove contaminated clothing', 'Cover loosely', 'Call poison control'], dont: ["Don't try to neutralize chemical", "Don't apply ointments", "Don't use hot water", "Don't rub the area"] },
+    { id: 11, title: 'BREATHING DIFFICULTIES', do: ['Ask for Help', 'Help person sit upright', 'Loosen tight clothing', 'Encourage slow breathing', 'Call emergency if severe'], dont: ["Don't make person lie flat", "Don't give food or drink", "Don't leave person alone", "Don't ignore worsening symptoms"] },
+    { id: 12, title: 'CHEST PAIN', do: ['Ask for Help', 'Help person rest', 'Loosen tight clothing', 'Call 112 immediately', 'Give aspirin if no allergy'], dont: ["Don't ignore the pain", "Don't give food or water", "Don't allow physical activity", "Don't delay emergency call"] },
+    { id: 13, title: 'CHOKING', do: ['Ask for Help', 'Encourage coughing', 'Give 5 back blows', 'Perform abdominal thrusts', 'Call 112 if unconscious'], dont: ["Don't slap on back while upright", "Don't put fingers in mouth blindly", "Don't give water", "Don't stop if person can speak"] },
+    { id: 14, title: 'CONVULSION/SEIZURE', do: ['Ask for Help', 'Protect from injury', 'Time the seizure', 'Turn on side after seizure', 'Stay with person'], dont: ["Don't restrain movements", "Don't put anything in mouth", "Don't give water during seizure", "Don't leave person alone"] },
+    { id: 15, title: 'CUT INJURY', do: ['Ask for Help', 'Wash hands first', 'Apply direct pressure', 'Clean with water', 'Cover with sterile dressing'], dont: ["Don't touch wound with dirty hands", "Don't remove embedded objects", "Don't use cotton directly", "Don't ignore infection signs"] },
+    { id: 16, title: 'CPR', do: ['Ask for Help', 'Call 112 first', 'Push hard and fast (100-120/min)', 'Allow full chest recoil', 'Continue until help arrives'], dont: ["Don't stop compressions unnecessarily", "Don't compress too slowly", "Don't interrupt for more than 10 sec", "Don't give up too early"] },
+    { id: 17, title: 'CPR WITH AED', do: ['Ask for Help', 'Turn on AED', 'Follow voice prompts', 'Ensure no one touches patient', 'Resume CPR after shock'], dont: ["Don't touch patient during analysis", "Don't use on wet surface", "Don't delay CPR for AED", "Don't remove pads between shocks"] },
+    { id: 18, title: 'DEHYDRATION', do: ['Ask for Help', 'Give water/ORS slowly', 'Move to cool place', 'Rest in shade', 'Monitor condition'], dont: ["Don't give large amounts quickly", "Don't give alcohol/caffeine", "Don't continue physical activity", "Don't ignore severe symptoms"] },
+    { id: 19, title: 'DOG/ANIMAL BITE', do: ['Ask for Help', 'Wash wound thoroughly', 'Control bleeding', 'Seek medical attention', 'Report to authorities'], dont: ["Don't ignore minor bites", "Don't apply tight bandage", "Don't delay rabies consultation", "Don't provoke the animal further"] },
+    { id: 20, title: 'DROWNING', do: ['Ask for Help', 'Remove from water safely', 'Start CPR if needed', 'Call 112 immediately', 'Keep warm'], dont: ["Don't attempt rescue without training", "Don't try to drain water from lungs", "Don't delay CPR", "Don't leave person alone"] },
+    { id: 21, title: 'EYE INJURY', do: ['Ask for Help', 'Flush with clean water 15+ min', 'Keep eyelids open while flushing', 'Cover with clean pad', 'Seek medical care immediately'], dont: ["Don't rub the eye", "Don't use chemicals", "Don't remove embedded objects", "Don't delay medical help"] },
+    { id: 22, title: 'ELECTRIC SHOCK', do: ['Ask for Help', 'Turn off power source', 'Use non-conductive material', 'Check breathing and pulse', 'Call 112 immediately'], dont: ["Don't touch victim while energized", "Don't use wet materials", "Don't move unless necessary", "Don't delay calling help"] },
+    { id: 23, title: 'FAINTING', do: ['Ask for Help', 'Lay person flat', 'Elevate legs', 'Loosen tight clothing', 'Check breathing'], dont: ["Don't give food/water immediately", "Don't slap or shake person", "Don't make person sit up quickly", "Don't ignore if happens repeatedly"] },
+    { id: 24, title: 'FEVER', do: ['Ask for Help', 'Give fluids', 'Use cool compress', 'Rest in cool room', 'Monitor temperature'], dont: ["Don't bundle up in blankets", "Don't give aspirin to children", "Don't ignore high fever", "Don't use alcohol rubs"] },
+    { id: 25, title: 'FROSTBITE', do: ['Ask for Help', 'Move to warm area', 'Warm gradually with body heat', 'Protect affected area', 'Seek medical help'], dont: ["Don't rub the area", "Don't use direct heat", "Don't break blisters", "Don't walk on frostbitten feet"] },
+    { id: 26, title: 'HEAD INJURY', do: ['Ask for Help', 'Keep person still', 'Apply ice pack', 'Monitor consciousness', 'Call 112 if severe'], dont: ["Don't move person unnecessarily", "Don't give medications", "Don't allow to sleep immediately", "Don't ignore worsening symptoms"] },
+    { id: 27, title: 'HEAT STROKE', do: ['Ask for Help', 'Move to cool place', 'Remove excess clothing', 'Cool body rapidly', 'Call 112'], dont: ["Don't give alcohol", "Don't use ice bath", "Don't give medications", "Don't leave person alone"] },
+    { id: 28, title: 'HYPOGLYCEMIA', do: ['Ask for Help', 'Give sugar/juice if conscious', 'Recheck after 15 minutes', 'Give complex carbs after', 'Monitor closely'], dont: ["Don't give insulin", "Don't give food if unconscious", "Don't ignore symptoms", "Don't leave person alone"] },
+    { id: 29, title: 'POISONING', do: ['Ask for Help', 'Call poison control', 'Keep container/substance', 'Follow expert instructions', 'Monitor breathing'], dont: ["Don't induce vomiting", "Don't give neutralizing agents", "Don't wait to see symptoms", "Don't give activated charcoal without advice"] },
+    { id: 30, title: 'SNAKE BITE', do: ['Ask for Help', 'Keep calm and still', 'Remove jewelry/tight items', 'Mark swelling progression', 'Get to hospital immediately'], dont: ["Don't apply tourniquet", "Don't cut the wound", "Don't suck out venom", "Don't apply ice"] },
+    { id: 31, title: 'STROKE', do: ['Ask for Help', 'Note time of symptoms', 'Call 112 immediately', 'Keep person comfortable', 'Monitor breathing'], dont: ["Don't give food or drink", "Don't give medications", "Don't delay emergency call", "Don't leave person alone"] },
+    { id: 32, title: 'TOXIC CHEMICAL CONTACT', do: ['Ask for Help', 'Remove from exposure', 'Remove contaminated clothing', 'Flush skin with water 20+ min', 'Call poison control'], dont: ["Don't use neutralizing agents", "Don't rub the area", "Don't apply ointments", "Don't delay decontamination"] },
+    { id: 33, title: 'TOXIC GAS INHALATION', do: ['Ask for Help', 'Move to fresh air', 'Loosen tight clothing', 'Monitor breathing', 'Call 112'], dont: ["Don't enter contaminated area without protection", "Don't give anything by mouth", "Don't delay evacuation", "Don't ignore mild symptoms"] },
+    { id: 34, title: 'TRAUMA TO JOINTS/BONE', do: ['Ask for Help', 'Immobilize the area', 'Apply ice pack', 'Elevate if possible', 'Seek medical attention'], dont: ["Don't try to realign bones", "Don't apply heat initially", "Don't move injured part", "Don't ignore severe pain"] },
+    { id: 35, title: 'INSECT BITE/STING', do: ['Ask for Help', 'Remove stinger if present', 'Wash with soap and water', 'Apply cold compress', 'Watch for allergic reaction'], dont: ["Don't squeeze stinger", "Don't apply heat", "Don't scratch the area", "Don't ignore swelling"] },
+    { id: 36, title: 'VERTIGO/DIZZINESS', do: ['Ask for Help', 'Sit or lie down immediately', 'Focus on fixed point', 'Stay hydrated', 'Seek medical help if persistent'], dont: ["Don't stand up quickly", "Don't drive or operate machinery", "Don't ignore recurring episodes", "Don't close eyes while moving"] }
   ],
   hi: [
     { id: 1, title: 'पेट की चोट', do: ['मदद मांगें', 'व्यक्ति को लेटा कर रखें', 'घाव को साफ कपड़े से ढकें', 'आपातकालीन सेवाओं को बुलाएं', 'सांस की निगरानी करें'], dont: ['खाना या पानी न दें', 'अंगों को वापस न धकेलें', 'धंसी वस्तुओं को न निकालें', 'घाव पर सीधा दबाव न डालें'] },
@@ -146,17 +146,14 @@ function speakCard(cardId) {
     currentSpeech = null;
     button.classList.remove('speaking');
     button.textContent = currentLang === 'en' ? '🔊 Listen' : '🔊 सुनें';
+
     // Remove all highlights
     if (card) {
       card.querySelectorAll('.highlight-speaking').forEach(el => {
         el.classList.remove('highlight-speaking');
       });
     }
-    // Clear any pending timeouts
-    if (window.highlightTimeouts) {
-      window.highlightTimeouts.forEach(timeout => clearTimeout(timeout));
-      window.highlightTimeouts = [];
-    }
+
     return;
   }
 
@@ -179,12 +176,6 @@ function speakCard(cardId) {
   document.querySelectorAll('.highlight-speaking').forEach(el => {
     el.classList.remove('highlight-speaking');
   });
-
-  // Clear any pending timeouts
-  if (window.highlightTimeouts) {
-    window.highlightTimeouts.forEach(timeout => clearTimeout(timeout));
-    window.highlightTimeouts = [];
-  }
 
   // Reset currentSpeech
   currentSpeech = null;
@@ -256,138 +247,90 @@ function startSpeechForCard(cardId) {
 
   const textToSpeak = `${item.title}. ${doLabel}: ${item.do.join('. ')}. ${dontLabel}: ${item.dont.join('. ')}.`;
 
-  // Create utterance
   const utterance = new SpeechSynthesisUtterance(textToSpeak);
   utterance.lang = currentLang === 'en' ? 'en-US' : 'hi-IN';
   utterance.rate = 0.9;
   utterance.pitch = 1;
   utterance.volume = 1;
 
+  // NEW: Continuous monitoring synchronization
+  let currentSegmentIndex = -1;
+  let speechStartTime = null;
+  let monitoringInterval = null;
 
+  // Calculate timing for each segment
+  const baseWPM = currentLang === 'en' ? 150 : 140;
+  const adjustedWPM = baseWPM * utterance.rate;
+  const msPerWord = (60 * 1000) / adjustedWPM;
 
+  let cumulativeTime = 0;
+  const segmentTimings = segments.map(seg => {
+    const wordCount = seg.text.split(/\s+/).filter(w => w.length > 0).length;
+    const duration = wordCount * msPerWord;
+    const timing = { start: cumulativeTime, end: cumulativeTime + duration, element: seg.element };
+    cumulativeTime += duration;
+    return timing;
+  });
 
+  // Monitoring function
+  function updateHighlight() {
+    if (!speechStartTime || !window.speechSynthesis.speaking) return;
 
+    const elapsed = Date.now() - speechStartTime;
+    let targetIndex = -1;
 
-  let currentSegmentIndex = 0;
-  let onboundarySupported = false;
-  window.highlightTimeouts = [];
-
-  // Time-based highlighting fallback for mobile devices
-  function setupTimeBasedHighlighting() {
-    // Fine-tuned speaking rates for perfect mobile sync: ~150 words per minute for English, ~155 for Hindi
-    const wordsPerMinute = currentLang === 'en' ? 155 : 165;
-    const msPerWord = (60 * 1000) / wordsPerMinute;
-
-    // Adjust for the utterance rate (0.9)
-    const adjustedMsPerWord = msPerWord / utterance.rate;
-
-    // Language-specific NEGATIVE startup delay to make glow start BEFORE voice (compensates for mobile latency)
-    let accumulatedTime = currentLang === 'en' ? -230 : -230;
-
-    segments.forEach((segment, index) => {
-      // Estimate word count (simple approximation)
-      const wordCount = segment.text.split(/\s+/).length;
-      const segmentDuration = wordCount * adjustedMsPerWord;
-
-      // Schedule highlight for this segment
-      const timeout = setTimeout(() => {
-        // Remove highlight from previous segment
-        if (index > 0 && segments[index - 1].element) {
-          segments[index - 1].element.classList.remove('highlight-speaking');
-        }
-
-        // Highlight current segment
-        if (segment.element) {
-          segment.element.classList.add('highlight-speaking');
-        }
-      }, accumulatedTime);
-
-      window.highlightTimeouts.push(timeout);
-      accumulatedTime += segmentDuration;
-    });
-  }
-
-  // Try to use onboundary event (works on desktop browsers)
-  utterance.onboundary = (event) => {
-    onboundarySupported = true;
-
-    if (event.name === 'word') {
-      const charIndex = event.charIndex;
-
-      // Find which segment we're currently in
-      let accumulatedLength = 0;
-      for (let i = 0; i < segments.length; i++) {
-        const segmentLength = segments[i].text.length + 2; // +2 for ". " separator
-
-        if (charIndex < accumulatedLength + segmentLength) {
-          // Remove highlight from previous segment
-          if (currentSegmentIndex !== i && segments[currentSegmentIndex].element) {
-            segments[currentSegmentIndex].element.classList.remove('highlight-speaking');
-          }
-
-          // Highlight current segment
-          if (segments[i].element) {
-            segments[i].element.classList.add('highlight-speaking');
-          }
-
-          currentSegmentIndex = i;
-          break;
-        }
-
-        accumulatedLength += segmentLength;
+    for (let i = 0; i < segmentTimings.length; i++) {
+      if (elapsed >= segmentTimings[i].start && elapsed < segmentTimings[i].end) {
+        targetIndex = i;
+        break;
       }
     }
-  };
 
-  if (button) {
-    button.classList.add('speaking');
-    button.textContent = currentLang === 'en' ? '⏸️ Stop' : '⏸️ रोकें';
+    if (targetIndex === -1 && elapsed >= segmentTimings[segmentTimings.length - 1].start) {
+      targetIndex = segmentTimings.length - 1;
+    }
+
+    if (targetIndex !== currentSegmentIndex && targetIndex >= 0) {
+      if (currentSegmentIndex >= 0 && segmentTimings[currentSegmentIndex].element) {
+        segmentTimings[currentSegmentIndex].element.classList.remove('highlight-speaking');
+      }
+      if (segmentTimings[targetIndex].element) {
+        segmentTimings[targetIndex].element.classList.add('highlight-speaking');
+      }
+      currentSegmentIndex = targetIndex;
+    }
   }
 
-  // Set up time-based highlighting as fallback
-  // Check after a short delay if onboundary is working
-  setTimeout(() => {
-    if (!onboundarySupported) {
-      // onboundary not triggered, use time-based fallback
-      setupTimeBasedHighlighting();
+  utterance.onstart = () => {
+    speechStartTime = Date.now();
+    if (button) {
+      button.classList.add('speaking');
+      button.textContent = currentLang === 'en' ? '⏸️ Stop' : '⏸️ रोकें';
     }
-  }, 500);
+    monitoringInterval = setInterval(updateHighlight, 50);
+  };
 
   utterance.onend = () => {
     currentSpeech = null;
+    if (monitoringInterval) clearInterval(monitoringInterval);
     if (button) {
       button.classList.remove('speaking');
       button.textContent = currentLang === 'en' ? '🔊 Listen' : '🔊 सुनें';
     }
-    // Remove all highlights
     if (card) {
-      card.querySelectorAll('.highlight-speaking').forEach(el => {
-        el.classList.remove('highlight-speaking');
-      });
-    }
-    // Clear any pending timeouts
-    if (window.highlightTimeouts) {
-      window.highlightTimeouts.forEach(timeout => clearTimeout(timeout));
-      window.highlightTimeouts = [];
+      card.querySelectorAll('.highlight-speaking').forEach(el => el.classList.remove('highlight-speaking'));
     }
   };
 
   utterance.onerror = () => {
     currentSpeech = null;
+    if (monitoringInterval) clearInterval(monitoringInterval);
     if (button) {
       button.classList.remove('speaking');
       button.textContent = currentLang === 'en' ? '🔊 Listen' : '🔊 सुनें';
     }
-    // Remove all highlights
     if (card) {
-      card.querySelectorAll('.highlight-speaking').forEach(el => {
-        el.classList.remove('highlight-speaking');
-      });
-    }
-    // Clear any pending timeouts
-    if (window.highlightTimeouts) {
-      window.highlightTimeouts.forEach(timeout => clearTimeout(timeout));
-      window.highlightTimeouts = [];
+      card.querySelectorAll('.highlight-speaking').forEach(el => el.classList.remove('highlight-speaking'));
     }
   };
 
