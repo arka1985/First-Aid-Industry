@@ -85,6 +85,7 @@ const firstAidData = {
 
 let currentLang = 'en';
 let currentSpeech = null;
+let fallbackInterval = null;
 
 // Mobile detection
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -130,174 +131,112 @@ function renderCards() {
   });
 }
 
-// Adaptive highlighting: line-by-line on desktop, card glow on mobile
+// Section-based highlighting: Blue for Do, Red for Don't
 function speakCard(cardId) {
   const data = firstAidData[currentLang];
   const item = data.find(d => d.id === cardId);
   if (!item) return;
 
   const card = document.querySelector(`[data-card-id="${cardId}"]`);
-  const button = card ? card.querySelector('.listen-btn') : null;
+  const button = card.querySelector('.listen-btn');
 
-  // Toggle off if already speaking
-  if (currentSpeech && button && button.classList.contains('speaking')) {
+  // Stop any existing speech
+  if (currentSpeech) {
     window.speechSynthesis.cancel();
-    clearHighlights(card);
-    currentSpeech = null;
-    if (button) {
-      button.classList.remove('speaking');
-      button.textContent = currentLang === 'en' ? '🔊 Listen' : '🔊 सुनें';
+    if (fallbackInterval) {
+      clearInterval(fallbackInterval);
+      fallbackInterval = null;
     }
-    return;
+
+    // If clicking the same card that is speaking, just stop
+    if (card.classList.contains('card-speaking')) {
+      currentSpeech = null;
+      clearHighlights(card);
+      return;
+    }
+
+    // If clicking a different card, clear the old one first
+    const activeCard = document.querySelector('.card-speaking');
+    if (activeCard) clearHighlights(activeCard);
+    currentSpeech = null;
   }
 
-  if (!('speechSynthesis' in window)) {
-    alert(currentLang === 'en' ? 'Text-to-speech not supported' : 'टेक्स्ट-टू-स्पीच समर्थित नहीं है');
-    return;
+  // Start new speech
+  card.classList.add('card-speaking');
+  if (button) {
+    button.classList.add('speaking');
+    button.textContent = currentLang === 'en' ? '⏸️ Stop' : '⏸️ रोकें';
   }
 
-  // Stop any ongoing speech
-  window.speechSynthesis.cancel();
-  document.querySelectorAll('.card').forEach(c => clearHighlights(c));
+  const utterances = [];
 
-  // Reset all buttons
-  document.querySelectorAll('.listen-btn').forEach(btn => {
-    btn.classList.remove('speaking');
-    btn.textContent = currentLang === 'en' ? '🔊 Listen' : '🔊 सुनें';
-  });
+  // 1. Title
+  const titleUtterance = new SpeechSynthesisUtterance(item.title);
+  titleUtterance.lang = currentLang === 'en' ? 'en-US' : 'hi-IN';
+  titleUtterance.rate = 0.9;
+  utterances.push({ u: titleUtterance, type: 'title' });
 
-  // Unified Robust Highlighting Logic (Desktop & Mobile)
-  const segments = [];
+  // 2. Do Section
+  const doText = (currentLang === 'en' ? 'Do: ' : 'करें: ') + item.do.join('. ');
+  const doUtterance = new SpeechSynthesisUtterance(doText);
+  doUtterance.lang = currentLang === 'en' ? 'en-US' : 'hi-IN';
+  doUtterance.rate = 0.9;
+  utterances.push({ u: doUtterance, type: 'do' });
 
-  // Map text to elements
-  segments.push({ text: item.title, element: card.querySelector('h2'), type: 'title' });
+  // 3. Don't Section
+  const dontText = (currentLang === 'en' ? 'Don\'t: ' : 'न करें: ') + item.dont.join('. ');
+  const dontUtterance = new SpeechSynthesisUtterance(dontText);
+  dontUtterance.lang = currentLang === 'en' ? 'en-US' : 'hi-IN';
+  dontUtterance.rate = 0.9;
+  utterances.push({ u: dontUtterance, type: 'dont' });
 
-  const doLabel = currentLang === 'en' ? 'Do' : 'करें';
-  segments.push({ text: doLabel, element: card.querySelector('h3:not(.dont)'), type: 'title' });
+  let currentIndex = 0;
 
-  const doList = card.querySelector('ul:not(.dont)');
-  item.do.forEach((text, i) => {
-    segments.push({ text, element: doList.querySelectorAll('li')[i], type: 'do' });
-  });
+  function playNext() {
+    if (currentIndex >= utterances.length) {
+      clearHighlights(card);
+      currentSpeech = null;
+      return;
+    }
 
-  const dontLabel = currentLang === 'en' ? "Don't" : 'न करें';
-  segments.push({ text: dontLabel, element: card.querySelector('h3.dont'), type: 'title' });
+    const { u, type } = utterances[currentIndex];
 
-  const dontList = card.querySelector('ul.dont');
-  item.dont.forEach((text, i) => {
-    segments.push({ text, element: dontList.querySelectorAll('li')[i], type: 'dont' });
-  });
+    // Safety check
+    if (!card.classList.contains('card-speaking')) return;
 
-  // Build character map
-  const charMap = [];
-  let charPos = 0;
-  segments.forEach(seg => {
-    const start = charPos;
-    const end = charPos + seg.text.length;
-    charMap.push({ start, end, element: seg.element, type: seg.type });
-    charPos = end + 2; // +2 for ". " separator
-  });
+    currentSpeech = u;
 
-  const doLabelFull = currentLang === 'en' ? 'What to do' : 'क्या करें';
-  const dontLabelFull = currentLang === 'en' ? 'What not to do' : 'क्या न करें';
-  const textToSpeak = `${item.title}. ${doLabelFull}: ${item.do.join('. ')}. ${dontLabelFull}: ${item.dont.join('. ')}.`;
-
-  const utterance = new SpeechSynthesisUtterance(textToSpeak);
-  utterance.lang = currentLang === 'en' ? 'en-US' : 'hi-IN';
-  utterance.rate = 0.9;
-
-  let currentHighlight = null;
-  let lastBoundaryTime = 0;
-  let fallbackInterval = null;
-
-  // Function to apply highlight
-  const applyHighlight = (element, type) => {
-    if (currentHighlight !== element) {
-      if (currentHighlight) {
-        currentHighlight.classList.remove('line-highlight-do', 'line-highlight-dont', 'line-highlight-title');
+    u.onstart = () => {
+      // Double check active state
+      if (!card.classList.contains('card-speaking')) {
+        window.speechSynthesis.cancel();
+        return;
       }
-      currentHighlight = element;
-      if (currentHighlight) {
-        const className = type === 'do' ? 'line-highlight-do' :
-          type === 'dont' ? 'line-highlight-dont' :
-            'line-highlight-title';
-        currentHighlight.classList.add(className);
 
-        // Scroll into view on mobile if needed
-        if (isMobile) {
-          currentHighlight.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
+      card.classList.remove('card-glow-do', 'card-glow-dont');
+      if (type === 'do') card.classList.add('card-glow-do');
+      if (type === 'dont') card.classList.add('card-glow-dont');
+    };
+
+    u.onend = () => {
+      // If currentSpeech is null, it means we stopped manually
+      if (currentSpeech !== u) return;
+      currentIndex++;
+      playNext();
+    };
+
+    u.onerror = (e) => {
+      console.error('Speech error', e);
+      if (currentSpeech === u) {
+        clearHighlights(card);
+        currentSpeech = null;
       }
-    }
-  };
+    };
 
-  utterance.onboundary = (event) => {
-    lastBoundaryTime = Date.now(); // Update last active time
-    if (event.name === 'word') {
-      const charIndex = event.charIndex || 0;
-      for (let i = 0; i < charMap.length; i++) {
-        if (charIndex >= charMap[i].start && charIndex < charMap[i].end) {
-          applyHighlight(charMap[i].element, charMap[i].type);
-          break;
-        }
-      }
-    }
-  };
+    window.speechSynthesis.speak(u);
+  }
 
-  // Robust Fallback: If onboundary stops firing (common on mobile), use time estimation
-  const startFallbackTimer = () => {
-    const wordsPerMinute = 130 * utterance.rate; // Approx WPM
-    const msPerChar = 60000 / (wordsPerMinute * 5); // Approx ms per char
-    let estimatedCharIndex = 0;
-    const startTime = Date.now();
-
-    fallbackInterval = setInterval(() => {
-      // Only intervene if no boundary event for 2 seconds
-      if (Date.now() - lastBoundaryTime > 2000) {
-        const elapsed = Date.now() - startTime;
-        estimatedCharIndex = Math.floor(elapsed / msPerChar);
-
-        for (let i = 0; i < charMap.length; i++) {
-          if (estimatedCharIndex >= charMap[i].start && estimatedCharIndex < charMap[i].end) {
-            applyHighlight(charMap[i].element, charMap[i].type);
-            break;
-          }
-        }
-      }
-    }, 500);
-  };
-
-  utterance.onstart = () => {
-    if (button) {
-      button.classList.add('speaking');
-      button.textContent = currentLang === 'en' ? '⏸️ Stop' : '⏸️ रोकें';
-    }
-    // Start fallback timer for mobile robustness
-    if (isMobile) {
-      startFallbackTimer();
-    }
-  };
-
-  utterance.onend = () => {
-    clearHighlights(card);
-    currentSpeech = null;
-    if (button) {
-      button.classList.remove('speaking');
-      button.textContent = currentLang === 'en' ? '🔊 Listen' : '🔊 सुनें';
-    }
-  };
-
-  utterance.onerror = () => {
-    clearHighlights(card);
-    currentSpeech = null;
-    if (button) {
-      button.classList.remove('speaking');
-      button.textContent = currentLang === 'en' ? '🔊 Listen' : '🔊 सुनें';
-    }
-  };
-
-  currentSpeech = utterance;
-  window.speechSynthesis.speak(utterance);
+  playNext();
 }
 
 function clearHighlights(card) {
@@ -306,11 +245,14 @@ function clearHighlights(card) {
     fallbackInterval = null;
   }
   if (!card) return;
-  card.classList.remove('card-speaking');
-  card.querySelectorAll('.line-highlight-do, .line-highlight-dont, .line-highlight-title').forEach(el => {
-    el.classList.remove('line-highlight-do', 'line-highlight-dont', 'line-highlight-title');
-  });
+  card.classList.remove('card-speaking', 'card-glow-do', 'card-glow-dont');
+  const btn = card.querySelector('.listen-btn');
+  if (btn) {
+    btn.classList.remove('speaking');
+    btn.textContent = currentLang === 'en' ? '🔊 Listen' : '🔊 सुनें';
+  }
 }
+
 
 function renderFooter() {
   const footer = document.getElementById('footerSection');
