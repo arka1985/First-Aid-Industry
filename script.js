@@ -194,6 +194,7 @@ function speakCard(cardId) {
 
   function playNext() {
     if (currentIndex >= utterances.length) {
+
       clearHighlights(card);
       currentSpeech = null;
       return;
