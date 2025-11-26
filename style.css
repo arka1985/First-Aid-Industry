@@ -429,3 +429,54 @@ footer .developer {
         box-shadow: 0 0 20px rgba(255, 159, 67, 0.6);
     }
 }
+
+/* Inner Subsection Glows */
+.do-section,
+.dont-section {
+    padding: 1rem;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+}
+
+.do-section.active {
+    background: rgba(52, 152, 219, 0.1);
+    box-shadow: 0 0 20px rgba(52, 152, 219, 0.3);
+    border: 2px solid rgba(52, 152, 219, 0.5);
+    animation: innerPulseBlue 2s infinite;
+}
+
+.dont-section.active {
+    background: rgba(231, 76, 60, 0.1);
+    box-shadow: 0 0 20px rgba(231, 76, 60, 0.3);
+    border: 2px solid rgba(231, 76, 60, 0.5);
+    animation: innerPulseRed 2s infinite;
+}
+
+@keyframes innerPulseBlue {
+    0% {
+        box-shadow: 0 0 15px rgba(52, 152, 219, 0.2);
+    }
+
+    50% {
+        box-shadow: 0 0 25px rgba(52, 152, 219, 0.5);
+    }
+
+    100% {
+        box-shadow: 0 0 15px rgba(52, 152, 219, 0.2);
+    }
+}
+
+@keyframes innerPulseRed {
+    0% {
+        box-shadow: 0 0 15px rgba(231, 76, 60, 0.2);
+    }
+
+    50% {
+        box-shadow: 0 0 25px rgba(231, 76, 60, 0.5);
+    }
+
+    100% {
+        box-shadow: 0 0 15px rgba(231, 76, 60, 0.2);
+    }
+}

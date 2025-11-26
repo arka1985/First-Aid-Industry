@@ -118,10 +118,14 @@ function renderCards() {
 
     card.innerHTML = `
       <h2>${item.id}. ${item.title}</h2>
-      <h3>${currentLang === 'en' ? 'Do' : 'करें'}</h3>
-      <ul>${item.do.map(point => `<li>${point}</li>`).join('')}</ul>
-      <h3 class="dont">${currentLang === 'en' ? "Don't" : 'न करें'}</h3>
-      <ul class="dont">${item.dont.map(point => `<li>${point}</li>`).join('')}</ul>
+      <div class="do-section">
+        <h3>${currentLang === 'en' ? 'Do' : 'करें'}</h3>
+        <ul>${item.do.map(point => `<li>${point}</li>`).join('')}</ul>
+      </div>
+      <div class="dont-section">
+        <h3 class="dont">${currentLang === 'en' ? "Don't" : 'न करें'}</h3>
+        <ul class="dont">${item.dont.map(point => `<li>${point}</li>`).join('')}</ul>
+      </div>
       <button class="listen-btn" onclick="speakCard(${item.id})" aria-label="${currentLang === 'en' ? 'Listen to this card' : 'इस कार्ड को सुनें'}">
         🔊 ${currentLang === 'en' ? 'Listen' : 'सुनें'}
       </button>
@@ -215,8 +219,20 @@ function speakCard(cardId) {
       }
 
       card.classList.remove('card-glow-do', 'card-glow-dont');
-      if (type === 'do') card.classList.add('card-glow-do');
-      if (type === 'dont') card.classList.add('card-glow-dont');
+      const doSection = card.querySelector('.do-section');
+      const dontSection = card.querySelector('.dont-section');
+
+      if (doSection) doSection.classList.remove('active');
+      if (dontSection) dontSection.classList.remove('active');
+
+      if (type === 'do') {
+        card.classList.add('card-glow-do');
+        if (doSection) doSection.classList.add('active');
+      }
+      if (type === 'dont') {
+        card.classList.add('card-glow-dont');
+        if (dontSection) dontSection.classList.add('active');
+      }
     };
 
     u.onend = () => {
@@ -247,6 +263,12 @@ function clearHighlights(card) {
   }
   if (!card) return;
   card.classList.remove('card-speaking', 'card-glow-do', 'card-glow-dont');
+
+  const doSection = card.querySelector('.do-section');
+  const dontSection = card.querySelector('.dont-section');
+  if (doSection) doSection.classList.remove('active');
+  if (dontSection) dontSection.classList.remove('active');
+
   const btn = card.querySelector('.listen-btn');
   if (btn) {
     btn.classList.remove('speaking');
