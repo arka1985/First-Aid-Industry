@@ -472,6 +472,202 @@ footer .developer {
         box-shadow: 0 0 15px rgba(231, 76, 60, 0.2);
     }
 
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        padding: 1rem;
+        padding-top: 4rem;
+    }
+
+    header h1 {
+        padding-right: 0;
+        margin-top: 3rem;
+    }
+
+    #emergencyBtn {
+        top: 0.5rem;
+        right: 0.5rem;
+        padding: 0.8rem 1.2rem;
+        font-size: 1rem;
+    }
+
+    .header-controls {
+        flex-direction: column;
+    }
+
+    .search-wrapper {
+        flex-direction: row;
+    }
+}
+
+@media (max-width: 480px) {
+    #cardsContainer {
+        gap: 1rem;
+    }
+
+    .card {
+        padding: 1.5rem;
+    }
+
+    footer {
+        padding: 1.5rem;
+    }
+}
+
+/* =========================================
+   SPECIAL EFFECTS & HIGHLIGHTING
+   ========================================= */
+
+/* Base Card Speaking State (General Glow) */
+.card-speaking {
+    border-left: 5px solid var(--accent) !important;
+    box-shadow: 0 0 30px rgba(72, 201, 176, 0.6), 0 8px 32px rgba(31, 38, 135, 0.2) !important;
+    animation: cardPulse 2s ease-in-out infinite !important;
+}
+
+@keyframes cardPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 30px rgba(72, 201, 176, 0.6), 0 8px 32px rgba(31, 38, 135, 0.2);
+    }
+
+    50% {
+        box-shadow: 0 0 45px rgba(72, 201, 176, 0.8), 0 12px 40px rgba(31, 38, 135, 0.3);
+    }
+}
+
+/* Section-Based Card Glow (Overrides General Glow) */
+.card-glow-do {
+    border-left: 5px solid var(--do-blue) !important;
+    box-shadow: 0 0 30px rgba(52, 152, 219, 0.6), 0 8px 32px rgba(31, 38, 135, 0.2) !important;
+    animation: pulseBlue 2s infinite !important;
+}
+
+.card-glow-dont {
+    border-left: 5px solid var(--dont-red) !important;
+    box-shadow: 0 0 30px rgba(231, 76, 60, 0.6), 0 8px 32px rgba(31, 38, 135, 0.2) !important;
+    animation: pulseRed 2s infinite !important;
+}
+
+@keyframes pulseBlue {
+    0% {
+        box-shadow: 0 0 20px rgba(52, 152, 219, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 40px rgba(52, 152, 219, 0.8);
+    }
+
+    100% {
+        box-shadow: 0 0 20px rgba(52, 152, 219, 0.4);
+    }
+}
+
+@keyframes pulseRed {
+    0% {
+        box-shadow: 0 0 20px rgba(231, 76, 60, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 40px rgba(231, 76, 60, 0.8);
+    }
+
+    100% {
+        box-shadow: 0 0 20px rgba(231, 76, 60, 0.4);
+    }
+}
+
+/* Active Listen Button - Orange Pulse */
+.listen-btn.speaking {
+    background: linear-gradient(135deg, #ff9f43, #ee5253) !important;
+    box-shadow: 0 0 20px rgba(255, 159, 67, 0.6) !important;
+    animation: btnPulse 1.5s infinite;
+    color: white !important;
+}
+
+@keyframes btnPulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 20px rgba(255, 159, 67, 0.6);
+    }
+
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 30px rgba(255, 159, 67, 0.8);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 20px rgba(255, 159, 67, 0.6);
+    }
+}
+
+/* Inner Subsection Glows */
+.do-section,
+.dont-section {
+    padding: 1rem;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+}
+
+.do-section.active {
+    background: rgba(52, 152, 219, 0.1);
+    box-shadow: 0 0 20px rgba(52, 152, 219, 0.3);
+    border: 2px solid rgba(52, 152, 219, 0.5);
+    animation: innerPulseBlue 2s infinite;
+}
+
+.dont-section.active {
+    background: rgba(231, 76, 60, 0.1);
+    box-shadow: 0 0 20px rgba(231, 76, 60, 0.3);
+    border: 2px solid rgba(231, 76, 60, 0.5);
+    animation: innerPulseRed 2s infinite;
+}
+
+@keyframes innerPulseBlue {
+    0% {
+        box-shadow: 0 0 15px rgba(52, 152, 219, 0.2);
+    }
+
+    50% {
+        box-shadow: 0 0 25px rgba(52, 152, 219, 0.5);
+    }
+
+    100% {
+        box-shadow: 0 0 15px rgba(52, 152, 219, 0.2);
+    }
+}
+
+@keyframes innerPulseRed {
+    0% {
+        box-shadow: 0 0 15px rgba(231, 76, 60, 0.2);
+    }
+
     50% {
         box-shadow: 0 0 25px rgba(231, 76, 60, 0.5);
     }
@@ -479,4 +675,29 @@ footer .developer {
     100% {
         box-shadow: 0 0 15px rgba(231, 76, 60, 0.2);
     }
+}
+
+/* Card Icon */
+.card-icon {
+    font-size: 1.5rem;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+}
+
+/* Install Section */
+footer .install-section {
+    text-align: left;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid var(--secondary);
+}
+
+footer .install-section h3 {
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+
+footer .install-section p {
+    margin-bottom: 0.5rem;
+    color: var(--text-light);
 }
