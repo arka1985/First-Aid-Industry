@@ -121,8 +121,9 @@ header h1 {
     color: var(--text-dark);
     font-size: clamp(1.4rem, 5vw, 2.4rem);
     margin-bottom: 1.5rem;
-    letter-spacing: -0.02em;
-    line-height: 1.2;
+    letter-spacing: 0.05em;
+    /* Adjusted Spacing */
+    line-height: 1.3;
 }
 
 .header-controls {
@@ -136,32 +137,6 @@ header h1 {
 }
 
 
-#langToggle {
-    background: var(--glass-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border);
-    color: var(--text-dark);
-    padding: 0.6rem 1.2rem;
-    font-size: 0.95rem;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-weight: 600;
-    font-family: var(--font-heading);
-    box-shadow: var(--glass-shadow);
-}
-
-#langToggle:hover {
-    background: var(--primary);
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 15px var(--primary-glow);
-    border-color: transparent;
-}
-
-
-/* Bhashini Plugin Specific Styling */
 /* Bhashini Plugin Specific Styling */
 .bhashini-plugin-container {
     min-width: 140px;
@@ -185,6 +160,7 @@ header h1 {
     font-weight: 700;
     color: var(--text-dark);
     font-family: var(--font-heading);
+    letter-spacing: 0.03em;
 }
 
 .bhashini-plugin-container:hover {
@@ -221,42 +197,19 @@ header h1 {
     background: rgba(240, 244, 248, 0.6);
     color: var(--text-dark);
     transition: all 0.3s ease;
+    letter-spacing: 0.02em;
 }
 
 #searchInput:focus {
     background: rgba(255, 255, 255, 0.9);
 }
 
-#voiceSearchBtn {
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: white;
-    border: none;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.3rem;
-    box-shadow: 0 5px 15px var(--primary-glow);
-}
-
-#voiceSearchBtn:hover {
-    transform: scale(1.1) rotate(5deg);
-}
-
-#voiceSearchBtn.listening {
-    background: var(--dont-red);
-    animation: heartBeat 1.5s infinite;
-}
-
 /* Cards Grid */
 #cardsContainer {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2rem;
+    gap: 2.5rem;
+    /* Increased spacing between cards */
     max-width: 1400px;
     margin: 0 auto;
 }
@@ -274,6 +227,8 @@ header h1 {
     flex-direction: column;
     position: relative;
     overflow: hidden;
+    line-height: 1.8;
+    /* Adjusted line spacing */
 }
 
 .card::before {
@@ -303,17 +258,20 @@ header h1 {
     gap: 0.8rem;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     padding-bottom: 1rem;
+    letter-spacing: 0.05em;
+    /* Adjusted Spacing */
 }
 
 .card h3 {
     font-family: var(--font-heading);
     color: var(--do-blue);
     font-size: 1.1rem;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.2rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.08em;
+    /* Adjusted Spacing */
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -335,11 +293,14 @@ header h1 {
 
 .card li {
     color: var(--text-muted);
-    margin-bottom: 0.8rem;
+    margin-bottom: 1rem;
+    /* Increased spacing between points */
     padding-left: 1.8rem;
     position: relative;
-    font-size: 0.95rem;
+    font-size: 1rem;
     font-weight: 500;
+    letter-spacing: 0.02em;
+    /* Adjusted Spacing */
 }
 
 .card li::before {
@@ -348,44 +309,12 @@ header h1 {
     left: 0;
     color: var(--do-blue);
     font-weight: 900;
-    font-size: 1rem;
+    font-size: 1.1rem;
 }
 
 .card .dont li::before {
     content: "✕";
     color: var(--dont-red);
-}
-
-/* Listen Button */
-.listen-btn {
-    background: rgba(79, 172, 254, 0.1);
-    color: var(--primary);
-    border: 1px solid var(--primary-glow);
-    padding: 0.8rem 1.8rem;
-    font-size: 0.95rem;
-    border-radius: 50px;
-    margin-top: auto;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-weight: 700;
-    font-family: var(--font-heading);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-}
-
-.listen-btn:hover {
-    background: var(--primary);
-    color: white;
-    box-shadow: 0 8px 20px var(--primary-glow);
-    transform: translateY(-2px);
-}
-
-.listen-btn.speaking {
-    background: var(--dont-red);
-    color: white;
-    border-color: transparent;
 }
 
 /* Footer & Sections */
@@ -414,6 +343,8 @@ footer h3 {
     font-size: 1.3rem;
     position: relative;
     padding-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+    /* Adjusted Spacing */
 }
 
 footer h3::after {
@@ -429,8 +360,12 @@ footer h3::after {
 
 footer p {
     color: var(--text-muted);
-    margin-bottom: 1rem;
-    font-size: 0.95rem;
+    margin-bottom: 1.2rem;
+    font-size: 1rem;
+    letter-spacing: 0.01em;
+    /* Adjusted Spacing */
+    line-height: 1.7;
+    /* Adjusted Line spacing */
 }
 
 .developer {
@@ -472,28 +407,6 @@ footer p {
     }
 }
 
-@keyframes heartBeat {
-    0% {
-        transform: scale(1);
-    }
-
-    14% {
-        transform: scale(1.1);
-    }
-
-    28% {
-        transform: scale(1);
-    }
-
-    42% {
-        transform: scale(1.1);
-    }
-
-    70% {
-        transform: scale(1);
-    }
-}
-
 /* Responsive Scaling */
 @media (max-width: 768px) {
     body {
@@ -512,58 +425,8 @@ footer p {
         gap: 0.5rem;
     }
 
-    #langToggle {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.8rem;
-    }
-
     .bhashini-plugin-container {
         padding: 0.4rem 0.8rem;
         font-size: 0.8rem;
     }
-}
-
-/* Speaking State Enhancements */
-.card-speaking {
-    border: 2px solid var(--primary) !important;
-    background: rgba(255, 255, 255, 0.8) !important;
-    animation: glowPulse 2s infinite !important;
-}
-
-.card-glow-do {
-    border-left: 6px solid var(--do-blue) !important;
-    box-shadow: 0 0 20px rgba(52, 152, 219, 0.3) !important;
-}
-
-.card-glow-dont {
-    border-left: 6px solid var(--dont-red) !important;
-    box-shadow: 0 0 20px rgba(255, 71, 87, 0.3) !important;
-}
-
-@keyframes glowPulse {
-    0% {
-        box-shadow: 0 0 20px rgba(79, 172, 254, 0.2);
-    }
-
-    50% {
-        box-shadow: 0 0 40px rgba(79, 172, 254, 0.5);
-    }
-
-    100% {
-        box-shadow: 0 0 20px rgba(79, 172, 254, 0.2);
-    }
-}
-
-.do-section.active {
-    background: rgba(52, 152, 219, 0.08);
-    border-radius: 12px;
-    padding: 0.5rem;
-    border-left: 3px solid var(--do-blue);
-}
-
-.dont-section.active {
-    background: rgba(255, 71, 87, 0.08);
-    border-radius: 12px;
-    padding: 0.5rem;
-    border-left: 3px solid var(--dont-red);
 }
