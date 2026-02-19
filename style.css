@@ -74,36 +74,50 @@ body::after {
     }
 }
 
-/* Fixed Emergency Button */
-#emergencyBtn {
+/* Fixed Button Bar */
+.header-controls {
     position: fixed;
-    top: 1.5rem;
-    right: 1.5rem;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    gap: 0.8rem;
+    z-index: 2000;
+    /* Higher than header */
+    align-items: center;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    padding: 0.4rem 0.8rem;
+    border-radius: 50px;
+    box-shadow: var(--glass-shadow);
+}
+
+#emergencyBtn {
     background: linear-gradient(135deg, #ff4757, #ff6b81);
     color: white;
     border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 0.8rem 1.5rem;
+    padding: 0.5rem 1rem;
     font-family: var(--font-heading);
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     font-weight: 700;
     border-radius: 50px;
     cursor: pointer;
-    box-shadow: 0 10px 20px rgba(255, 71, 87, 0.3);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    z-index: 1001;
-    backdrop-filter: blur(5px);
+    box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3);
+    transition: all 0.4s ease;
+    white-space: nowrap;
 }
 
 #emergencyBtn:hover {
-    transform: scale(1.05) translateY(-3px);
-    box-shadow: 0 15px 30px rgba(255, 71, 87, 0.5);
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(255, 71, 87, 0.5);
 }
 
 /* Header & Glass Effect */
 header {
     text-align: center;
     margin-bottom: 3rem;
-    padding: 2rem;
+    padding: 2.5rem 2rem;
     background: var(--glass-bg);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
@@ -111,31 +125,23 @@ header {
     border: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow);
     max-width: 1000px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto 3rem;
+    /* Perfect Centering */
     animation: fadeIn 1s ease-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 header h1 {
     font-family: var(--font-heading);
     color: var(--text-dark);
     font-size: clamp(1.4rem, 5vw, 2.4rem);
-    margin-bottom: 1.5rem;
     letter-spacing: 0.05em;
-    /* Adjusted Spacing */
     line-height: 1.3;
     text-align: center;
-    /* Forced Central Alignment */
-}
-
-.header-controls {
-    position: fixed;
-    top: 1.5rem;
-    right: 8.5rem;
-    display: flex;
-    gap: 1rem;
-    z-index: 1001;
-    align-items: center;
+    width: 100%;
+    margin: 0;
 }
 
 
