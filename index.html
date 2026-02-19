@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evidence-Based First Aid Guidelines</title>
+
+  <!-- PWA Meta Tags -->
+  <meta name="description" content="Evidence-based first aid guidelines for common medical emergencies at workplace">
+  <meta name="theme-color" content="#dc143c">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="First Aid">
+
+  <!-- App Icons -->
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png">
+
+  <!-- Web App Manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Fixed Emergency Button -->
+  <button id="emergencyBtn" onclick="dialEmergency()">🚨 112</button>
+
+  <div class="header-controls">
+    <div class="bhashini-plugin-container"></div>
+    <button id="langToggle" onclick="toggleLanguage()">हिन्दी</button>
+  </div>
+  <h1 id="mainTitle">EVIDENCE-BASED GUIDELINES OF FIRST AID FOR COMMON MEDICAL EMERGENCIES AT WORKPLACE</h1>
+  </header>
+
+
+  <div class="search-container">
+    <div class="search-wrapper">
+      <input type="text" id="searchInput" placeholder="Search for first aid topics..." oninput="searchCards()">
+      <button id="voiceSearchBtn" onclick="startVoiceSearch()" title="Voice Search">🎤</button>
+    </div>
+  </div>
+
+  <main id="cardsContainer"></main>
+
+  <footer id="footerSection"></footer>
+
+  <script src="script.js"></script>
+  <!-- Bhashini Translation Plugin -->
+  <script src="https://translation-plugin.bhashini.co.in/v3/website_translation_utility.js"></script>
+</body>
+
+</html>

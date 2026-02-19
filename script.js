@@ -1,0 +1,474 @@
+const titles = {
+  en: 'EVIDENCE-BASED GUIDELINES OF FIRST AID FOR COMMON MEDICAL EMERGENCIES AT WORKPLACE',
+  hi: 'कार्यस्थल पर सामान्य चिकित्सा आपात स्थितियों के लिए प्रथम चिकित्सा के साक्ष्य-आधारित दिशानिर्देश'
+};
+
+
+const firstAidData = {
+  en: [
+    { id: 1, icon: '🚑', title: 'ABDOMINAL INJURY', do: ['Ask for Help', 'Keep person lying down', 'Cover wound with clean cloth', 'Call emergency services', 'Monitor breathing', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't give food or water", "Don't push organs back", "Don't remove embedded objects", "Don't apply pressure directly on wound"] },
+    { id: 2, icon: '✂️', title: 'AMPUTATION', do: ['Ask for Help', 'Control bleeding with direct pressure', 'Preserve amputated part in clean bag', 'Keep part cool (not frozen)', 'Get immediate medical help', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't place part directly on ice", "Don't wash the amputated part", "Don't try to reattach yourself", "Don't delay emergency call"] },
+    { id: 3, icon: '🏔️', title: 'ALTITUDE SICKNESS', do: ['Ask for Help', 'Descend to lower altitude immediately', 'Rest and hydrate', 'Give oxygen if available', 'Seek medical attention', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't continue ascending", "Don't ignore symptoms", "Don't give alcohol", "Don't leave person alone"] },
+    { id: 4, icon: '🐝', title: 'ANAPHYLAXIS', do: ['Ask for Help', 'Use EpiPen if available', 'Call 112 immediately', 'Lay person flat', 'Monitor breathing continuously', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't give oral medication", "Don't make person sit up", "Don't delay emergency call", "Don't leave person unattended"] },
+    { id: 5, icon: '🦴', title: 'BACKBONE/SPINAL INJURY', do: ['Ask for Help', 'Keep person still', 'Support head and neck', 'Call emergency services', 'Cover with blanket', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't move the person", "Don't twist or bend spine", "Don't remove helmet if present", "Don't give food or drink"] },
+    { id: 6, icon: '👂', title: 'BLEEDING FROM EAR', do: ['Ask for Help', 'Tilt head to bleeding side', 'Cover with sterile pad loosely', 'Seek immediate medical help', 'Keep person calm', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't block the ear canal", "Don't put anything inside ear", "Don't tilt head backward", "Don't ignore head injury signs"] },
+    { id: 7, icon: '👃', title: 'BLEEDING FROM NOSE', do: ['Ask for Help', 'Sit upright, lean forward', 'Pinch soft part of nose', 'Apply cold compress', 'Breathe through mouth', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't tilt head backward", "Don't lie down flat", "Don't pack nose with cotton", "Don't blow nose forcefully"] },
+    { id: 8, icon: '🩸', title: 'BLEEDING FROM WOUND', do: ['Ask for Help', 'Apply direct pressure', 'Elevate injured part', 'Use clean cloth/bandage', 'Call for help if severe', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't remove embedded objects", "Don't use tourniquet unnecessarily", "Don't peek at wound repeatedly", "Don't apply ice directly"] },
+    { id: 9, icon: '🔥', title: 'BURN', do: ['Ask for Help', 'Cool with running water 10-20 min', 'Cover with clean cloth', 'Remove jewelry before swelling', 'Seek medical help', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't apply ice directly", "Don't break blisters", "Don't use oil/butter/toothpaste", "Don't peel off stuck clothing"] },
+    { id: 10, icon: '🧪', title: 'CHEMICAL BURN', do: ['Ask for Help', 'Flush with water 20+ minutes', 'Remove contaminated clothing', 'Cover loosely', 'Call poison control', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't try to neutralize chemical", "Don't apply ointments", "Don't use hot water", "Don't rub the area"] },
+    { id: 11, icon: '🫁', title: 'BREATHING DIFFICULTIES', do: ['Ask for Help', 'Help person sit upright', 'Loosen tight clothing', 'Encourage slow breathing', 'Call emergency if severe', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't make person lie flat", "Don't give food or drink", "Don't leave person alone", "Don't ignore worsening symptoms"] },
+    { id: 12, icon: '💔', title: 'CHEST PAIN', do: ['Ask for Help', 'Help person rest', 'Loosen tight clothing', 'Call 112 immediately', 'Give aspirin if no allergy', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't ignore the pain", "Don't give food or water", "Don't allow physical activity", "Don't delay emergency call"] },
+    { id: 13, icon: '🤢', title: 'CHOKING', do: ['Ask for Help', 'Encourage coughing', 'Give 5 back blows', 'Perform abdominal thrusts', 'Call 112 if unconscious', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't slap on back while upright", "Don't put fingers in mouth blindly", "Don't give water", "Don't stop if person can speak"] },
+    { id: 14, icon: '⚡', title: 'CONVULSION/SEIZURE', do: ['Ask for Help', 'Protect from injury', 'Time the seizure', 'Turn on side after seizure', 'Stay with person', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't restrain movements", "Don't put anything in mouth", "Don't give water during seizure", "Don't leave person alone"] },
+    { id: 15, icon: '🔪', title: 'CUT INJURY', do: ['Ask for Help', 'Wash hands first', 'Apply direct pressure', 'Clean with water', 'Cover with sterile dressing', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't touch wound with dirty hands", "Don't remove embedded objects", "Don't use cotton directly", "Don't ignore infection signs"] },
+    { id: 16, icon: '💓', title: 'CPR', do: ['Ask for Help', 'Call 112 first', 'Push hard and fast (100 to 120/min)', 'Allow full chest recoil', 'Continue until help arrives'], dont: ["Don't stop compressions unnecessarily", "Don't compress too slowly", "Don't interrupt for more than 10 sec", "Don't give up too early"] },
+    { id: 17, icon: '🔋', title: 'CPR WITH AED', do: ['Ask for Help', 'Turn on AED', 'Follow voice prompts', 'Ensure no one touches patient', 'Resume CPR after shock'], dont: ["Don't touch patient during analysis", "Don't use on wet surface", "Don't delay CPR for AED", "Don't remove pads between shocks"] },
+    { id: 18, icon: '💧', title: 'DEHYDRATION', do: ['Ask for Help', 'Give water/ORS slowly', 'Move to cool place', 'Rest in shade', 'Monitor condition', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't give large amounts quickly", "Don't give alcohol/caffeine", "Don't continue physical activity", "Don't ignore severe symptoms"] },
+    { id: 19, icon: '🐕', title: 'DOG/ANIMAL BITE', do: ['Ask for Help', 'Wash wound thoroughly', 'Control bleeding', 'Seek medical attention', 'Report to authorities', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't ignore minor bites", "Don't apply tight bandage", "Don't delay rabies consultation", "Don't provoke the animal further"] },
+    { id: 20, icon: '🌊', title: 'DROWNING', do: ['Ask for Help', 'Remove from water safely', 'Start CPR if needed', 'Call 112 immediately', 'Keep warm', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't attempt rescue without training", "Don't try to drain water from lungs", "Don't delay CPR", "Don't leave person alone"] },
+    { id: 21, icon: '👁️', title: 'EYE INJURY', do: ['Ask for Help', 'Flush with clean water 15+ min', 'Keep eyelids open while flushing', 'Cover with clean pad', 'Seek medical care immediately', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't rub the eye", "Don't use chemicals", "Don't remove embedded objects", "Don't delay medical help"] },
+    { id: 22, icon: '🔌', title: 'ELECTRIC SHOCK', do: ['Ask for Help', 'Turn off power source', 'Use non-conductive material', 'Check breathing and pulse', 'Call 112 immediately', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't touch victim while energized", "Don't use wet materials", "Don't move unless necessary", "Don't delay calling help"] },
+    { id: 23, icon: '😵', title: 'FAINTING', do: ['Ask for Help', 'Lay person flat', 'Elevate legs', 'Loosen tight clothing', 'Check breathing', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't give food/water immediately", "Don't slap or shake person", "Don't make person sit up quickly", "Don't ignore if happens repeatedly"] },
+    { id: 24, icon: '🌡️', title: 'FEVER', do: ['Ask for Help', 'Give fluids', 'Use cool compress', 'Rest in cool room', 'Monitor temperature', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't bundle up in blankets", "Don't give aspirin to children", "Don't ignore high fever", "Don't use alcohol rubs"] },
+    { id: 25, icon: '❄️', title: 'FROSTBITE', do: ['Ask for Help', 'Move to warm area', 'Warm gradually with body heat', 'Protect affected area', 'Seek medical help', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't rub the area", "Don't use direct heat", "Don't break blisters", "Don't walk on frostbitten feet"] },
+    { id: 26, icon: '🤕', title: 'HEAD INJURY', do: ['Ask for Help', 'Keep person still', 'Apply ice pack', 'Monitor consciousness', 'Call 112 if severe', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't move person unnecessarily", "Don't give medications", "Don't allow to sleep immediately", "Don't ignore worsening symptoms"] },
+    { id: 27, icon: '☀️', title: 'HEAT STROKE', do: ['Ask for Help', 'Move to cool place', 'Remove excess clothing', 'Cool body rapidly', 'Call 112', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't give alcohol", "Don't give medications", "Don't leave person alone"] },
+    { id: 28, icon: '🍬', title: 'HYPOGLYCEMIA', do: ['Ask for Help', 'Give sugar/juice if conscious', 'Recheck after 15 minutes', 'Give complex carbs after', 'Monitor closely', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't give insulin", "Don't give food if unconscious", "Don't ignore symptoms", "Don't leave person alone"] },
+    { id: 29, icon: '☠️', title: 'POISONING', do: ['Ask for Help', 'Call poison control', 'Keep container/substance', 'Follow expert instructions', 'Monitor breathing', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't induce vomiting", "Don't give neutralizing agents", "Don't wait to see symptoms", "Don't give activated charcoal without advice"] },
+    { id: 30, icon: '🐍', title: 'SNAKE BITE', do: ['Ask for Help', 'Keep calm and still', 'Remove jewelry/tight items', 'Mark swelling progression', 'Get to hospital immediately', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't apply tourniquet", "Don't cut the wound", "Don't suck out venom", "Don't apply ice"] },
+    { id: 31, icon: '🧠', title: 'STROKE', do: ['Ask for Help', 'Note time of symptoms', 'Call 112 immediately', 'Keep person comfortable', 'Monitor breathing', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't give food or drink", "Don't give medications", "Don't delay emergency call", "Don't leave person alone"] },
+    { id: 32, icon: '☣️', title: 'TOXIC CHEMICAL CONTACT', do: ['Ask for Help', 'Remove from exposure', 'Remove contaminated clothing', 'Flush skin with water 20+ min', 'Call poison control', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't use neutralizing agents", "Don't rub the area", "Don't apply ointments", "Don't delay decontamination"] },
+    { id: 33, icon: '🌫️', title: 'TOXIC GAS INHALATION', do: ['Ask for Help', 'Move to fresh air', 'Loosen tight clothing', 'Monitor breathing', 'Call 112', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't enter contaminated area without protection", "Don't give anything by mouth", "Don't delay evacuation", "Don't ignore mild symptoms"] },
+    { id: 34, icon: '🦵', title: 'TRAUMA TO JOINTS/BONE', do: ['Ask for Help', 'Immobilize the area', 'Apply ice pack', 'Elevate if possible', 'Seek medical attention', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't try to realign bones", "Don't apply heat initially", "Don't move injured part", "Don't ignore severe pain"] },
+    { id: 35, icon: '🐜', title: 'INSECT BITE/STING', do: ['Ask for Help', 'Remove stinger if present', 'Wash with soap and water', 'Apply cold compress', 'Watch for allergic reaction', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't squeeze stinger", "Don't apply heat", "Don't scratch the area", "Don't ignore swelling"] },
+  ],
+  hi: [
+    { id: 1, icon: '🩹', title: 'पेट की चोट', do: ['व्यक्ति को लेटा कर रखें', 'घाव को साफ कपड़े से ढकें', 'आपातकालीन सेवाओं को बुलाएं', 'सांस की निगरानी करें'], dont: ['खाना या पानी न दें', 'अंगों को वापस न धकेलें', 'धंसी वस्तुओं को न निकालें', 'घाव पर सीधा दबाव न डालें'] },
+    { id: 2, icon: '✂️', title: 'अंग विच्छेदन', do: ['सीधे दबाव से रक्तस्राव नियंत्रित करें', 'कटे अंग को साफ थैले में रखें', 'अंग को ठंडा रखें (जमे नहीं)', 'तुरंत चिकित्सा सहायता लें'], dont: ['अंग को सीधे बर्फ पर न रखें', 'कटे अंग को न धोएं', 'खुद जोड़ने की कोशिश न करें', 'आपातकालीन कॉल में देरी न करें'] },
+    { id: 3, icon: '🏔️', title: 'ऊंचाई की बीमारी', do: ['तुरंत नीची ऊंचाई पर उतरें', 'आराम करें और पानी पिएं', 'उपलब्ध हो तो ऑक्सीजन दें', 'चिकित्सा सहायता लें'], dont: ['ऊपर चढ़ना जारी न रखें', 'लक्षणों को नज़रअंदाज़ न करें', 'शराब न दें', 'व्यक्ति को अकेला न छोड़ें'] },
+    { id: 4, icon: '🐝', title: 'एनाफिलेक्सिस', do: ['उपलब्ध हो तो एपिपेन का उपयोग करें', 'तुरंत 112 पर कॉल करें', 'व्यक्ति को सपाट लिटाएं', 'सांस की लगातार निगरानी करें'], dont: ['मौखिक दवा न दें', 'व्यक्ति को बैठाएं नहीं', 'आपातकालीन कॉल में देरी न करें', 'व्यक्ति को अकेला न छोड़ें'] },
+    { id: 5, icon: '🦴', title: 'रीढ़ की हड्डी की चोट', do: ['व्यक्ति को स्थिर रखें', 'सिर और गर्दन को सहारा दें', 'आपातकालीन सेवाओं को बुलाएं', 'कंबल से ढकें'], dont: ['व्यक्ति को न हिलाएं', 'रीढ़ को मोड़ें या घुमाएं नहीं', 'हेलमेट न हटाएं', 'खाना या पीना न दें'] },
+    { id: 6, icon: '👂', title: 'कान से खून बहना', do: ['सिर को खून बहने वाली तरफ झुकाएं', 'स्टेराइल पैड से ढीला ढकें', 'तुरंत चिकित्सा सहायता लें', 'व्यक्ति को शांत रखें'], dont: ['कान की नली को ब्लॉक न करें', 'कान के अंदर कुछ न डालें', 'सिर को पीछे न झुकाएं', 'सिर की चोट के संकेतों को नज़रअंदाज़ न करें'] },
+    { id: 7, icon: '👃', title: 'नाक से खून बहना', do: ['सीधे बैठें, आगे झुकें', 'नाक के नरम हिस्से को दबाएं', 'ठंडा सेक लगाएं', 'मुंह से सांस लें'], dont: ['सिर को पीछे न झुकाएं', 'सपाट न लेटें', 'नाक में रुई न भरें', 'जोर से नाक न साफ करें'] },
+    { id: 8, icon: '🩸', title: 'घाव से खून बहना', do: ['सीधा दबाव डालें', 'घायल हिस्से को ऊपर उठाएं', 'साफ कपड़ा/पट्टी का उपयोग करें', 'गंभीर हो तो मदद बुलाएं'], dont: ['धंसी वस्तुओं को न निकालें', 'अनावश्यक टूर्निकेट न लगाएं', 'बार-बार घाव न देखें', 'सीधे बर्फ न लगाएं'] },
+    { id: 9, icon: '🔥', title: 'जलन', do: ['10-20 मिनट बहते पानी से ठंडा करें', 'साफ कपड़े से ढकें', 'सूजन से पहले गहने हटाएं', 'चिकित्सा सहायता लें'], dont: ['सीधे बर्फ न लगाएं', 'ब्लिस्टर न फोड़ें', 'तेल/मक्खन/टूथपेस्ट न लगाएं', 'चिपके कपड़े न उतारें'] },
+    { id: 10, icon: '🧪', title: 'रासायनिक जलन', do: ['20+ मिनट पानी से धोएं', 'दूषित कपड़े हटाएं', 'ढीला ढकें', 'जहर नियंत्रण को कॉल करें'], dont: ['रसायन को बेअसर करने की कोशिश न करें', 'मलहम न लगाएं', 'गर्म पानी का उपयोग न करें', 'क्षेत्र को न रगड़ें'] },
+    { id: 11, icon: '🫁', title: 'सांस लेने में कठिनाई', do: ['व्यक्ति को सीधा बैठने में मदद करें', 'तंग कपड़े ढीले करें', 'धीमी सांस लेने के लिए प्रोत्साहित करें', 'गंभीर हो तो आपातकालीन कॉल करें'], dont: ['व्यक्ति को सपाट न लिटाएं', 'खाना या पीना न दें', 'व्यक्ति को अकेला न छोड़ें', 'बिगड़ते लक्षणों को नज़रअंदाज़ न करें'] },
+    { id: 12, icon: '💔', title: 'सीने में दर्द', do: ['व्यक्ति को आराम करने में मदद करें', 'तंग कपड़े ढीले करें', 'तुरंत 112 पर कॉल करें', 'एलर्जी न हो तो एस्पिरिन दें'], dont: ['दर्द को नज़रअंदाज़ न करें', 'खाना या पानी न दें', 'शारीरिक गतिविधि की अनुमति न दें', 'आपातकालीन कॉल में देरी न करें'] },
+    { id: 13, icon: '🤢', title: 'घुटन', do: ['खांसने के लिए प्रोत्साहित करें', '5 पीठ पर थपकी दें', 'पेट पर दबाव डालें', 'बेहोश हो तो 112 पर कॉल करें'], dont: ['सीधे खड़े होने पर पीठ पर थपकी न दें', 'मुंह में आंख बंद करके उंगली न डालें', 'पानी न दें', 'बोल सकते हैं तो न रुकें'] },
+    { id: 14, icon: '⚡', title: 'दौरा/मिर्गी', do: ['चोट से बचाएं', 'दौरे का समय नोट करें', 'दौरे के बाद करवट दिलाएं', 'व्यक्ति के साथ रहें'], dont: ['हरकतों को रोकें नहीं', 'मुंह में कुछ न डालें', 'दौरे के दौरान पानी न दें', 'व्यक्ति को अकेला न छोड़ें'] },
+    { id: 15, icon: '🔪', title: 'कट की चोट', do: ['पहले हाथ धोएं', 'सीधा दबाव डालें', 'पानी से साफ करें', 'स्टेराइल ड्रेसिंग से ढकें'], dont: ['गंदे हाथों से घाव न छुएं', 'धंसी वस्तुओं को न निकालें', 'सीधे रुई का उपयोग न करें', 'संक्रमण के संकेतों को नज़रअंदाज़ न करें'] },
+    { id: 16, icon: '💓', title: 'सीपीआर', do: ['पहले 112 पर कॉल करें', 'जोर से और तेज दबाएं (100-120/मिनट)', 'पूर्ण छाती रिकॉइल की अनुमति दें', 'मदद आने तक जारी रखें'], dont: ['अनावश्यक रूप से कंप्रेशन न रोकें', 'बहुत धीरे न दबाएं', '10 सेकंड से अधिक न रुकें', 'बहुत जल्दी हार न मानें'] },
+    { id: 17, icon: '🔋', title: 'एईडी के साथ सीपीआर', do: ['एईडी चालू करें', 'आवाज संकेतों का पालन करें', 'सुनिश्चित करें कि कोई रोगी को न छुए', 'झटके के बाद सीपीआर फिर से शुरू करें'], dont: ['विश्लेषण के दौरान रोगी को न छुएं', 'गीली सतह पर उपयोग न करें', 'एईडी के लिए सीपीआर में देरी न करें', 'झटके के बीच पैड न हटाएं'] },
+    { id: 18, icon: '💧', title: 'निर्जलीकरण', do: ['धीरे-धीरे पानी/ओआरएस दें', 'ठंडी जगह पर ले जाएं', 'छाया में आराम करें', 'स्थिति की निगरानी करें'], dont: ['जल्दी बड़ी मात्रा न दें', 'शराब/कैफीन न दें', 'शारीरिक गतिविधि जारी न रखें', 'गंभीर लक्षणों को नज़रअंदाज़ न करें'] },
+    { id: 19, icon: '🐕', title: 'कुत्ते/जानवर का काटना', do: ['घाव को अच्छी तरह धोएं', 'रक्तस्राव नियंत्रित करें', 'चिकित्सा सहायता लें', 'अधिकारियों को रिपोर्ट करें'], dont: ['मामूली काटने को नज़रअंदाज़ न करें', 'तंग पट्टी न लगाएं', 'रेबीज परामर्श में देरी न करें', 'जानवर को और उकसाएं नहीं'] },
+    { id: 20, icon: '🌊', title: 'डूबना', do: ['सुरक्षित रूप से पानी से निकालें', 'जरूरत हो तो सीपीआर शुरू करें', 'तुरंत 112 पर कॉल करें', 'गर्म रखें'], dont: ['बिना प्रशिक्षण के बचाव का प्रयास न करें', 'फेफड़ों से पानी निकालने की कोशिश न करें', 'सीपीआर में देरी न करें', 'व्यक्ति को अकेला न छोड़ें'] },
+    { id: 21, icon: '👁️', title: 'आंख की चोट', do: ['15+ मिनट साफ पानी से धोएं', 'धोते समय पलकें खुली रखें', 'साफ पैड से ढकें', 'तुरंत चिकित्सा सहायता लें'], dont: ['आंख को न रगड़ें', 'रसायनों का उपयोग न करें', 'धंसी वस्तुओं को न निकालें', 'चिकित्सा सहायता में देरी न करें'] },
+    { id: 22, icon: '🔌', title: 'बिजली का झटका', do: ['बिजली का स्रोत बंद करें', 'गैर-प्रवाहकीय सामग्री का उपयोग करें', 'सांस और नाड़ी की जांच करें', 'तुरंत 112 पर कॉल करें'], dont: ['ऊर्जावान होने पर पीड़ित को न छुएं', 'गीली सामग्री का उपयोग न करें', 'आवश्यक न हो तो न हिलाएं', 'मदद बुलाने में देरी न करें'] },
+    { id: 23, icon: '😵', title: 'बेहोशी', do: ['व्यक्ति को सपाट लिटाएं', 'पैर ऊपर उठाएं', 'तंग कपड़े ढीले करें', 'सांस की जांच करें'], dont: ['तुरंत खाना/पानी न दें', 'व्यक्ति को थप्पड़ या हिलाएं नहीं', 'व्यक्ति को जल्दी बैठाएं नहीं', 'बार-बार होने पर नज़रअंदाज़ न करें'] },
+    { id: 24, icon: '🌡️', title: 'बुखार', do: ['तरल पदार्थ दें', 'ठंडा सेक लगाएं', 'ठंडे कमरे में आराम करें', 'तापमान की निगरानी करें'], dont: ['कंबल में न लपेटें', 'बच्चों को एस्पिरिन न दें', 'तेज बुखार को नज़रअंदाज़ न करें', 'अल्कोहल रब का उपयोग न करें'] },
+    { id: 25, icon: '❄️', title: 'शीतदंश', do: ['गर्म क्षेत्र में ले जाएं', 'शरीर की गर्मी से धीरे-धीरे गर्म करें', 'प्रभावित क्षेत्र की रक्षा करें', 'चिकित्सा सहायता लें'], dont: ['क्षेत्र को न रगड़ें', 'सीधी गर्मी का उपयोग न करें', 'ब्लिस्टर न फोड़ें', 'शीतदंश वाले पैरों पर न चलें'] },
+    { id: 26, icon: '🤕', title: 'सिर की चोट', do: ['व्यक्ति को स्थिर रखें', 'आइस पैक लगाएं', 'चेतना की निगरानी करें', 'गंभीर हो तो 112 पर कॉल करें'], dont: ['व्यक्ति को अनावश्यक रूप से न हिलाएं', 'दवाएं न दें', 'तुरंत सोने की अनुमति न दें', 'बिगड़ते लक्षणों को नज़रअंदाज़ न करें'] },
+    { id: 27, icon: '☀️', title: 'लू लगना', do: ['ठंडी जगह पर ले जाएं', 'अतिरिक्त कपड़े हटाएं', 'शरीर को तेजी से ठंडा करें', '112 पर कॉल करें'], dont: ['शराब न दें', 'बर्फ के स्नान का उपयोग न करें', 'दवाएं न दें', 'व्यक्ति को अकेला न छोड़ें'] },
+    { id: 28, icon: '🍬', title: 'हाइपोग्लाइसीमिया', do: ['होश में हो तो चीनी/जूस दें', '15 मिनट बाद फिर जांचें', 'बाद में जटिल कार्ब्स दें', 'बारीकी से निगरानी करें'], dont: ['इंसुलिन न दें', 'बेहोश हो तो खाना न दें', 'लक्षणों को नज़रअंदाज़ न करें', 'व्यक्ति को अकेला न छोड़ें'] },
+    { id: 29, icon: '☠️', title: 'जहर', do: ['जहर नियंत्रण को कॉल करें', 'कंटेनर/पदार्थ रखें', 'विशेषज्ञ निर्देशों का पालन करें', 'सांस की निगरानी करें'], dont: ['उल्टी न कराएं', 'बेअसर करने वाले एजेंट न दें', 'लक्षण देखने के लिए प्रतीक्षा न करें', 'सलाह के बिना सक्रिय चारकोल न दें'] },
+    { id: 30, icon: '🐍', title: 'सांप का काटना', do: ['शांत और स्थिर रहें', 'गहने/तंग वस्तुएं हटाएं', 'सूजन की प्रगति चिह्नित करें', 'तुरंत अस्पताल जाएं'], dont: ['टूर्निकेट न लगाएं', 'घाव न काटें', 'जहर न चूसें', 'बर्फ न लगाएं'] },
+    { id: 31, icon: '🧠', title: 'स्ट्रोक', do: ['लक्षणों का समय नोट करें', 'तुरंत 112 पर कॉल करें', 'व्यक्ति को आरामदायक रखें', 'सांस की निगरानी करें'], dont: ['खाना या पीना न दें', 'दवाएं न दें', 'आपातकालीन कॉल में देरी न करें', 'व्यक्ति को अकेला न छोड़ें'] },
+    { id: 32, icon: '☣️', title: 'विषाक्त रासायनिक संपर्क', do: ['संपर्क से हटाएं', 'दूषित कपड़े हटाएं', '20+ मिनट त्वचा को पानी से धोएं', 'जहर नियंत्रण को कॉल करें'], dont: ['बेअसर करने वाले एजेंट का उपयोग न करें', 'क्षेत्र को न रगड़ें', 'मलहम न लगाएं', 'विसंदूषण में देरी न करें'] },
+    { id: 33, icon: '🌫️', title: 'विषैली गैस साँस लेना', do: ['ताजी हवा में ले जाएं', 'तंग कपड़े ढीले करें', 'सांस की निगरानी करें', '112 पर कॉल करें'], dont: ['बिना सुरक्षा के दूषित क्षेत्र में प्रवेश न करें', 'मुंह से कुछ न दें', 'निकासी में देरी न करें', 'हल्के लक्षणों को नज़रअंदाज़ न करें'] },
+    { id: 34, icon: '🦵', title: 'जोड़ों/हड्डी में आघात', do: ['क्षेत्र को स्थिर करें', 'आइस पैक लगाएं', 'संभव हो तो ऊपर उठाएं', 'चिकित्सा सहायता लें'], dont: ['हड्डियों को फिर से संरेखित करने की कोशिश न करें', 'शुरू में गर्मी न लगाएं', 'घायल हिस्से को न हिलाएं', 'गंभीर दर्द को नज़रअंदाज़ न करें'] },
+    { id: 35, icon: '🐜', title: 'कीड़े का काटना/डंक', do: ['मौजूद हो तो डंक हटाएं', 'साबुन और पानी से धोएं', 'ठंडा सेक लगाएं', 'एलर्जी प्रतिक्रिया देखें'], dont: ['डंक को न निचोड़ें', 'गर्मी न लगाएं', 'क्षेत्र को न खुजलाएं', 'सूजन को नज़रअंदाज़ न करें'] },
+    { id: 36, icon: '💫', title: 'चक्कर आना', do: ['तुरंत बैठें या लेटें', 'स्थिर बिंदु पर ध्यान केंद्रित करें', 'हाइड्रेटेड रहें', 'लगातार हो तो चिकित्सा सहायता लें'], dont: ['जल्दी न खड़े हों', 'गाड़ी या मशीनरी न चलाएं', 'बार-बार होने वाले एपिसोड को नज़रअंदाज़ न करें', 'चलते समय आंखें बंद न करें'] }
+  ]
+};
+
+
+
+
+
+let currentSpeech = null;
+let fallbackInterval = null;
+let currentLang = 'en';
+
+function toggleLanguage() {
+  currentLang = currentLang === 'en' ? 'hi' : 'en';
+  const toggleBtn = document.getElementById('langToggle');
+  if (toggleBtn) {
+    toggleBtn.textContent = currentLang === 'en' ? 'हिन्दी' : 'English';
+  }
+  document.getElementById('mainTitle').textContent = titles[currentLang];
+  document.getElementById('searchInput').placeholder = currentLang === 'en' ? 'Search for first aid topics...' : 'प्राथमिक चिकित्सा विषय खोजें...';
+  renderCards();
+  renderFooter();
+}
+
+// Mobile detection
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+function dialEmergency() {
+  if (confirm('Dial emergency number 112?')) {
+    window.location.href = 'tel:112';
+  }
+}
+
+function renderCards() {
+  const container = document.getElementById('cardsContainer');
+  container.innerHTML = '';
+  const data = firstAidData[currentLang];
+
+  data.forEach((item, index) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.style.animationDelay = `${(index % 12) * 0.05}s`;
+    card.setAttribute('data-card-id', item.id);
+
+    const doHeader = currentLang === 'en' ? 'Do' : 'क्या करें';
+    const dontHeader = currentLang === 'en' ? 'Don\'t' : 'क्या न करें';
+    const listenText = currentLang === 'en' ? '🔊 Listen' : '🔊 सुनें';
+
+    card.innerHTML = `
+      <h2>${item.id}. ${item.title} <span class="card-icon">${item.icon || '🩹'}</span></h2>
+      <div class="do-section">
+        <h3>${doHeader}</h3>
+        <ul>${item.do.map(point => `<li>${point}</li>`).join('')}</ul>
+      </div>
+      <div class="dont-section">
+        <h3 class="dont">${dontHeader}</h3>
+        <ul class="dont">${item.dont.map(point => `<li>${point}</li>`).join('')}</ul>
+      </div>
+      <button class="listen-btn" onclick="speakCard(${item.id})" aria-label="Listen to this card">
+        ${listenText}
+      </button>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+
+// Section-based highlighting: Blue for Do, Red for Don't
+function speakCard(cardId) {
+  const card = document.querySelector(`[data-card-id="${cardId}"]`);
+  if (!card) return;
+
+  const button = card.querySelector('.listen-btn');
+  // Detect language from Bhashini or document lang
+  const lang = document.documentElement.lang || 'en';
+
+  // Decide if we use offline data or dynamic DOM text
+  let title, doText, dontText, speechLang;
+
+  const langMap = {
+    'hi': 'hi-IN',
+    'bn': 'bn-IN',
+    'ta': 'ta-IN',
+    'te': 'te-IN',
+    'mr': 'mr-IN',
+    'gu': 'gu-IN',
+    'kn': 'kn-IN',
+    'ml': 'ml-IN',
+    'pa': 'pa-IN',
+    'en': 'en-US'
+  };
+
+  if (lang === 'en' || lang === 'hi') {
+    // Standard offline mode
+    const data = firstAidData[lang];
+    const item = data.find(d => d.id === cardId);
+    if (!item) return;
+
+    title = item.title;
+    doText = (lang === 'en' ? 'Do: ' : 'क्या करें: ') + item.do.join('. ');
+    dontText = (lang === 'en' ? 'Don\'t: ' : 'क्या न करें: ') + item.dont.join('. ');
+    speechLang = langMap[lang];
+  } else {
+    // Bhashini / Translation mode - extract from DOM
+    title = card.querySelector('h2').innerText;
+    const doItems = Array.from(card.querySelectorAll('.do-section li')).map(li => li.innerText);
+    const dontItems = Array.from(card.querySelectorAll('.dont-section li')).map(li => li.innerText);
+    const doHeader = card.querySelector('.do-section h3').innerText;
+    const dontHeader = card.querySelector('.dont-section h3').innerText;
+
+    doText = doHeader + ': ' + doItems.join('. ');
+    dontText = dontHeader + ': ' + dontItems.join('. ');
+    speechLang = langMap[lang] || lang;
+  }
+
+  // Stop any existing speech
+  if (currentSpeech) {
+    window.speechSynthesis.cancel();
+    if (fallbackInterval) {
+      clearInterval(fallbackInterval);
+      fallbackInterval = null;
+    }
+
+    if (card.classList.contains('card-speaking')) {
+      currentSpeech = null;
+      clearHighlights(card);
+      return;
+    }
+
+    const activeCard = document.querySelector('.card-speaking');
+    if (activeCard) clearHighlights(activeCard);
+    currentSpeech = null;
+  }
+
+  // Start new speech
+  card.classList.add('card-speaking');
+  if (button) {
+    button.classList.add('speaking');
+    button.textContent = '⏸️ Stop';
+  }
+
+  const utterances = [];
+
+  // 1. Title
+  const titleUtterance = new SpeechSynthesisUtterance(title);
+  titleUtterance.lang = speechLang;
+  titleUtterance.rate = 0.9;
+  utterances.push({ u: titleUtterance, type: 'title' });
+
+  // 2. Do Section
+  const doUtterance = new SpeechSynthesisUtterance(doText);
+  doUtterance.lang = speechLang;
+  doUtterance.rate = 0.9;
+  utterances.push({ u: doUtterance, type: 'do' });
+
+  // 3. Don't Section
+  const dontUtterance = new SpeechSynthesisUtterance(dontText);
+  dontUtterance.lang = speechLang;
+  dontUtterance.rate = 0.9;
+  utterances.push({ u: dontUtterance, type: 'dont' });
+
+
+  let currentIndex = 0;
+
+  function playNext() {
+    if (currentIndex >= utterances.length) {
+
+      clearHighlights(card);
+      currentSpeech = null;
+      return;
+    }
+
+    const { u, type } = utterances[currentIndex];
+
+    // Safety check
+    if (!card.classList.contains('card-speaking')) return;
+
+    currentSpeech = u;
+
+    u.onstart = () => {
+      // Double check active state
+      if (!card.classList.contains('card-speaking')) {
+        window.speechSynthesis.cancel();
+        return;
+      }
+
+      card.classList.remove('card-glow-do', 'card-glow-dont');
+      const doSection = card.querySelector('.do-section');
+      const dontSection = card.querySelector('.dont-section');
+
+      if (doSection) doSection.classList.remove('active');
+      if (dontSection) dontSection.classList.remove('active');
+
+      if (type === 'do') {
+        card.classList.add('card-glow-do');
+        if (doSection) doSection.classList.add('active');
+      }
+      if (type === 'dont') {
+        card.classList.add('card-glow-dont');
+        if (dontSection) dontSection.classList.add('active');
+      }
+    };
+
+    u.onend = () => {
+      // If currentSpeech is null, it means we stopped manually
+      if (currentSpeech !== u) return;
+      currentIndex++;
+      playNext();
+    };
+
+    u.onerror = (e) => {
+      console.error('Speech error', e);
+      if (currentSpeech === u) {
+        clearHighlights(card);
+        currentSpeech = null;
+      }
+    };
+
+    window.speechSynthesis.speak(u);
+  }
+
+  playNext();
+}
+
+function clearHighlights(card) {
+  if (typeof fallbackInterval !== 'undefined' && fallbackInterval) {
+    clearInterval(fallbackInterval);
+    fallbackInterval = null;
+  }
+  if (!card) return;
+  card.classList.remove('card-speaking', 'card-glow-do', 'card-glow-dont');
+
+  const doSection = card.querySelector('.do-section');
+  const dontSection = card.querySelector('.dont-section');
+  if (doSection) doSection.classList.remove('active');
+  if (dontSection) dontSection.classList.remove('active');
+
+  const btn = card.querySelector('.listen-btn');
+  if (btn) {
+    btn.classList.remove('speaking');
+    btn.textContent = '🔊 Listen';
+
+  }
+}
+
+
+function renderFooter() {
+  const footer = document.getElementById('footerSection');
+  if (currentLang === 'en') {
+    footer.innerHTML = `
+      <div class="disclaimer">
+        <h3>DISCLAIMER</h3>
+        <p>• The information provided in this guide is for general use and knowledge and does not contain all information that may be relevant to every situation.</p>
+        <p>• This information cannot be relied upon as a substitute for seeking guidance from appropriate professionals, such as physicians.</p>
+        <p>• While great care has been taken to reflect the most current and accurate information, it does not represent or warrant that the information will be accurate or appropriate at the time of use due to evolving medical research, protocols, regulations and laws.</p>
+        <p>• Users are cautioned not to prescribe or administer any medication, including over-the-counter medication, except in instances where permitted by law.</p>
+        <p>• This guide is developed for educational purposes with good intention. If any error is identified or any comment/suggestion, please contact the developer immediately at arka.doctor@gmail.com.</p>
+        <p>• <strong>IF NOT SURE, DON'T DO ANYTHING - JUST CALL FOR HELP AND GET TO THE HOSPITAL AT THE EARLIEST</strong></p>
+      </div>
+      <div class="install-section">
+        <h3>HOW TO INSTALL APP</h3>
+        <p><strong>Desktop:</strong> Click the install icon (⊕) in the address bar.</p>
+        <p><strong>Android:</strong> Tap options (⋮) in browser -> Select "Add to Home Screen".</p>
+        <p><strong>iOS:</strong> Tap Share button -> Select "Add to Home Screen".</p>
+      </div>
+      <div class="acknowledgement">
+        <h3>ACKNOWLEDGEMENT</h3>
+        <p>• Ministry of Health and Family Welfare, Govt. of India</p>
+        <p>• St. John Ambulance, London, UK</p>
+        <p>• The Indian Red Cross Society</p>
+        <p>• The American Red Cross</p>
+        <p>• University of Michigan Health, Michigan Medicine</p>
+        <p>• <strong>Bhashini Language Model</strong></p>
+      </div>
+      <div class="developer">
+        <p>Developed by: <strong>Dr. Arkaprabha Sau, MBBS, MD (Gold Medalist), PhD (Computer Science & Engineering), DPH, Dip. Geriatric Medicine, Certificate in Diabetes Management</strong></p>
+      </div>
+    `;
+  } else {
+    footer.innerHTML = `
+      <div class="disclaimer">
+        <h3>अस्वीकरण</h3>
+        <p>• इस गाइड में दी गई जानकारी सामान्य उपयोग और ज्ञान के लिए है और इसमें हर स्थिति के लिए प्रासंगिक सभी जानकारी शामिल नहीं है।</p>
+        <p>• इस जानकारी को चिकित्सकों जैसे उपयुक्त पेशेवरों से मार्गदर्शन लेने के विकल्प के रूप में नहीं माना जा सकता।</p>
+        <p>• जबकि सबसे वर्तमान और सटीक जानकारी को प्रतिबिंबित करने के लिए बहुत सावधानी बरती गई है, यह प्रतिनिधित्व या वारंट नहीं करता है कि विकसित चिकित्सा अनुसंधान, प्रोटोकॉल, नियमों और कानूनों के कारण उपयोग के समय जानकारी सटीक या उपयुक्त होगी।</p>
+        <p>• उपयोगकर्ताओं को सावधान किया जाता है कि वे कानून द्वारा अनुमत मामलों को छोड़कर, ओवर-द-काउंटर दवा सहित किसी भी दवा को निर्धारित या प्रशासित न करें।</p>
+        <p>• यह गाइड अच्छे इरादे से शैक्षिक उद्देश्यों के लिए विकसित की गई है। यदि कोई त्रुटि पहचानी जाती है या कोई टिप्पणी/सुझाव है, तो कृपया तुरंत डेवलपर से संपर्क करें। arka.doctor@gmail.com</p>
+        <p>• <strong>यदि सुनिश्चित नहीं हैं, तो कुछ भी न करें - बस मदद के लिए कॉल करें और जल्द से जल्द अस्पताल पहुंचें</strong></p>
+      </div>
+      <div class="install-section">
+        <h3>ऐप कैसे इंस्टॉल करें</h3>
+        <p><strong>डेस्कटॉप:</strong> एड्रेस बार में इंस्टॉल आइकन (⊕) पर क्लिक करें।</p>
+        <p><strong>एंड्रॉइड:</strong> ब्राउज़र में विकल्प (⋮) टैप करें -> "होम स्क्रीन पर जोड़ें" चुनें।</p>
+        <p><strong>iOS:</strong> शेयर बटन टैप करें -> "होम स्क्रीन पर जोड़ें" चुनें।</p>
+      </div>
+      <div class="acknowledgement">
+        <h3>आभार</h3>
+        <p>• स्वास्थ्य और परिवार कल्याण मंत्रालय, भारत सरकार</p>
+        <p>• सेंट जॉन एम्बुलेंस, लंदन, यूके</p>
+        <p>• भारतीय रेड क्रॉस सोसायटी</p>
+        <p>• अमेरिकन रेड क्रॉस</p>
+        <p>• यूनिवर्सिटी ऑफ मिशिगन हेल्थ, मिशिगन मेडिसिन</p>
+        <p>• <strong>Bhashini Language Model</strong></p>
+      </div>
+      <div class="developer">
+        <p>विकसित: <strong>डॉ. अर्कप्रभा साउ, एमबीबीएस, एमडी (स्वर्ण पदक विजेता), पीएचडी (कंप्यूटर साइंस एवं इंजीनियरिंग), डीपीएच, डिप्लोमा जेरिएट्रिक मेडिसिन, डायबिटीज प्रबंधन में प्रमाणपत्र</strong></p>
+      </div>
+    `;
+  }
+}
+
+
+// Search functionality
+function searchCards() {
+  const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+  const cards = document.querySelectorAll('.card');
+
+  cards.forEach(card => {
+    const title = card.querySelector('h2').textContent.toLowerCase();
+    const doItems = Array.from(card.querySelectorAll('ul:not(.dont) li')).map(li => li.textContent.toLowerCase()).join(' ');
+    const dontItems = Array.from(card.querySelectorAll('ul.dont li')).map(li => li.textContent.toLowerCase()).join(' ');
+
+    if (title.includes(searchTerm) || doItems.includes(searchTerm) || dontItems.includes(searchTerm)) {
+      card.classList.remove('hidden');
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+}
+
+// Voice search
+let recognition;
+function startVoiceSearch() {
+  const btn = document.getElementById('voiceSearchBtn');
+
+  if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+    alert('Voice search not supported in this browser');
+    return;
+  }
+
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SpeechRecognition();
+  recognition.lang = 'en-US';
+  recognition.continuous = false;
+  recognition.interimResults = false;
+
+  recognition.onstart = () => {
+    btn.classList.add('listening');
+    btn.textContent = '🎙️';
+  };
+
+  recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript;
+    document.getElementById('searchInput').value = transcript;
+    searchCards();
+  };
+
+  recognition.onend = () => {
+    btn.classList.remove('listening');
+    btn.textContent = '🎤';
+  };
+
+  recognition.onerror = (event) => {
+    btn.classList.remove('listening');
+    btn.textContent = '🎤';
+    console.error('Speech recognition error:', event.error);
+  };
+
+  recognition.start();
+}
+
+function initBhashini() {
+  // Bhashini v3 Initialization
+  if (window.Bhashini && window.Bhashini.init) {
+    window.Bhashini.init({
+      containerId: 'bhashini-plugin-container'
+    });
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderCards();
+  renderFooter();
+  initBhashini();
+
+  // Register Service Worker for PWA
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js')
+      .then(reg => console.log('Service Worker registered', reg))
+      .catch(err => console.error('Service Worker registration failed', err));
+  }
+});
+
