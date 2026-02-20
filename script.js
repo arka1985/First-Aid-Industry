@@ -1,7 +1,3 @@
-const titles = {
-  en: 'EVIDENCE-BASED GUIDELINES OF FIRST AID FOR COMMON MEDICAL EMERGENCIES AT WORKPLACE'
-};
-
 
 const firstAidData = {
   en: [
@@ -79,6 +75,7 @@ function showDetails(id) {
   document.getElementById('tilesContainer').classList.add('hidden');
   document.getElementById('cardsContainer').classList.remove('hidden');
   document.getElementById('detailsHeader').classList.remove('hidden');
+  document.getElementById('footerSection').classList.add('hidden');
 
   // Render only the specific card
   const container = document.getElementById('cardsContainer');
@@ -108,29 +105,30 @@ function goBack() {
   document.getElementById('cardsContainer').classList.add('hidden');
   document.getElementById('detailsHeader').classList.add('hidden');
   document.getElementById('tilesContainer').classList.remove('hidden');
+  document.getElementById('footerSection').classList.remove('hidden');
 }
 
 function renderFooter() {
   const footer = document.getElementById('footerSection');
   footer.innerHTML = `
     <div class="disclaimer">
-      <h3>DISCLAIMER</h3>
+      <h3>Disclaimer</h3>
       <p>• The information provided in this guide is for general use and knowledge and does not contain all information that may be relevant to every situation.</p>
       <p>• This information cannot be relied upon as a substitute for seeking guidance from appropriate professionals, such as physicians.</p>
       <p>• While great care has been taken to reflect the most current and accurate information, it does not represent or warrant that the information will be accurate or appropriate at the time of use due to evolving medical research, protocols, regulations and laws.</p>
       <p>• Users are cautioned not to prescribe or administer any medication, including over-the-counter medication, except in instances where permitted by law.</p>
       <p><strong>• The translation from English to other languages has been generated using Bhashini, an indigenously developed Large Language Model by the Government of India. As the translation is AI-generated, there may be certain translation-related errors. Users are requested to report any such discrepancies to the Bhashini team and the developer, and to verify the content with the original English text for confirmation.</strong></p>
       <p>• This guide is developed for educational purposes with good intention. If any error is identified or any comment/suggestion, please contact the developer immediately at arka.doctor@gmail.com.</p>
-      <p>• <strong>IF NOT SURE, DON'T DO ANYTHING - JUST CALL FOR HELP AND GET TO THE HOSPITAL AT THE EARLIEST</strong></p>
+      <p>• <strong>If not sure, don't do anything - just call for help and get to the hospital at the earliest.</strong></p>
     </div>
     <div class="install-section">
-      <h3>HOW TO INSTALL APP</h3>
+      <h3>How To Install App</h3>
       <p><strong>Desktop:</strong> Click the install icon (⊕) in the address bar.</p>
       <p><strong>Android:</strong> Tap options (⋮) in browser -> Select "Add to Home Screen".</p>
       <p><strong>iOS:</strong> Tap Share button -> Select "Add to Home Screen".</p>
     </div>
     <div class="acknowledgement">
-      <h3>ACKNOWLEDGEMENT</h3>
+      <h3>Acknowledgement</h3>
       <p>• Ministry of Health and Family Welfare, Govt. of India</p>
       <p>• St. John Ambulance, London, UK</p>
       <p>• The Indian Red Cross Society</p>
@@ -157,7 +155,6 @@ function initBhashini() {
 
 // Initial Render
 document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('mainTitle').textContent = titles.en;
   renderTiles();
   renderFooter();
   initBhashini();
