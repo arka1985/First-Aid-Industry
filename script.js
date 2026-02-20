@@ -182,12 +182,12 @@ function renderFooter() {
       <h3>References</h3>
       <ol>
         <li>Ministry of Health and Family Welfare, Government of India. <a href="https://www.nhsrcindia.org/sites/default/files/2022-02/Emergency%20Care%20Training%20Manual%20for%20CHO%20at%20AB-HWC.pdf" target="_blank" style="color: inherit; text-decoration: none;"><em>Training Manual on Management of Common Emergencies, Burns and Trauma for Community Health Officer</em></a>.</li>
+        <li>Standard Treatment Workflows (STWs), Department of Health Research, Ministry of Health and Family Welfare. Govt. of India, <a href="https://www.icmr.gov.in/standard-treatment-workflows-stws" target="_blank" style="color: inherit; text-decoration: none;">https://www.icmr.gov.in/standard-treatment-workflows-stws</a></li>
         <li>St. John Ambulance. (n.d.). <em>First Aid Manual</em>. London, United Kingdom.</li>
         <li>Indian Red Cross Society. (n.d.). <em>First Aid Manual</em>. New Delhi.</li>
         <li>American Red Cross. (n.d.). <em>First Aid, CPR, and AED Provider Manual</em>. Washington, D.C.</li>
         <li>University of Michigan Health. (n.d.). <em>Medical Emergencies</em>. Michigan Medicine, Ann Arbor.</li>
         <li>Bhashini. (n.d.). <em>National Language Translation Mission</em>. Ministry of Electronics and Information Technology, Government of India.</li>
-        <li>Standard Treatment Workflows (STWs), Department of Health Research, Ministry of Health and Family Welfare. Govt. of India, <a href="https://www.icmr.gov.in/standard-treatment-workflows-stws" target="_blank" style="color: inherit; text-decoration: none;">https://www.icmr.gov.in/standard-treatment-workflows-stws</a></li>
       </ol>
     </div>
     <div class="developer">
