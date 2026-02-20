@@ -54,16 +54,40 @@ function dialEmergency() {
   }
 }
 
-function renderCards() {
-  const container = document.getElementById('cardsContainer');
+function renderTiles() {
+  const container = document.getElementById('tilesContainer');
   container.innerHTML = '';
   const data = firstAidData.en;
 
   data.forEach((item, index) => {
+    const tile = document.createElement('div');
+    tile.className = 'tile';
+    tile.style.animationDelay = `${(index % 12) * 0.05}s`;
+    tile.setAttribute('data-target-id', item.id);
+    tile.onclick = () => showDetails(item.id);
+
+    tile.innerHTML = `
+      <i>${item.icon || '🩹'}</i>
+      <h3>${item.title}</h3>
+    `;
+    container.appendChild(tile);
+  });
+}
+
+function showDetails(id) {
+  // Hide tiles and show details container
+  document.getElementById('tilesContainer').classList.add('hidden');
+  document.getElementById('cardsContainer').classList.remove('hidden');
+  document.getElementById('detailsHeader').classList.remove('hidden');
+
+  // Render only the specific card
+  const container = document.getElementById('cardsContainer');
+  container.innerHTML = '';
+  const item = firstAidData.en.find(d => d.id === id);
+
+  if (item) {
     const card = document.createElement('div');
     card.className = 'card';
-    card.style.animationDelay = `${(index % 12) * 0.05}s`;
-    card.setAttribute('data-card-id', item.id);
 
     card.innerHTML = `
       <h2>${item.title} <span class="card-icon">${item.icon || '🩹'}</span></h2>
@@ -77,7 +101,13 @@ function renderCards() {
       </div>
     `;
     container.appendChild(card);
-  });
+  }
+}
+
+function goBack() {
+  document.getElementById('cardsContainer').classList.add('hidden');
+  document.getElementById('detailsHeader').classList.add('hidden');
+  document.getElementById('tilesContainer').classList.remove('hidden');
 }
 
 function renderFooter() {
@@ -128,7 +158,7 @@ function initBhashini() {
 // Initial Render
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('mainTitle').textContent = titles.en;
-  renderCards();
+  renderTiles();
   renderFooter();
   initBhashini();
 });
@@ -136,9 +166,15 @@ document.addEventListener('DOMContentLoaded', () => {
 // Search functionality
 document.getElementById('searchInput').addEventListener('input', (e) => {
   const term = e.target.value.toLowerCase();
-  const cards = document.querySelectorAll('.card');
-  cards.forEach(card => {
-    const text = card.innerText.toLowerCase();
-    card.style.display = text.includes(term) ? 'block' : 'none';
+
+  // Always ensure we're searching in the tiles view
+  if (document.getElementById('tilesContainer').classList.contains('hidden')) {
+    goBack();
+  }
+
+  const tiles = document.querySelectorAll('.tile');
+  tiles.forEach(tile => {
+    const text = tile.innerText.toLowerCase();
+    tile.style.display = text.includes(term) ? 'flex' : 'none';
   });
 });
