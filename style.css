@@ -302,7 +302,6 @@ header h1 {
 }
 
 .card li {
-    color: var(--text-muted);
     margin-bottom: 1rem;
     /* Increased spacing between points */
     padding-left: 1.8rem;
@@ -311,6 +310,14 @@ header h1 {
     font-weight: 500;
     letter-spacing: 0.02em;
     /* Adjusted Spacing */
+}
+
+.card .do-section li {
+    color: var(--do-blue);
+}
+
+.card .dont-section li {
+    color: var(--dont-red);
 }
 
 .card li::before {

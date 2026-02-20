@@ -42,6 +42,12 @@ const firstAidData = {
   ]
 };
 
+// Sort alphabetically, keeping Statutory Provisions at the end
+const statutoryProvision = firstAidData.en.find(item => item.id === 38);
+const otherProvisions = firstAidData.en.filter(item => item.id !== 38);
+otherProvisions.sort((a, b) => a.title.localeCompare(b.title));
+firstAidData.en = [...otherProvisions, statutoryProvision];
+
 // Mobile detection
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
