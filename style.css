@@ -78,7 +78,7 @@ body::after {
 .header-controls {
     position: fixed;
     top: 1rem;
-    right: 1rem;
+    right: 0;
     display: flex;
     gap: 0.8rem;
     z-index: 2000;
@@ -88,8 +88,9 @@ body::after {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid var(--glass-border);
-    padding: 0.4rem 0.8rem;
-    border-radius: 50px;
+    border-right: none;
+    padding: 0.4rem 0.8rem 0.4rem 1.2rem;
+    border-radius: 50px 0 0 50px;
     box-shadow: var(--glass-shadow);
 }
 
@@ -215,9 +216,9 @@ header h1 {
 /* Cards Grid */
 #cardsContainer {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2.5rem;
-    /* Increased spacing between cards */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    /* Adjusted for smaller screens */
     max-width: 1400px;
     margin: 0 auto;
 }
@@ -428,13 +429,46 @@ footer p {
     }
 
     .header-controls {
-        top: 1rem;
-        right: 7.5rem;
+        top: 0.5rem;
+        left: auto;
+        right: 0;
+        transform: none;
+        width: auto;
+        max-width: none;
+        justify-content: flex-end;
         gap: 0.5rem;
+        padding: 0.5rem 0.5rem 0.5rem 1rem;
+        border-radius: 50px 0 0 50px;
+        border-right: none;
     }
 
     .bhashini-plugin-container {
         padding: 0.4rem 0.8rem;
         font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        padding: 1.5rem;
+    }
+
+    .card h2 {
+        font-size: 1.4rem;
+    }
+
+    header {
+        padding: 1.5rem 1rem;
+        margin-bottom: 2rem;
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+        line-height: 1.4;
+    }
+
+    body {
+        padding: 0.8rem;
+        padding-top: 5rem;
     }
 }

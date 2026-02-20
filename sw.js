@@ -1,4 +1,4 @@
-const CACHE_NAME = 'first-aid-v4';
+const CACHE_NAME = 'first-aid-v5';
 const ASSETS = [
     './',
     './index.html',
