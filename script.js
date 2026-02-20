@@ -224,11 +224,11 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Search functionality
-document.getElementById('searchInput').addEventListener('input', (e) => {
+document.getElementById('searchInput').addEventListener('keyup', (e) => {
   const term = e.target.value.toLowerCase();
 
-  // Always ensure we're searching in the tiles view
-  if (document.getElementById('tilesContainer').classList.contains('hidden')) {
+  // If user starts typing a real search query while inside a Card View, return them to the Tile View to see results
+  if (term.length > 0 && document.getElementById('tilesContainer').classList.contains('hidden')) {
     goBack();
   }
 
@@ -237,4 +237,12 @@ document.getElementById('searchInput').addEventListener('input', (e) => {
     const text = tile.innerText.toLowerCase();
     tile.style.display = text.includes(term) ? 'flex' : 'none';
   });
+});
+
+document.getElementById('searchInput').addEventListener('search', (e) => {
+  // Handle the "X" clear button on search inputs
+  if (e.target.value === '') {
+    const tiles = document.querySelectorAll('.tile');
+    tiles.forEach(tile => tile.style.display = 'flex');
+  }
 });
