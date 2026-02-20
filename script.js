@@ -16,7 +16,7 @@ const firstAidData = {
     { id: 13, icon: '💔', title: 'Chest Pain', do: ['Ask for Help', 'Help person rest', 'Loosen tight clothing', 'Call 112 immediately', 'Give aspirin if no allergy', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't ignore the pain", "Don't give food or water", "Don't allow physical activity", "Don't delay emergency call"] },
     { id: 14, icon: '🤢', title: 'Airway obstruction (Chocking)', do: ['Ask for Help', 'Encourage coughing', 'Give 5 back blows', 'Perform abdominal thrusts', 'Call 112 if unconscious', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't slap on back while upright", "Don't put fingers in mouth blindly", "Don't give water", "Don't stop if person can speak"] },
     { id: 15, icon: '⚡', title: 'Convulsion', do: ['Ask for Help', 'Protect from injury', 'Time the seizure', 'Turn on side after seizure', 'Stay with person', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't restrain movements", "Don't put anything in mouth", "Don't give water during seizure", "Don't leave person alone"] },
-    { id: 16, icon: '🔪', title: 'Cut Injury', do: ['Ask for Help', 'Wash hands first', 'Apply direct pressure', 'Clean with water', 'Cover with sterile dressing', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't touch wound with dirty hands", "Don't remove embedded objects", "Don't use cotton directly", "Don't ignore infection signs"] },
+    { id: 16, icon: '🔪', title: 'Cut Related Injury', do: ['Ask for Help', 'Wash hands first', 'Apply direct pressure', 'Clean with water', 'Cover with sterile dressing', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't touch wound with dirty hands", "Don't remove embedded objects", "Don't use cotton directly", "Don't ignore infection signs"] },
     { id: 17, icon: '💓', title: 'CPR', do: ['Ask for Help', 'Call 112 first', 'Push hard and fast (100 to 120/min)', 'Allow full chest recoil', 'Continue until help arrives'], dont: ["Don't stop compressions unnecessarily", "Don't compress too slowly", "Don't interrupt for more than 10 sec", "Don't give up too early"] },
     { id: 18, icon: '🔋', title: 'CPR with AED', do: ['Ask for Help', 'Turn on AED', 'Follow voice prompts', 'Ensure no one touches patient', 'Resume CPR after shock'], dont: ["Don't touch patient during analysis", "Don't use on wet surface", "Don't delay CPR for AED", "Don't remove pads between shocks"] },
     { id: 19, icon: '💧', title: 'Dehydration', do: ['Ask for Help', 'Give water/ORS slowly', 'Move to cool place', 'Rest in shade', 'Monitor condition', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't give large amounts quickly", "Don't give alcohol/caffeine", "Don't continue physical activity", "Don't ignore severe symptoms"] },
@@ -101,16 +101,30 @@ function showDetails(id) {
       titleHTML = `<a href="OSHWC_CODE_2020.pdf" target="_blank" style="color: inherit; text-decoration: underline;">${item.title}</a> <span class="card-icon">${item.icon || '🩹'}</span>`;
     }
 
+    let contentHTML = '';
+
+    if (id === 38) {
+      contentHTML = `
+            <div class="statutory-mandatory" style="text-align:center; padding: 2rem 0; color:var(--text-dark);">
+                <h3 style="font-size: 1.2rem;">Follow the Statutory Provisions mandatorily.</h3>
+            </div>
+        `;
+    } else {
+      contentHTML = `
+          <div class="do-section">
+            <h3>Do</h3>
+            <ul>${item.do.map(point => `<li>${point}</li>`).join('')}</ul>
+          </div>
+          <div class="dont-section">
+            <h3 class="dont">Don't</h3>
+            <ul class="dont">${item.dont.map(point => `<li>${point}</li>`).join('')}</ul>
+          </div>
+        `;
+    }
+
     card.innerHTML = `
       <h2>${titleHTML}</h2>
-      <div class="do-section">
-        <h3>Do</h3>
-        <ul>${item.do.map(point => `<li>${point}</li>`).join('')}</ul>
-      </div>
-      <div class="dont-section">
-        <h3 class="dont">Don't</h3>
-        <ul class="dont">${item.dont.map(point => `<li>${point}</li>`).join('')}</ul>
-      </div>
+      ${contentHTML}
     `;
 
     // Append sub-tiles specifically for Statutory Provisions
@@ -122,7 +136,8 @@ function showDetails(id) {
         { name: 'Plantation', icon: '🌱', folder: 'Plantation' },
         { name: 'Building & Constructions', icon: '🏗️', folder: 'Building and Other Constructions' },
         { name: 'Beedi & Cigar Works', icon: '🚭', folder: 'Beedi and Cigar Works' },
-        { name: 'Motor Transport', icon: '🚚', folder: 'Motor Transport' }
+        { name: 'Motor Transport', icon: '🚚', folder: 'Motor Transport' },
+        { name: 'Others', icon: '📂', folder: 'Others' }
       ];
 
       const subTilesHTML = subProvisions.map(prov =>

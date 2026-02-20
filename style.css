@@ -79,7 +79,7 @@ body::after {
 .header-controls {
     position: fixed;
     top: 1rem;
-    right: 4rem;
+    right: 5rem;
     display: flex;
     gap: 0.8rem;
     z-index: 2000;
@@ -592,7 +592,7 @@ footer p {
     .header-controls {
         top: 0.5rem;
         left: auto;
-        right: 3rem;
+        right: 4rem;
         transform: none;
         width: auto;
         max-width: max-content;
