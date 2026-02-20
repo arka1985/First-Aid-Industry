@@ -79,7 +79,7 @@ body::after {
 .header-controls {
     position: fixed;
     top: 1rem;
-    right: 0;
+    right: 2rem;
     display: flex;
     gap: 0.8rem;
     z-index: 2000;
@@ -425,6 +425,44 @@ header h1 {
     transform: translateX(-5px);
 }
 
+/* Sub-tiles for Detailed View */
+.statutory-sub-tiles {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding-top: 2rem;
+}
+
+@media (min-width: 768px) {
+    .statutory-sub-tiles {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.sub-tile {
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 4px 15px rgba(31, 38, 135, 0.1);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.sub-tile:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 8px 20px rgba(31, 38, 135, 0.15);
+}
+
 /* Utility Hidden Class */
 .hidden {
     display: none !important;
@@ -535,7 +573,7 @@ footer p {
     .header-controls {
         top: 0.5rem;
         left: auto;
-        right: 0.5rem;
+        right: 1.5rem;
         transform: none;
         width: auto;
         max-width: max-content;

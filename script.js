@@ -38,7 +38,7 @@ const firstAidData = {
     { id: 35, icon: '🦵', title: 'Trauma to Joints/Bone', do: ['Ask for Help', 'Immobilize the area', 'Apply ice pack', 'Elevate if possible', 'Seek medical attention', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't try to realign bones", "Don't apply heat initially", "Don't move injured part", "Don't ignore severe pain"] },
     { id: 36, icon: '🐜', title: 'Insect Bite/Sting', do: ['Ask for Help', 'Remove stinger if present', 'Wash with soap and water', 'Apply cold compress', 'Watch for allergic reaction', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't squeeze stinger", "Don't apply heat", "Don't scratch the area", "Don't ignore swelling"] },
     { id: 37, icon: '💫', title: 'Dizziness/Vertigo', do: ['Ask for Help', 'Sit or lie down immediately', 'Focus on a stationary point', 'Stay hydrated', 'Seek medical help if persistent', 'If the person becomes unconscious and is not breathing, immediately start CPR and use AED if available'], dont: ["Don't stand up quickly", "Don't drive or operate machinery", "Don't ignore recurring episodes", "Don't close eyes while moving"] },
-    { id: 38, icon: '⚖️', title: 'Statutory Provisions Related to First Aid Services in Establishment under the OSHWC Code 2020', do: ['Ensure first aid boxes or cupboards are readily accessible during all working hours', 'Keep one first aid box for every 150 workers ordinarily employed', 'Ensure the first-aid box is in the charge of a trained first aider', 'Maintain the contents of the first aid box as prescribed', 'Provide an ambulance room if employing 500 or more workers'], dont: ["Don't keep the first aid box locked during working hours", "Don't delay access to first aid facilities in an emergency", "Don't appoint untrained personnel in charge of the first-aid box", "Don't let the first aid box supplies expire or deplete without restocking"] },
+    { id: 38, icon: '⚖️', title: 'Statutory Provisions Related to First Aid Services in Establishment under the OSHWC Code 2020', do: ['Ensure first aid boxes or cupboards are readily accessible during all working hours', 'Keep one first aid box for every 150 workers ordinarily employed', 'Ensure the first-aid box is in the charge of a trained first aider', 'Maintain the contents of the first aid box as prescribed', 'Provide an ambulance room if employing 500 or more workers', 'Final Guidelines, Forms and Formats will be published whenever Central Rules, State Rules, Regulations, Standards will be finally Notified.'], dont: ["Don't keep the first aid box locked during working hours", "Don't delay access to first aid facilities in an emergency", "Don't appoint untrained personnel in charge of the first-aid box", "Don't let the first aid box supplies expire or deplete without restocking"] },
   ]
 };
 
@@ -95,8 +95,14 @@ function showDetails(id) {
     const card = document.createElement('div');
     card.className = 'card';
 
+    // Link the title to the PDF only for Statutory Provisions
+    let titleHTML = `${item.title} <span class="card-icon">${item.icon || '🩹'}</span>`;
+    if (id === 38) {
+      titleHTML = `<a href="OSHWC_CODE_2020.pdf" target="_blank" style="color: inherit; text-decoration: underline;">${item.title}</a> <span class="card-icon">${item.icon || '🩹'}</span>`;
+    }
+
     card.innerHTML = `
-      <h2>${item.title} <span class="card-icon">${item.icon || '🩹'}</span></h2>
+      <h2>${titleHTML}</h2>
       <div class="do-section">
         <h3>Do</h3>
         <ul>${item.do.map(point => `<li>${point}</li>`).join('')}</ul>
@@ -106,6 +112,21 @@ function showDetails(id) {
         <ul class="dont">${item.dont.map(point => `<li>${point}</li>`).join('')}</ul>
       </div>
     `;
+
+    // Append sub-tiles specifically for Statutory Provisions
+    if (id === 38) {
+      const subProvisions = ['Factories', 'Mines', 'Dock Works', 'Plantation', 'Building and Other Constructions', 'Beedi & Cigar Works', 'Motor Transport'];
+      const subTilesHTML = subProvisions.map(prov =>
+        `<div class="sub-tile" onclick="alert('Corresponding Information links will come soon')">${prov}</div>`
+      ).join('');
+
+      card.innerHTML += `
+            <div class="statutory-sub-tiles">
+                ${subTilesHTML}
+            </div>
+        `;
+    }
+
     container.appendChild(card);
   }
 }
@@ -123,7 +144,7 @@ function renderFooter() {
   const footer = document.getElementById('footerSection');
   footer.innerHTML = `
     <div class="disclaimer">
-      <h3>Disclaimer</h3>
+      <h3>Disclamer</h3>
       <p>• The information provided in this guide is for general use and knowledge and does not contain all information that may be relevant to every situation.</p>
       <p>• This information cannot be relied upon as a substitute for seeking guidance from appropriate professionals, such as physicians.</p>
       <p>• While great care has been taken to reflect the most current and accurate information, it does not represent or warrant that the information will be accurate or appropriate at the time of use due to evolving medical research, protocols, regulations and laws.</p>
