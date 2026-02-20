@@ -71,11 +71,13 @@ function renderTiles() {
 }
 
 function showDetails(id) {
-  // Hide tiles and show details container
+  // Hide tiles, header, search, footer and show details container
   document.getElementById('tilesContainer').classList.add('hidden');
+  document.getElementById('mainHeader').classList.add('hidden');
+  document.getElementById('mainSearch').classList.add('hidden');
+  document.getElementById('footerSection').classList.add('hidden');
   document.getElementById('cardsContainer').classList.remove('hidden');
   document.getElementById('detailsHeader').classList.remove('hidden');
-  document.getElementById('footerSection').classList.add('hidden');
 
   // Render only the specific card
   const container = document.getElementById('cardsContainer');
@@ -105,6 +107,8 @@ function goBack() {
   document.getElementById('cardsContainer').classList.add('hidden');
   document.getElementById('detailsHeader').classList.add('hidden');
   document.getElementById('tilesContainer').classList.remove('hidden');
+  document.getElementById('mainHeader').classList.remove('hidden');
+  document.getElementById('mainSearch').classList.remove('hidden');
   document.getElementById('footerSection').classList.remove('hidden');
 }
 
