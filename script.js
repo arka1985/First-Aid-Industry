@@ -170,7 +170,7 @@ function renderFooter() {
       <p>• Users are cautioned not to prescribe or administer any medication, including over-the-counter medication, except in instances where permitted by law.</p>
       <p><strong>• The translation from English to other languages has been generated using Bhashini, an indigenously developed Large Language Model by the Government of India. As the translation is AI-generated, there may be certain translation-related errors. Users are requested to report any such discrepancies to the Bhashini team and the developer, and to verify the content with the original English text for confirmation.</strong></p>
       <p>• This guide is developed for educational purposes with good intention. If any error is identified or any comment/suggestion, please contact the developer immediately at <a href="mailto:arka.doctor@gmail.com" style="color: inherit; text-decoration: underline;">arka.doctor@gmail.com</a>.</p>
-      <p>• <strong>If not sure, don't do anything - just call for help and get to the hospital at the earliest.</strong></p>
+      <p>• <strong>During Medical Emergency, If not sure, don't do anything - just call for help and get to the hospital at the earliest.</strong></p>
     </div>
     <div class="install-section">
       <h3>How To Install App</h3>
@@ -187,6 +187,7 @@ function renderFooter() {
         <li>American Red Cross. (n.d.). <em>First Aid, CPR, and AED Provider Manual</em>. Washington, D.C.</li>
         <li>University of Michigan Health. (n.d.). <em>Medical Emergencies</em>. Michigan Medicine, Ann Arbor.</li>
         <li>Bhashini. (n.d.). <em>National Language Translation Mission</em>. Ministry of Electronics and Information Technology, Government of India.</li>
+        <li>Standard Treatment Workflows (STWs), Department of Health Research, Ministry of Health and Family Welfare. Govt. of India, <a href="https://www.icmr.gov.in/standard-treatment-workflows-stws" target="_blank" style="color: inherit; text-decoration: none;">https://www.icmr.gov.in/standard-treatment-workflows-stws</a></li>
       </ol>
     </div>
     <div class="developer">
