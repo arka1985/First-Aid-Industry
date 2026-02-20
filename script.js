@@ -115,17 +115,34 @@ function showDetails(id) {
 
     // Append sub-tiles specifically for Statutory Provisions
     if (id === 38) {
-      const subProvisions = ['Factories', 'Mines', 'Dock Works', 'Plantation', 'Building and Other Constructions', 'Beedi & Cigar Works', 'Motor Transport'];
+      const subProvisions = [
+        { name: 'Factories', icon: '🏭', folder: 'Factories' },
+        { name: 'Mines', icon: '⛏️', folder: 'Mines' },
+        { name: 'Dock Works', icon: '⚓', folder: 'Dock Works' },
+        { name: 'Plantation', icon: '🌱', folder: 'Plantation' },
+        { name: 'Building & Constructions', icon: '🏗️', folder: 'Building and Other Constructions' },
+        { name: 'Beedi & Cigar Works', icon: '🚭', folder: 'Beedi and Cigar Works' },
+        { name: 'Motor Transport', icon: '🚚', folder: 'Motor Transport' }
+      ];
+
       const subTilesHTML = subProvisions.map(prov =>
-        `<div class="sub-tile" onclick="alert('Corresponding Information links will come soon')">${prov}</div>`
+        `<a href="${prov.folder}" target="_blank" class="sub-tile" style="text-decoration:none;"><i>${prov.icon}</i><br/>${prov.name}</a>`
       ).join('');
 
       card.innerHTML += `
             <div class="statutory-sub-tiles">
+                <a href="OSHWC_CODE_2020.pdf" target="_blank" class="sub-tile" style="text-decoration:none;"><i>📜</i><br/>OSHWC CODE 2020</a>
                 ${subTilesHTML}
             </div>
         `;
     }
+
+    // Append Bottom Back Button
+    card.innerHTML += `
+        <button class="back-button back-button-bottom" onclick="goBack()">
+            ← Back to Previous Page
+        </button>
+    `;
 
     container.appendChild(card);
   }
@@ -144,7 +161,7 @@ function renderFooter() {
   const footer = document.getElementById('footerSection');
   footer.innerHTML = `
     <div class="disclaimer">
-      <h3>Disclamer</h3>
+      <h3>Important Information</h3>
       <p>• The information provided in this guide is for general use and knowledge and does not contain all information that may be relevant to every situation.</p>
       <p>• This information cannot be relied upon as a substitute for seeking guidance from appropriate professionals, such as physicians.</p>
       <p>• While great care has been taken to reflect the most current and accurate information, it does not represent or warrant that the information will be accurate or appropriate at the time of use due to evolving medical research, protocols, regulations and laws.</p>
@@ -159,14 +176,16 @@ function renderFooter() {
       <p><strong>Android:</strong> Tap options (⋮) in browser -> Select "Add to Home Screen".</p>
       <p><strong>iOS:</strong> Tap Share button -> Select "Add to Home Screen".</p>
     </div>
-    <div class="acknowledgement">
-      <h3>Acknowledgement</h3>
-      <p>• Ministry of Health and Family Welfare, Govt. of India</p>
-      <p>• St. John Ambulance, London, UK</p>
-      <p>• The Indian Red Cross Society</p>
-      <p>• The American Red Cross</p>
-      <p>• University of Michigan Health, Michigan Medicine</p>
-      <p>• <strong>Bhashini Language Model</strong></p>
+    <div class="references">
+      <h3>References</h3>
+      <ol>
+        <li>Ministry of Health and Family Welfare, Govt. of India</li>
+        <li>St. John Ambulance, London, UK</li>
+        <li>The Indian Red Cross Society</li>
+        <li>The American Red Cross</li>
+        <li>University of Michigan Health, Michigan Medicine</li>
+        <li><strong>Bhashini Language Model</strong></li>
+      </ol>
     </div>
     <div class="developer">
       <p>Developed by: <strong>Dr. Arkaprabha Sau, MBBS, MD (Gold Medalist), PhD (Computer Science & Engineering), DPH, Dip. Geriatric Medicine, Certificate in Diabetes Management</strong></p>
