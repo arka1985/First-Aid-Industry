@@ -431,15 +431,15 @@ footer p {
     .header-controls {
         top: 0.5rem;
         left: auto;
-        right: 0;
+        right: 0.5rem;
         transform: none;
         width: auto;
-        max-width: none;
+        max-width: max-content;
         justify-content: flex-end;
         gap: 0.5rem;
-        padding: 0.5rem 0.5rem 0.5rem 1rem;
-        border-radius: 50px 0 0 50px;
-        border-right: none;
+        padding: 0.5rem 0.8rem;
+        border-radius: 50px;
+        border: 1px solid var(--glass-border);
     }
 
     .bhashini-plugin-container {
