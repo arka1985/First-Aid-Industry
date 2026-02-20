@@ -169,7 +169,7 @@ function renderFooter() {
       <p>• While great care has been taken to reflect the most current and accurate information, it does not represent or warrant that the information will be accurate or appropriate at the time of use due to evolving medical research, protocols, regulations and laws.</p>
       <p>• Users are cautioned not to prescribe or administer any medication, including over-the-counter medication, except in instances where permitted by law.</p>
       <p><strong>• The translation from English to other languages has been generated using Bhashini, an indigenously developed Large Language Model by the Government of India. As the translation is AI-generated, there may be certain translation-related errors. Users are requested to report any such discrepancies to the Bhashini team and the developer, and to verify the content with the original English text for confirmation.</strong></p>
-      <p>• This guide is developed for educational purposes with good intention. If any error is identified or any comment/suggestion, please contact the developer immediately at arka.doctor@gmail.com.</p>
+      <p>• This guide is developed for educational purposes with good intention. If any error is identified or any comment/suggestion, please contact the developer immediately at <a href="mailto:arka.doctor@gmail.com" style="color: inherit; text-decoration: underline;">arka.doctor@gmail.com</a>.</p>
       <p>• <strong>If not sure, don't do anything - just call for help and get to the hospital at the earliest.</strong></p>
     </div>
     <div class="install-section">
