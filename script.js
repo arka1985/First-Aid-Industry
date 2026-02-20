@@ -95,11 +95,7 @@ function showDetails(id) {
     const card = document.createElement('div');
     card.className = 'card';
 
-    // Link the title to the PDF only for Statutory Provisions
     let titleHTML = `${item.title} <span class="card-icon">${item.icon || '🩹'}</span>`;
-    if (id === 38) {
-      titleHTML = `<a href="OSHWC_CODE_2020.pdf" target="_blank" style="color: inherit; text-decoration: underline;">${item.title}</a> <span class="card-icon">${item.icon || '🩹'}</span>`;
-    }
 
     let contentHTML = '';
 
