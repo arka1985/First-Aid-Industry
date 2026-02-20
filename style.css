@@ -633,3 +633,16 @@ footer p {
         padding-top: 5rem;
     }
 }
+
+/* State Classes for Robust Bhashini Compatibility */
+body.detail-view-active #tilesContainer,
+body.detail-view-active #mainHeader,
+body.detail-view-active #mainSearch,
+body.detail-view-active #footerSection {
+    display: none !important;
+}
+
+body.detail-view-active #cardsContainer,
+body.detail-view-active #detailsHeader {
+    display: block !important;
+}

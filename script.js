@@ -78,13 +78,8 @@ function renderTiles() {
 }
 
 function showDetails(id) {
-  // Hide tiles, header, search, footer and show details container
-  document.getElementById('tilesContainer').classList.add('hidden');
-  document.getElementById('mainHeader').classList.add('hidden');
-  document.getElementById('mainSearch').classList.add('hidden');
-  document.getElementById('footerSection').classList.add('hidden');
-  document.getElementById('cardsContainer').classList.remove('hidden');
-  document.getElementById('detailsHeader').classList.remove('hidden');
+  // Tell the CSS to activate the Card display routing
+  document.body.classList.add('detail-view-active');
 
   // Render only the specific card
   const container = document.getElementById('cardsContainer');
@@ -161,12 +156,7 @@ function showDetails(id) {
 }
 
 function goBack() {
-  document.getElementById('cardsContainer').classList.add('hidden');
-  document.getElementById('detailsHeader').classList.add('hidden');
-  document.getElementById('tilesContainer').classList.remove('hidden');
-  document.getElementById('mainHeader').classList.remove('hidden');
-  document.getElementById('mainSearch').classList.remove('hidden');
-  document.getElementById('footerSection').classList.remove('hidden');
+  document.body.classList.remove('detail-view-active');
 }
 
 function renderFooter() {
@@ -228,7 +218,7 @@ document.getElementById('searchInput').addEventListener('keyup', (e) => {
   const term = e.target.value.toLowerCase();
 
   // If user starts typing a real search query while inside a Card View, return them to the Tile View to see results
-  if (term.length > 0 && document.getElementById('tilesContainer').classList.contains('hidden')) {
+  if (term.length > 0 && document.body.classList.contains('detail-view-active')) {
     goBack();
   }
 

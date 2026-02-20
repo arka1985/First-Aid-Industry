@@ -73,6 +73,12 @@
 </head>
 
 <body>
+    <div class="header-controls">
+        <div class="bhashini-plugin-container"></div>
+        <button id="emergencyBtn" onclick="window.location.href='tel:112'"
+            style="background:var(--dont-red);color:white;border:none;padding:0.5rem 1rem;border-radius:20px;font-weight:bold;cursor:pointer;box-shadow:0 2px 10px rgba(255,71,87,0.3);">🚨
+            112</button>
+    </div>
 
     <div style="max-width: 1000px; margin: 0 auto;">
         <a href="../index.html" style="text-decoration:none;">
@@ -97,6 +103,18 @@
         </div>
     </div>
 
+    <script src="https://translation-plugin.bhashini.co.in/v3/website_translation_utility.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.BhashiniTranslation) {
+                window.BhashiniTranslation.init({
+                    apiKey: "YOUR_API_KEY",
+                    projectId: "YOUR_PROJECT_ID",
+                    containerId: "bhashiniContainer"
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
