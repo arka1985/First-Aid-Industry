@@ -175,7 +175,7 @@ function goBack() {
 function renderFooter() {
   const footer = document.getElementById('footerSection');
   footer.innerHTML = `
-    <div class="disclaimer">
+    <div class="important-info">
       <h3>Important Information</h3>
       <p>• The information provided in this guide is for general use and knowledge and does not contain all information that may be relevant to every situation.</p>
       <p>• This information cannot be relied upon as a substitute for seeking guidance from appropriate professionals, such as physicians.</p>
@@ -194,12 +194,12 @@ function renderFooter() {
     <div class="references">
       <h3>References</h3>
       <ol>
-        <li>Ministry of Health and Family Welfare, Govt. of India</li>
-        <li>St. John Ambulance, London, UK</li>
-        <li>The Indian Red Cross Society</li>
-        <li>The American Red Cross</li>
-        <li>University of Michigan Health, Michigan Medicine</li>
-        <li><strong>Bhashini Language Model</strong></li>
+        <li>Ministry of Health and Family Welfare, Government of India. (n.d.). <em>First Aid Guidelines</em>. New Delhi.</li>
+        <li>St. John Ambulance. (n.d.). <em>First Aid Manual</em>. London, United Kingdom.</li>
+        <li>Indian Red Cross Society. (n.d.). <em>First Aid Manual</em>. New Delhi.</li>
+        <li>American Red Cross. (n.d.). <em>First Aid, CPR, and AED Provider Manual</em>. Washington, D.C.</li>
+        <li>University of Michigan Health. (n.d.). <em>Medical Emergencies</em>. Michigan Medicine, Ann Arbor.</li>
+        <li>Bhashini. (n.d.). <em>National Language Translation Mission</em>. Ministry of Electronics and Information Technology, Government of India.</li>
       </ol>
     </div>
     <div class="developer">
