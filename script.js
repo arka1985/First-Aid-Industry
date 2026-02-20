@@ -175,7 +175,7 @@ function renderFooter() {
     <div class="install-section">
       <h3>How To Install App</h3>
       <p><strong>Desktop:</strong> Click the install icon (⊕) in the address bar.</p>
-      <p><strong>Android:</strong> Tap options (⋮) in browser -> Select "Add to Home Screen".</p>
+      <p><strong>Android:</strong> Tap options (⋮) in browser -> Select "Add to Home Screen (Either Install or Create shortcut)".</p>
       <p><strong>iOS:</strong> Tap Share button -> Select "Add to Home Screen".</p>
     </div>
     <div class="references">
@@ -190,7 +190,7 @@ function renderFooter() {
       </ol>
     </div>
     <div class="developer">
-      <p>Developed by: <strong>Dr. Arkaprabha Sau, MBBS, MD (Gold Medalist), PhD (Computer Science & Engineering), DPH, Dip. Geriatric Medicine, Certificate in Diabetes Management</strong></p>
+      <p>Developer: <strong>Dr. Arkaprabha Sau, MBBS, MD (Gold Medalist), PhD (Computer Science & Engineering), DPH, Diploma Geriatric Medicine, Certificate in Diabetes Management</strong></p>
     </div>
   `;
 }
