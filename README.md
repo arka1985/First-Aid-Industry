@@ -3,7 +3,7 @@
 A simple, beautiful web app for common first aid procedures in industrial settings.
 
 ## Features
-- **Bilingual**: English and Hindi support with one-click toggle
+- **Multilingual**: 22 Indian Languages Included in the Eighth Schedule of the Indian Constitution, and English, with one-click toggle support
 - **Beautiful Design**: Pastel color scheme with smooth animations and glow effects
 - **No Server Required**: All data is embedded in JavaScript - just open `index.html` in any browser
 - **Responsive**: Works on desktop, tablet, and mobile devices
