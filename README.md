@@ -1,4 +1,4 @@
-# Industrial First Aid Guide
+# Industrial First Aid Guidelines
 
 A simple, beautiful web app for common first aid procedures in industrial settings.
 
