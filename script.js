@@ -121,7 +121,7 @@ function showDetails(id) {
     // Append sub-tiles specifically for Statutory Provisions
     if (id === 38) {
       const subProvisions = [
-        { name: 'OSHWC (Central) Rules, 2025', icon: '⚖️', folder: 'OSHWC_Central_Rules_2025.pdf' },
+        { name: 'OSHWC (Central) Rules, 2026', icon: '⚖️', folder: 'CENTRAL_RULES_2026.pdf' },
         { name: 'Factory', icon: '🏭', folder: 'Factory/index.html' },
         { name: 'Mines', icon: '⛏️', folder: 'Mines/index.html' },
         { name: 'Dock Works', icon: '⚓', folder: 'Dock Works/index.html' },
